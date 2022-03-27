@@ -11,4 +11,6 @@ class History{
     Board *pop();
     Board *top();
     ~History();
-}
+};
+
+#endif
