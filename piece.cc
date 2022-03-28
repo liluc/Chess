@@ -2,15 +2,16 @@
 #include "cell.h"
 #include "board.h"
 #include <vector>
+#include <string>
 using namespace std;
 
-Piece::Piece(Board *board, Cell *cell, int player):board{board}, cell{cell}, player{player}{}
+Piece::Piece(Board *board, Cell *cell, int player, string type):board{board}, cell{cell}, player{player}, type{type}{}
 
 vector<char> Piece::getPos(){
     return cell->getPos();
 }
 
-Cell * Piece::getcell(){
+Cell * Piece::getCell(){
     return cell;
 }
 
@@ -22,6 +23,10 @@ int Piece::getPlayer(){
     return player;
 }
 
+string Piece::getType(){
+    return type;
+}
+
 bool Piece::checkBound(){
     vector<char> pos = cell->getPos();
     if (pos[0] >= 'a' && pos[0] <= 'h'){
@@ -30,6 +35,11 @@ bool Piece::checkBound(){
         }
     }
     return false;
+}
+
+//check if the player of this piece is the same as the other piece
+bool checkPlayer(Piece *other){
+    return player == other->getPlayer();
 }
 
 //pos must have two entries only!!!!
