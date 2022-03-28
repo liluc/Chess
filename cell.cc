@@ -19,5 +19,6 @@ vector<char> Cell::getpos() const
 
 void Cell::setPiece(Piece *p)
 {
+    delete piece;
     piece = p;
 }

@@ -6,13 +6,18 @@
 
 class Board
 {
+    vector<vector<Piece *>> pieces;
     vector<vector<Cell *>> board;
+    bool ended;
     int turn;
     const int BOARDSIZE = 8;
 
 public:
     Board();
     ~Board();
+    bool getstate() const;
+    vector<Piece *> getPieces() const;
+
     Cell *getCell(vector<char>) const;
     void setPiece(Piece *, vector<char>);
     Piece *checkpos(vector<char>) const;

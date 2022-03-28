@@ -31,6 +31,15 @@ Board::~Board()
     }
 }
 
+bool Board::getstate() const
+{
+    return ended;
+}
+
+vector<Piece *> Board::getPieces() const {
+    return pieces;
+}
+s
 Cell *Board::getCell(vector<char> pos) const
 {
     int col = pos.at(0) - 'a';
@@ -51,12 +60,17 @@ Piece *Board::checkPos(vector<char> pos) const
 void Board::movePiece(vector<char> start, vector<char> end)
 {
     Piece *curpiece = checkPos(start);
+    if (ended)
+        cerr << "Game is already ended, please start a new game" << endl;
 
     if (!(curplace))
         return;
     try
     {
-        move(curpiece, end); // this move is a virtual function
+        move(curpiece, end);
+        // this move is a virtual function
+        if (isStalemate())
+            ended = true;
     }
     catch (InvalidMove *im)
     {
