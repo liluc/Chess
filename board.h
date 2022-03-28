@@ -6,7 +6,7 @@
 
 class Board
 {
-    vector<vector<Piece *>> pieces;
+    vector<Piece *> pieces;
     vector<vector<Cell *>> board;
     bool ended;
     int turn;
@@ -16,6 +16,7 @@ public:
     Board();
     ~Board();
     bool getstate() const;
+    vector<vector<Cell *>> getBoard() const;
     vector<Piece *> getPieces() const;
 
     Cell *getCell(vector<char>) const;

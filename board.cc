@@ -3,6 +3,7 @@
 Board::Board()
 {
     vector<vector<Cell *>> b;
+    vector<Piece *> p;
     for (int i = 0; i < BOARDSIZE; ++i)
     // i  is the col column of the cell, 'a' to 'h'
     {
@@ -17,6 +18,7 @@ Board::Board()
         b.emplace_back(col);
     }
     board = b;
+    pieces = p;
     turn = 1;
 }
 
@@ -29,6 +31,10 @@ Board::~Board()
             delete cell;
         }
     }
+    for (auto piece : pieces)
+    {
+        delete piece;
+    }
 }
 
 bool Board::getstate() const
@@ -36,19 +42,21 @@ bool Board::getstate() const
     return ended;
 }
 
-vector<Piece *> Board::getPieces() const {
+vector<Piece *> Board::getPieces() const
+{
     return pieces;
 }
-s
+
+vector<vector<Cell *>> Board::getBoard() const
+{
+    return board;
+}
+
 Cell *Board::getCell(vector<char> pos) const
 {
     int col = pos.at(0) - 'a';
     int row = pos.at(1) - '1';
     return board.at(col).at(row);
-}
-void Board::setPiece(Piece *p, vector<char> pos)
-{
-    getCell(pos)->setPiece(p);
 }
 
 Piece *Board::checkPos(vector<char> pos) const
@@ -56,10 +64,39 @@ Piece *Board::checkPos(vector<char> pos) const
     return getCell(pos)->getPiece();
 }
 
+void Board::setPiece(Piece *p, vector<char> pos)
+{
+    Piece *old = checkPos(pos);
+    for (int i = 0; i < pieces.size(); ++i)
+    {
+        if (pieces.at(i) == old) // compare by mem address
+        {
+            pieces.erase(i);
+            return;
+        }
+    }
+    delete old;
+    getCell(pos)->setPiece(p);
+    pieces.emplace_back(p);
+}
+
 // NVI idiom
 void Board::movePiece(vector<char> start, vector<char> end)
 {
     Piece *curpiece = checkPos(start);
+    Piece *destpiece = checkPos(end);
+    if (destpiece)
+    {
+        for (int i = 0; i < pieces.size(); ++i)
+        {
+            if (pieces.at(i) == destpiece)
+            {
+                pieces.erase(i);
+                return;
+            }
+        }
+        delete destpiece;
+    }
     if (ended)
         cerr << "Game is already ended, please start a new game" << endl;
 
@@ -72,7 +109,7 @@ void Board::movePiece(vector<char> start, vector<char> end)
         if (isStalemate())
             ended = true;
     }
-    catch (InvalidMove *im)
+    catch (InvalidMove &im)
     {
         throw;
     }
