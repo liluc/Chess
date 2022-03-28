@@ -15,26 +15,32 @@ vector<vector<char>> Rook::possibleMoves(){
     vector<vector<char>> cells;
     for (int col = 0; col < 8; ++col){
         char newCol = currentPos[0] + col;
-        Cell *targetCell = Piece::getBoard()->getCell(pos);
-        if (newCol >= 'a' && newCol <= 'h') cells.emplace_back(vector<char> {newCol, currentPos[1]});
-        if (targetCell->getPiece() != nullptr) break;
+        vector<char> targetPos {newCol, currentPos[1]};
+        Cell *targetCell = Piece::getBoard()->getCell(targetPos);
+        if (newCol >= 'a' && newCol <= 'h') cells.emplace_back(targetPos);
+        if (targetCell->getPiece() != nullptr){
+            if (targetCell->getPiece()->getPlayer() == ) // need to determine if the player of this piece equals to the player of turn
+        } break;
     }
     for (int col = 0; col > -8; --col){
         char newCol = currentPos[0] + col;
-        Cell *targetCell = Piece::getBoard()->getCell(pos);
-        if (newCol >= 'a' && newCol <= 'h') cells.emplace_back(vector<char> {newCol, currentPos[1]});
+        vector<char> targetPos {newCol, currentPos[1]};
+        Cell *targetCell = Piece::getBoard()->getCell(targetPos);
+        if (newCol >= 'a' && newCol <= 'h') cells.emplace_back(targetPos);
         if (targetCell->getPiece() != nullptr) break;
     }
     for (int row = 0; row < 8; ++row){
         char newRow = currentPos[0] + row;
-        Cell *targetCell = Piece::getBoard()->getCell(pos);
-        if (newRow >= '1' && newRow <= '8') cells.emplace_back(vector<char> {currentPos[0], newRow});
+        vector<char> targetPos {currentPos[0], newRow};
+        Cell *targetCell = Piece::getBoard()->getCell(targetPos);
+        if (newRow >= '1' && newRow <= '8') cells.emplace_back(targetPos);
         if (targetCell->getPiece() != nullptr) break;
     }
     for (int row = 0; row > -8; --row){
         char newRow = currentPos[0] + row;
-        Cell *targetCell = Piece::getBoard()->getCell(pos);
-        if (newRow >= '1' && newRow <= '8') cells.emplace_back(vector<char> {currentPos[0], newRow});
+        vector<char> targetPos {currentPos[0], newRow};
+        Cell *targetCell = Piece::getBoard()->getCell(targetPos);
+        if (newRow >= '1' && newRow <= '8') cells.emplace_back(targetPos);
         if (targetCell->getPiece() != nullptr) break;
     }
     return cells;

@@ -15,6 +15,7 @@ class Piece{
     Cell *getcell();
     Board *getBoard()
     int getPlayer();
+    bool checkBound();
     bool contained(std::vector<std::vector<char>>, std::vector<char>);
     virtual std::vector<std::vector<char>> possibleMoves() = 0;
     virtual void move(std::vector<char>) = 0;
