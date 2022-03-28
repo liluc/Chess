@@ -16,6 +16,7 @@ public:
     void inc(float);
     void setscore(float);
     int getscore() const;
+    King *getKing() const;
 }
 
 class Game
@@ -41,6 +42,7 @@ public:
     int getMode() const;
     History *getHist() const;
     int getWinner() const;
+    void setWinner();
 
     // shells for invoking Board methods
     void setPiece(string &, vector<char>);
