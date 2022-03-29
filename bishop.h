@@ -4,9 +4,10 @@
 #include "piece.h"
 
 class Cell;
+class Board;
 class Bishop : public Piece{
     public:
-    Bishop(Cell *, int);
+    Bishop(Board *, Cell *, int);
     std::vector<std::vector<char>> possibleMoves() override;
     void move(std::vector<char>) override;
     ~Bishop();

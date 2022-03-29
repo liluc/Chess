@@ -3,10 +3,65 @@
 #include <vector>
 using namespace std;
 
-Bishop::Bishop(Cell *cell, int player):Piece{cell, player}{}
+Bishop::Bishop(Board *board, Cell *cell, int player):Piece{board, cell, player, "bishop"}{}
+
 
 vector<vector<char>> Bishop::possibleMoves(){
-
+    vector<char> currentPos = Piece::getPos();
+    vector<vector<char>> cells;
+    for (int col = 0, row = 0; col < 8, row < 8; ++col, ++row){ // move towards top right
+        char newCol = currentPos[0] + col;
+        char newRow = currentPos[1] + row;
+        vector<char> targetPos {newCol, newRow};
+        Cell *targetCell = Piece::getBoard()->getCell(targetPos);
+        if (Piece::checkBound()) cells.emplace_back(targetPos);
+        if (targetCell->getPiece() != nullptr){
+            if (checkPlayer(targetCell->getPiece())){
+                cells.pop_back();
+            }
+            break;
+        }
+    }
+    for (int col = 0, row = 0; col > -8, row < 8; --col, ++row){ // move towards top left
+        char newCol = currentPos[0] + col;
+        char newRow = currentPos[1] + row;
+        vector<char> targetPos {newCol, newRow};
+        Cell *targetCell = Piece::getBoard()->getCell(targetPos);
+        if (Piece::checkBound()) cells.emplace_back(targetPos);
+        if (targetCell->getPiece() != nullptr){
+            if (checkPlayer(targetCell->getPiece())){
+                cells.pop_back();
+            }
+            break;
+        }
+    }
+    for (int col = 0, row = 0; col < 8, row > -8; ++col, --row){ // move towards down right
+        char newCol = currentPos[0] + col;
+        char newRow = currentPos[1] + row;
+        vector<char> targetPos {newCol, newRow};
+        Cell *targetCell = Piece::getBoard()->getCell(targetPos);
+        if (Piece::checkBound()) cells.emplace_back(targetPos);
+        if (targetCell->getPiece() != nullptr){
+            if (checkPlayer(targetCell->getPiece())){
+                cells.pop_back();
+            }
+            break;
+        }
+    }
+    for (int col = 0, row = 0; col > -8, row > -8; --col, --row){ // move towards down left
+        char newCol = currentPos[0] + col;
+        char newRow = currentPos[1] + row;
+        vector<char> targetPos {newCol, newRow};
+        Cell *targetCell = Piece::getBoard()->getCell(targetPos);
+        if (Piece::checkBound()) cells.emplace_back(targetPos);
+        if (targetCell->getPiece() != nullptr){
+            if (checkPlayer(targetCell->getPiece())){
+                cells.pop_back();
+            }
+            break;
+        }
+    }
+    return cells;
 }
 
 void Bishop::move(vector<char>){
