@@ -15,6 +15,7 @@ vector<vector<char>> Knight::possibleMoves(){
     addCell(2, -1, cells);
     addCell(-1, -2, cells);
     addCell(-2, -1, cells);
+    return cells;
 }
 
 Knight::~Knight(){}

@@ -16,7 +16,7 @@ Cell * Piece::getCell(){
     return cell;
 }
 
-Board * Piece::getBoard(){
+Board * Piece::getBoardPtr(){
     return Board;
 }
 
@@ -53,7 +53,7 @@ bool Piece::contained(vector<vector<char>> posList, vector<char> pos){
 
 void Piece::move(vector<char> pos){
     if (Piece::contained(possibleMoves(), pos)){
-        Cell *targetCell = Piece::getBoard()->getCell(pos);
+        Cell *targetCell = Piece::getBoardPtr()->getCell(pos);
         delete targetCell->getPiece();
         targetCell->setPiece(this);
         cell->setPiece(nullptr);
@@ -69,7 +69,7 @@ bool Piece::addCell(char colInc, char rowInc, vector<vector<char>> &cells){
     char newCol = currentPos[0] + colInc;
     char newRow = currentPos[1] + rowInc;
     vector<char> targetPos {newCol, newRow};
-    Cell *targetCell = getBoard()->getCell(targetPos);
+    Cell *targetCell = getBoardPtr()->getCell(targetPos);
     if (checkBound()) cells.emplace_back(targetPos);
     if (targetCell->getPiece() != nullptr){
         if (checkPlayer(targetCell->getPiece())){

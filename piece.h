@@ -15,6 +15,7 @@ class Piece{
 
     public:
 
+    // true if the target position contains a piece(no matter that is from the same player or not)
     bool addCell(char, char, std::vector<std::vector<char>> &);
 
     Piece(Board *, Cell *, int, std::string);
@@ -23,7 +24,7 @@ class Piece{
 
     Cell *getCell();
 
-    Board *getBoard();
+    Board *getBoardPtr();
 
     int getPlayer();
 
