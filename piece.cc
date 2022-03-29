@@ -28,7 +28,7 @@ string Piece::getType(){
     return type;
 }
 
-bool Piece::checkBound(){
+bool Piece::checkBound(Cell *cell){
     vector<char> pos = cell->getPos();
     if (pos[0] >= 'a' && pos[0] <= 'h'){
         if (pos[1] >= '1' && pos[1] <= '8'){
@@ -70,7 +70,7 @@ bool Piece::addCell(char colInc, char rowInc, vector<vector<char>> &cells){
     char newRow = currentPos[1] + rowInc;
     vector<char> targetPos {newCol, newRow};
     Cell *targetCell = getBoardPtr()->getCell(targetPos);
-    if (checkBound()) cells.emplace_back(targetPos);
+    if (checkBound(targetCell)) cells.emplace_back(targetPos);
     if (targetCell->getPiece() != nullptr){
         if (checkPlayer(targetCell->getPiece())){
             cells.pop_back();

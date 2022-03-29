@@ -28,7 +28,7 @@ class Piece{
 
     int getPlayer();
 
-    bool checkBound();
+    bool checkBound(Cell *);
 
     std::string getType();
 
