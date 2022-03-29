@@ -1,2 +1,7 @@
-//should is class be kept in piece, board or an seperate file.
+#ifndef _INVALIDMOVES_H_
+#define _INVALIDMOVES_H_
+
+class InvalidMoves{};
+
+#endif
 
