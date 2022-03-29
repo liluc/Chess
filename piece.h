@@ -5,24 +5,17 @@
 #include <string>
 
 class Cell;
-<<<<<<< HEAD
-class Piece
-{
-=======
 class Board;
 class Piece{
->>>>>>> Lucas
     Cell *cell;
     Board *board;
     int player;
-<<<<<<< HEAD
     /* suggestions
     string type;    note: type for Knight is "night" for convenience
     */
 
 public:
     Piece(Cell *, int);
-=======
     std::string type;
     public:
     Piece(Board *, Cell *, int, std::string);
@@ -43,7 +36,6 @@ public:
 
     bool contained(std::vector<std::vector<char>>, std::vector<char>);
 
->>>>>>> Lucas
     virtual std::vector<std::vector<char>> possibleMoves() = 0;
     void move(std::vector<char>);
     virtual ~Piece();
