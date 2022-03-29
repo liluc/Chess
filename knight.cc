@@ -3,14 +3,18 @@
 #include <vector>
 using namespace std;
 
-Knight::Knight(Cell *cell, int player):Piece{cell, player}{}
+Knight::Knight(Board *board, Cell *cell, int player):Piece{board, cell, player, "night"}{}
 
 vector<vector<char>> Knight::possibleMoves(){
-
-}
-
-void Knight::move(vector<char>){
-    
+    vector<vector<char>> cells;
+    addCell(1, 2, cells);
+    addCell(2, 1, cells);
+    addCell(-1, 2, cells);
+    addCell(-2, 1, cells);
+    addCell(1, -2, cells);
+    addCell(2, -1, cells);
+    addCell(-1, -2, cells);
+    addCell(-2, -1, cells);
 }
 
 Knight::~Knight(){}

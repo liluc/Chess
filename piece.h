@@ -3,6 +3,7 @@
 #include "board.h"
 #include <vector>
 #include <string>
+#include "invalidmove.h"
 
 class Cell;
 class Board;
@@ -11,7 +12,11 @@ class Piece{
     Board *board;
     int player;
     std::string type;
+
     public:
+
+    bool addCell(char, char, std::vector<std::vector<char>> &);
+
     Piece(Board *, Cell *, int, std::string);
     
     std::vector<char> getPos();

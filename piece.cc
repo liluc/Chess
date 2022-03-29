@@ -1,6 +1,7 @@
 #include "piece.h"
 #include "cell.h"
 #include "board.h"
+#include "invalidmove.h"
 #include <vector>
 #include <string>
 using namespace std;
@@ -48,6 +49,35 @@ bool Piece::contained(vector<vector<char>> posList, vector<char> pos){
         if (x[0] != pos[0] || x[1] != pos[1]) return false;
     }
     return true;
+}
+
+void Piece::move(vector<char> pos){
+    if (Piece::contained(possibleMoves(), pos)){
+        Cell *targetCell = Piece::getBoard()->getCell(pos);
+        delete targetCell->getPiece();
+        targetCell->setPiece(this);
+        cell->setPiece(nullptr);
+        cell->targetCell;
+        
+    } else {
+        throw InvalidMove;
+    }
+}
+
+bool Piece::addCell(char colInc, char rowInc, vector<vector<char>> &cells){
+    vector<char> currentPos = getPos();
+    char newCol = currentPos[0] + colInc;
+    char newRow = currentPos[1] + rowInc;
+    vector<char> targetPos {newCol, newRow};
+    Cell *targetCell = getBoard()->getCell(targetPos);
+    if (checkBound()) cells.emplace_back(targetPos);
+    if (targetCell->getPiece() != nullptr){
+        if (checkPlayer(targetCell->getPiece())){
+            cells.pop_back();
+        }
+        return true;
+    }
+    return false;
 }
 
 Piece::~Piece(){};

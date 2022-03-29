@@ -65,17 +65,17 @@ vector<vector<char>> Rook::possibleMoves(){
 }
 
 //consider if there's some piece on the way of move
-void Rook::move(vector<char> pos){
-    if (Piece::contained(possibleMoves, pos)){
-        Cell *targetCell = Piece::getBoard()->getCell(pos);
-        delete targetCell->getPiece();
-        targetCell->setPiece(this);
-        cell->setPiece(nullptr);
-        cell->targetCell;
+// void Rook::move(vector<char> pos){
+//     if (Piece::contained(possibleMoves(), pos)){
+//         Cell *targetCell = Piece::getBoard()->getCell(pos);
+//         delete targetCell->getPiece();
+//         targetCell->setPiece(this);
+//         cell->setPiece(nullptr);
+//         cell->targetCell;
         
-    } else {
-        throw InvalidMove;
-    }
-}
+//     } else {
+//         throw InvalidMove;
+//     }
+// }
 
 Rook::~Rook(){}
