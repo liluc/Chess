@@ -9,6 +9,7 @@
 // class Cell;
 class Board;
 class InvalidMove {
+    public:
     InvalidMove();
     ~InvalidMove();
 };  // error type
@@ -17,9 +18,7 @@ class Piece{
     Cell *cell;
     Board *board;
     int player;
-    /* suggestions
-    string type;    note: type for Knight is "night" for convenience
-    */
+    std::string type;
 
 public:
     Piece(Cell *, int);
@@ -35,13 +34,15 @@ public:
 
     int getPlayer();
 
-    bool checkBound();
+    bool checkBound(Cell *);
 
     std::string getType();
 
     bool checkPlayer(Piece *);
 
     bool contained(std::vector<std::vector<char>>, std::vector<char>);
+
+    bool addCell(char colInc, char rowInc, vector<vector<char>> &cells);
 
     virtual std::vector<std::vector<char>> possibleMoves() = 0;
     void move(std::vector<char>);
