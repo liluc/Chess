@@ -3,6 +3,7 @@
 #include "board.h"
 #include <vector>
 #include <string>
+#include "invalidmove.h"
 
 class Cell;
 class Board;
@@ -17,18 +18,23 @@ class Piece{
 public:
     Piece(Cell *, int);
     std::string type;
+
     public:
+
+    // true if the target position contains a piece(no matter that is from the same player or not)
+    bool addCell(char, char, std::vector<std::vector<char>> &);
+
     Piece(Board *, Cell *, int, std::string);
     
     std::vector<char> getPos();
 
     Cell *getCell();
 
-    Board *getBoard();
+    Board *getBoardPtr();
 
     int getPlayer();
 
-    bool checkBound();
+    bool checkBound(Cell *);
 
     std::string getType();
 

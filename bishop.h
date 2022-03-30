@@ -6,10 +6,10 @@
 class Cell;
 class Board;
 class Bishop : public Piece{
+    bool addCell(char colInc, char rowInc, vector<vector<char>> &cells);
     public:
     Bishop(Board *, Cell *, int);
     std::vector<std::vector<char>> possibleMoves() override;
-    void move(std::vector<char>) override;
     ~Bishop();
 };
 

@@ -6,9 +6,8 @@
 class Cell;
 class Knight : public Piece{
     public:
-    Knight(Cell *, int);
+    Knight(Board *, Cell *, int);
     std::vector<std::vector<char>> possibleMoves() override;
-    void move(std::vector<char>) override;
     ~Knight();
 };
 
