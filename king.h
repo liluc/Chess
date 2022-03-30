@@ -4,11 +4,12 @@
 #include "piece.h"
 
 class Cell;
-class King : public Piece{
-    public:
-    King(Board *, Cell *, int);
+class King : public Piece
+{
+public:
+    King(Cell *, int);
     std::vector<std::vector<char>> possibleMoves() override;
-    bool isChecked();
+    void move(std::vector<char>) override;
     ~King();
 
     /* suggestions

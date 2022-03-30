@@ -5,10 +5,10 @@
 
 class Cell;
 class Queen : public Piece{
-    bool addCell(char colInc, char rowInc, vector<vector<char>> &cells);
     public:
-    Queen(Board *, Cell *, int);
+    Queen(Cell *, int);
     std::vector<std::vector<char>> possibleMoves() override;
+    void move(std::vector<char>) override;
     ~Queen();
 };
 
