@@ -18,4 +18,23 @@ vector<vector<char>> King::possibleMoves(){
     return cells;
 }
 
+bool King::isChecked(){
+    //tranverse the board
+    //check every piece
+    //if it is a piece of component, then check its possible moves, if this cell is contained, return true;
+    vector<vector<Cell *>> board= getBoard()->getBoard();
+    for(auto col : board){
+        for(auto cell : col){
+            if (!cell->getPiece()){
+                Piece *piece = cell->getPiece();
+                if (piece->getPlayer() != getPlayer()){
+                    vector<vector<char>> moves = cell->getPiece()->possibleMoves();
+                    if (contained(moves, getPos())) return true;
+                }
+            }
+        }
+    }
+    return false;
+}
+
 King::~King(){}
