@@ -1,6 +1,4 @@
 #include "piece.h"
-#include "cell.h"
-#include "board.h"
 #include <vector>
 #include <string>
 using namespace std;

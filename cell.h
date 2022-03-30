@@ -8,14 +8,14 @@ class Piece;
 class Cell
 {
     Piece *piece;
-    vector<char> position;
+    std::vector<char> position;
 
 public:
-    Cell(vector<char>, Piece *);
+    Cell(std::vector<char>, Piece *);
     ~Cell();
     Piece *getPiece() const;
     void setPiece(Piece *);
-    vector<char> getpos() const;
+    std::vector<char> getPos() const;
 };
 
 #endif

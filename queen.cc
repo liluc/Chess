@@ -3,7 +3,7 @@
 #include <vector>
 using namespace std;
 
-Queen::Queen(Cell *cell, int player):Piece{cell, player}{}
+Queen::Queen(Board *board, Cell *cell, int player):Piece{board, cell, player, "queen"}{}
 
 vector<vector<char>> Queen::possibleMoves(){
 

@@ -1,4 +1,5 @@
 #include "cell.h"
+using namespace std;
 
 Cell::Cell(vector<char> pos, Piece *p = nullptr) : piece{p}, position{pos} {}
 
@@ -12,7 +13,7 @@ Piece *Cell::getPiece() const
     return piece;
 }
 
-vector<char> Cell::getpos() const
+vector<char> Cell::getPos() const
 {
     return position;
 }

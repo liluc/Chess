@@ -150,7 +150,7 @@ void Game::fillinPieces()
     }
 }
 
-void Game::rungame(string white, string black)
+void Game::runGame(string white, string black)
 {
     mode = 1;
     if (white == "computer[1]")
@@ -270,7 +270,7 @@ void Game::exitsetup()
 }
 
 // incomplete
-void Game::setPiece(string &p, vector<char> pos)
+void Game::setPiece(const string &p, vector<char> pos)
 {
     if (mode != 2)
         cerr << "Invalid command, this command is only valid in set up mode" << endl;
@@ -324,6 +324,10 @@ void Game::setPiece(string &p, vector<char> pos)
     else if (p == "p")
     {
         Pawn *q = new Pawn(curcell, 2);
+    } else if (p == "null") {
+        q = nullptr;
+    } else {
+        cerr << "Invalid command, " << p << " is not a valid piece." << endl;
     }
     board->setPiece(q, pos);
 }
@@ -384,7 +388,7 @@ void Game::concludeScore()
     return;
 }
 
-ostream &operator<<(ostream &out, const Game &g)
+ostream &operator<<(ostream &out, const Game *g)
 {
     for (int i = BOARDSIZE; i > 0; --i)
     {

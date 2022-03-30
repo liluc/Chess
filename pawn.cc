@@ -2,7 +2,7 @@
 #include <vector>
 using namespace std;
 
-Pawn::Pawn(Cell *cell, int player, int steps):Piece{cell, player}, steps{steps}{}
+Pawn::Pawn(Board *board, Cell *cell, int player):Piece{board, cell, player, "pawn"}, steps{0} {}
 
     // std::vector<std::vector<char>> possibleMoves() override;
     // void move(std::vector<char>) override;

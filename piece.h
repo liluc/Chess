@@ -1,10 +1,12 @@
 #ifndef _PIECE_H_
 #define _PIECE_H_
 #include "board.h"
+#include "cell.h"
 #include <vector>
 #include <string>
 
-class Cell;
+// Cell's implementation doesn't use any methods of other classes, so cell forward declares Piece
+// class Cell;
 class Board;
 class Piece{
     Cell *cell;
