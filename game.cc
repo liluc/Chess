@@ -13,6 +13,36 @@ Player::~Player()
     delete King;
 }
 
+void Player::inc(float x)
+{
+    score += x;
+}
+
+void Player::setscore(float x)
+{
+    score = x;
+}
+
+float Player::getScore() const
+{
+    return score;
+}
+
+void Player::setLevel(int x) const
+{
+    computer_level = x;
+}
+
+int Player::getLevel() const
+{
+    return computer_level;
+}
+
+King *Player::getKing() const
+{
+    return king;
+}
+
 Game::Game()
 {
     Board newboard = new Board();
@@ -70,6 +100,11 @@ void Game::setWinner(int w)
     winner = w;
 }
 
+vector<Player *> Game::getPlayers() const
+{
+    return players;
+}
+
 // board builder methods
 void Game::fillinPieces()
 {
@@ -115,9 +150,59 @@ void Game::fillinPieces()
     }
 }
 
-void Game::rungame()
+void Game::rungame(string white, string black)
 {
     mode = 1;
+    if (white == "computer[1]")
+    {
+        player[0]->setlevel(1);
+    }
+    else if (white == "computer[2]")
+    {
+        player[0]->setlevel(2);
+    }
+    else if (white == "computer[3]")
+    {
+        player[0]->setlevel(3);
+    }
+    else if (white == "computer[4]")
+    {
+        player[0]->setlevel(4);
+    }
+    else if (white == "human")
+    {
+        player[0]->setlevel(0);
+    }
+    else
+    {
+        cerr << "Invalid player type for white player!" << endl;
+    }
+    // for black
+    if (black == "computer[1]")
+    {
+        player[1]->setlevel(1);
+    }
+    else if (black == "computer[2]")
+    {
+        player[1]->setlevel(2);
+    }
+    else if (black == "computer[3]")
+    {
+        player[1]->setlevel(3);
+    }
+    else if (black == "computer[4]")
+    {
+        player[1]->setlevel(4);
+    }
+    else if (black == "human")
+    {
+        player[1]->setlevel(0);
+    }
+    else
+    {
+        cerr << "Invalid player type for black player!" << endl;
+    }
+
     if (board->getPieces().size() == 0)
         fillinPieces();
 
@@ -150,7 +235,7 @@ void Game::exitsetup()
     {
         if (piece->gettype() == "Pawn")
         {
-            if (piece->getplayer() == 1)
+            if (piece->getPlayer() == 1)
             {
                 no_pawn_promoted = no_pawn_promoted && (piece->cell->getpos().at(1) == 8);
             }
@@ -190,8 +275,57 @@ void Game::setPiece(string &p, vector<char> pos)
     if (mode != 2)
         cerr << "Invalid command, this command is only valid in set up mode" << endl;
     // function for converting string p to a new Piece
-    p = new Piece();
-    board.setPiece(p, pos);
+    Cell *curcell = board->getBoard().at(pos[0] - 'a').at(pos[1] - '1');
+
+    if (p == "K")
+    {
+        King *q = new King(curcell, 1);
+    }
+    else if (p == "k")
+    {
+        King *q = new King(curcell, 2);
+    }
+    else if (p == "Q")
+    {
+        Queen *q = new Queen(curcell, 1);
+    }
+    else if (p == "q")
+    {
+        Queen *q = new Queen(curcell, 2);
+    }
+    else if (p == "R")
+    {
+        Rook *q = new Rook(curcell, 1);
+    }
+    else if (p == "r")
+    {
+        Rook *q = new Rook(curcell, 2);
+    }
+    else if (p == "N")
+    {
+        Knight *q = new Knight(curcell, 1);
+    }
+    else if (p == "n")
+    {
+        Knight *q = new Knight(curcell, 2);
+    }
+    else if (p == "B")
+    {
+        Bishop *q = new Bishop(curcell, 1);
+    }
+    else if (p == "b")
+    {
+        Bishop *q = new Bishop(curcell, 2);
+    }
+    else if (p == "P")
+    {
+        Pawn *q = new Pawn(curcell, 1);
+    }
+    else if (p == "p")
+    {
+        Pawn *q = new Pawn(curcell, 2);
+    }
+    board->setPiece(q, pos);
 }
 
 void Game::movePiece(vector<char> start, vector<char> end)
@@ -200,6 +334,9 @@ void Game::movePiece(vector<char> start, vector<char> end)
         concludeScore();
     if (mode != 1)
         cerr << "Invalid command, this command is only valid in game mode" << endl;
+
+    int curplayer = board->getturn() % 2;
+
     try
     {
         board.movePiece(start, end);
@@ -225,6 +362,12 @@ void Game::movePiece(vector<char> start, vector<char> end)
     }
 }
 
+void Game::displayScore() const
+{
+    cout << "Final score:" << endl;
+    cout << "White: " << players.at(0)->getscore() << endl;
+    cout << "Black: " << players.at(1)->getscore() << endl;
+}
 void Game::concludeScore()
 {
     if (winner == 0)

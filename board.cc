@@ -59,6 +59,11 @@ Cell *Board::getCell(vector<char> pos) const
     return board.at(col).at(row);
 }
 
+int Board::getturn() const
+{
+    return turn;
+}
+
 Piece *Board::checkPos(vector<char> pos) const
 {
     return getCell(pos)->getPiece();

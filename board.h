@@ -18,6 +18,7 @@ public:
     bool getstate() const;
     vector<vector<Cell *>> getBoard() const;
     vector<Piece *> getPieces() const;
+    int getturn() const;
 
     Cell *getCell(vector<char>) const;
     void setPiece(Piece *, vector<char>);
