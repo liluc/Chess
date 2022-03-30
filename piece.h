@@ -8,6 +8,11 @@
 // Cell's implementation doesn't use any methods of other classes, so cell forward declares Piece
 // class Cell;
 class Board;
+class InvalidMove {
+    InvalidMove();
+    ~InvalidMove();
+};  // error type
+
 class Piece{
     Cell *cell;
     Board *board;

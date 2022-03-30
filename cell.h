@@ -11,7 +11,7 @@ class Cell
     std::vector<char> position;
 
 public:
-    Cell(std::vector<char>, Piece *);
+    Cell(std::vector<char>, Piece * = nullptr);
     ~Cell();
     Piece *getPiece() const;
     void setPiece(Piece *);

@@ -1,12 +1,9 @@
 #include "cell.h"
 using namespace std;
 
-Cell::Cell(vector<char> pos, Piece *p = nullptr) : piece{p}, position{pos} {}
+Cell::Cell(vector<char> pos, Piece *p) : piece{p}, position{pos} {}
 
-Cell::~Cell()
-{
-    delete piece;
-}
+Cell::~Cell() {}  // pieces are already deleted in Board
 
 Piece *Cell::getPiece() const
 {
@@ -20,6 +17,5 @@ vector<char> Cell::getPos() const
 
 void Cell::setPiece(Piece *p)
 {
-    delete piece;
     piece = p;
 }

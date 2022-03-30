@@ -1,4 +1,6 @@
 #include "board.h"
+#include <iostream>
+using namespace std;
 
 Board::Board()
 {
@@ -11,7 +13,9 @@ Board::Board()
         for (int j = 0; j < BOARDSIZE; ++j)
         {
             // j is the row of the cell, '1' to '8'
-            vector<char> pos{'a' + i, '1' + j};
+            char c = 'a' + i;
+            char r = '1' + j;
+            vector<char> pos{c, r};
             Cell *newcell = new Cell{pos};
             col.emplace_back(newcell);
         }
@@ -77,11 +81,12 @@ void Board::setTurn(int t) {
 void Board::setPiece(Piece *p, vector<char> pos)
 {
     Piece *old = checkPos(pos);
-    for (int i = 0; i < pieces.size(); ++i)
+    int size = pieces.size();
+    for (int i = 0; i < size; ++i)
     {
         if (pieces.at(i) == old) // compare by mem address
         {
-            pieces.erase(i);
+            pieces.erase(pieces.begin() + i);
             return;
         }
     }
@@ -97,11 +102,12 @@ void Board::movePiece(vector<char> start, vector<char> end)
     Piece *destpiece = checkPos(end);
     if (destpiece)
     {
-        for (int i = 0; i < pieces.size(); ++i)
+        int size = pieces.size();
+        for (int i = 0; i < size; ++i)
         {
             if (pieces.at(i) == destpiece)
             {
-                pieces.erase(i);
+                pieces.erase(pieces.begin() + i);
                 return;
             }
         }
@@ -110,12 +116,11 @@ void Board::movePiece(vector<char> start, vector<char> end)
     if (ended)
         cerr << "Game is already ended, please start a new game" << endl;
 
-    if (!(curplace))
+    if (!(curpiece))
         return;
     try
     {
-        move(curpiece, end);
-        // this move is a virtual function
+        curpiece->move(end);
         if (isStalemate())
             ended = true;
     }
@@ -128,17 +133,10 @@ void Board::movePiece(vector<char> start, vector<char> end)
 bool Board::isStalemate() const
 {
     bool stale{true};
-    for (auto col : board)
-    {
-        for (auto cell : col)
-        {
-            if (!(checkPos()))
-                continue;
-            if ((turn % 2) != cell->piece->getplayer())
-                continue;
-            stale = stale && (cell->piece->possible_moves().size() == 0);
-        }
+    for (auto piece : pieces) {
+        if (((turn % 2) + 1) != piece->getPlayer())
+            continue;
+        stale = stale && (piece->possibleMoves().size() == 0);
     }
-
     return stale;
 }

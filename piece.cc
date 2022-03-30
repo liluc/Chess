@@ -14,7 +14,7 @@ Cell * Piece::getCell(){
 }
 
 Board * Piece::getBoard(){
-    return Board;
+    return board;
 }
 
 int Piece::getPlayer(){
@@ -36,7 +36,7 @@ bool Piece::checkBound(){
 }
 
 //check if the player of this piece is the same as the other piece
-bool checkPlayer(Piece *other){
+bool Piece::checkPlayer(Piece *other){
     return player == other->getPlayer();
 }
 

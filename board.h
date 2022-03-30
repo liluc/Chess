@@ -2,6 +2,7 @@
 #define __BOARD_H__
 
 #include "cell.h"
+#include "piece.h"
 #include <vector>
 
 class Board
