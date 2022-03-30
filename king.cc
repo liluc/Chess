@@ -12,6 +12,10 @@ vector<vector<char>> King::possibleMoves(){
     addCell(-1, 0, cells);
     addCell(0, 1, cells);
     addCell(0, -1, cells);
+    addCell(1, 1, cells);
+    addCell(1, -1, cells);
+    addCell(-1, 1, cells);
+    addCell(-1, -1, cells);
     return cells;
 }
 

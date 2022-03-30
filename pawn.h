@@ -12,7 +12,7 @@ class Pawn : public Piece{
     public:
     Pawn(Board *, Cell *, int, int);
     std::vector<std::vector<char>> possibleMoves() override;
-    void promote();
+    void promote(string type);
     ~Pawn();
 };
 

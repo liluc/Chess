@@ -9,7 +9,7 @@ using namespace std;
 Piece::Piece(Board *board, Cell *cell, int player, string type):board{board}, cell{cell}, player{player}, type{type}{}
 
 vector<char> Piece::getPos(){
-    return cell->getPos();
+    return cell->getpos();
 }
 
 Cell * Piece::getCell(){
@@ -17,7 +17,7 @@ Cell * Piece::getCell(){
 }
 
 Board * Piece::getBoardPtr(){
-    return Board;
+    return board;
 }
 
 int Piece::getPlayer(){
@@ -29,7 +29,7 @@ string Piece::getType(){
 }
 
 bool Piece::checkBound(Cell *cell){
-    vector<char> pos = cell->getPos();
+    vector<char> pos = getPos();
     if (pos[0] >= 'a' && pos[0] <= 'h'){
         if (pos[1] >= '1' && pos[1] <= '8'){
             return true;
@@ -39,7 +39,7 @@ bool Piece::checkBound(Cell *cell){
 }
 
 //check if the player of this piece is the same as the other piece
-bool checkPlayer(Piece *other){
+bool Piece::checkPlayer(Piece *other){
     return player == other->getPlayer();
 }
 
@@ -57,7 +57,6 @@ void Piece::move(vector<char> pos){
         delete targetCell->getPiece();
         targetCell->setPiece(this);
         cell->setPiece(nullptr);
-        cell->targetCell;
         
     } else {
         throw InvalidMove;
