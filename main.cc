@@ -14,23 +14,12 @@ using namespace std;
 // setWinner(int)
 // concludeScore()
 
-// I wrote a displayScore in Game so we don't have to do it here
-
-void displayScore(Game *game)
-{
-    if (game->getWinner() != 0)
-        return;
-    // cout << "Final Score:" << endl;
-    int whiteScore = game->getPlayers()[0]->getscore();
-    int blackScore = game->getPlayers()[1]->getscore();
-    cout << "White Score: " << whiteScore << endl;
-    cout << "Black Score: " << blackScore << endl;
-}
 
 int main()
 {
     string command;
     Game *game = new Game;
+    GameDisplay *textdis = new GameDisplay{game};
     while (cin >> command)
     {
         if (command == "game")
@@ -39,7 +28,7 @@ int main()
             string black;
             cin >> white >> black; // haven't handle the computer AI mode situation
             game->runGame(white, black);
-            cout << game;
+            textdis->display();
         }
 
         else if (command == "resign")
@@ -57,8 +46,8 @@ int main()
             vector<char> vStart{start[0], start[1]};
             vector<char> vEnd{end[0], end[1]};
             game->movePiece(vStart, vEnd);
-            cout << game;
-            displayScore(game);
+            textdis->display();
+            textdis->displayScore();
         }
 
         else if (command == "setup")
@@ -98,11 +87,11 @@ int main()
                         game->getBoard()->setTurn(1);
                     }
                 }
-                cout << game;
+                textdis->display();
             }
         }
     }
     cout << "Final Score: " << endl;
-    game->displayScore();
+    textdis->displayScore();
     delete game;
 }

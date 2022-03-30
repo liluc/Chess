@@ -1,47 +1,6 @@
 #include "game.h"
 using namespace std;
 
-const int BOARDSIZE = 8;
-const int WHITE = 1;
-const int BLACK = 2;
-const int DRAW = 3;
-
-Player::Player(int who, int score = 0, bool human = true, King *k = nullptr) who{who} {}
-
-Player::~Player()
-{
-    delete King;
-}
-
-void Player::inc(float x)
-{
-    score += x;
-}
-
-void Player::setscore(float x)
-{
-    score = x;
-}
-
-float Player::getScore() const
-{
-    return score;
-}
-
-void Player::setLevel(int x) const
-{
-    computer_level = x;
-}
-
-int Player::getLevel() const
-{
-    return computer_level;
-}
-
-King *Player::getKing() const
-{
-    return king;
-}
 
 Game::Game()
 {
@@ -108,6 +67,7 @@ vector<Player *> Game::getPlayers() const
 // board builder methods
 void Game::fillinPieces()
 {
+    const int BOARDSIZE = 8;
     vector<vector<Cell *>> grid = board->getBoard();
     for (int i = 0; i < BOARDSIZE; ++i)
     {
@@ -388,6 +348,7 @@ void Game::concludeScore()
     return;
 }
 
+/*
 ostream &operator<<(ostream &out, const Game *g)
 {
     for (int i = BOARDSIZE; i > 0; --i)
@@ -444,3 +405,4 @@ ostream &operator<<(ostream &out, const Game *g)
     }
     return out;
 }
+*/

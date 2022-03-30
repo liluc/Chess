@@ -1,28 +1,10 @@
 #include "board.h"
 #include <vector>
 #include <iostream>
+#include "player.h"
+#include "king.h"
 
-class King;
 class History;
-class Player
-{
-    int who;
-    float score;
-    int computer_level; // 0 if human
-    King *king;
-
-public:
-    Player();
-    ~Player();
-
-    void inc(float);
-    void setscore(float);
-    void setlevel(int);
-    int getlevel() const;
-    int getscore() const;
-    std::vector<Player *> getplayers() const;
-    King *getKing() const;
-};
 
 // Game will serve as an interface to the board, as well as maintaining certain client-side data(like scores)
 class Game
