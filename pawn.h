@@ -7,11 +7,11 @@ class Cell;
 class Pawn : public Piece{
     int steps;
     public:
-    Pawn(Board *, Cell *, int, int);
+    Pawn(Board *, Cell *, int);
     void Pawn::addCell_PawnMove (char colInc, char rowInc, vector<vector<char>> &cells);
     void Pawn::addCell_PawnCapture (char colInc, char rowInc, vector<vector<char>> &cells);
     std::vector<std::vector<char>> possibleMoves() override;
-    void promote(string type);
+    void promote(Piece *);
     ~Pawn();
 };
 

@@ -1,4 +1,10 @@
 #include "piece.h"
+#include "king.h"
+#include "pawn.h"
+#include "rook.h"
+#include "knight.h"
+#include "queen.h"
+#include "bishop.h"
 #include <vector>
 #include <string>
 using namespace std;
@@ -61,7 +67,56 @@ void Piece::move(vector<char> pos){
     }
 }
 
+bool Piece::isChecked(){
+    vector<vector<Cell *>> cells = board->getBoard();
+    for (auto col : cells){
+        for (auto x : col){
+            Piece *piece = x->getPiece();
+            if (piece->getType() == "king"){
+                if(piece->getPlayer() == player){
+                    return piece->isChecked();
+                } 
+            }
+        }
+    }
+}
+
+Piece * Piece::createPiece(Cell *targetCell){
+    if (type == "king"){
+        return new King{targetCell,  player};
+    } 
+    else if (type == "queen"){
+        return new Queen{targetCell,  player};
+    }
+    else if (type == "night"){
+        return new Knight{targetCell,  player};
+    }
+    else if (type == "bishop"){
+        return new Bishop{targetCell,  player};
+    }
+    else if (type == "rook"){
+        return new Rook{targetCell,  player};
+    }
+    else if (type == "Pawn"){
+        return new Pawn{targetCell,  player};
+    }
+}
+
+
+//board.h
+//void setPiece(Piece *, std::vector<char>);
+
+//if now we are checked, then possible moves only includes that can make us unchecked after the move.(i.e. either 
+//  capturing the piece, blocking the piece, or move the king)
+//1. create a temp piece at target position.
+//2. detach this piece with the cells, attach temp piece with the target position.
+//3. check with the temp piece if isChecked is still true
+//4. if isChecked is false, add the target position into list
+//5. delete temp, attach this with current cell
 bool Piece::addCell(char colInc, char rowInc, vector<vector<char>> &cells){
+    if (isChecked()){
+        Piece *temp = new 
+    }
     vector<char> currentPos = getPos();
     char newCol = currentPos[0] + colInc;
     char newRow = currentPos[1] + rowInc;

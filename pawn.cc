@@ -8,7 +8,13 @@
 #include <vector>
 using namespace std;
 
-Pawn::Pawn(Board *board, Cell *cell, int player, int steps):Piece{board, cell, player, "pawn"}, steps{steps}{}
+Pawn::Pawn(Board *board, Cell *cell, int player):Piece{board, cell, player, "pawn"}{
+    if (player == 1){
+        steps = cell->getPos()[1] - '0';
+    } else {
+        steps = '9' - cell->getPos()[1];
+    }
+}
 
 int abs(int n){
     return n > 0? n : -n;
@@ -69,15 +75,9 @@ vector<vector<char>> Pawn::possibleMoves(){
     return cells;    
 }
 
-void Pawn::promote(string type){
-    //would it be better to put promote() in board? or keep it in pawn.
-    // if (9 % getPos()[1] == 1){
-    //     Cell *promoteCell = getCell();
-    //     if(type == "Q") promoteCell->setPiece(new Queen(getBoardPtr(), promote, ));
-        
-
-    // }
-    
+void Pawn::promote(Piece *targetPiece){
+    getCell()->setPiece(targetPiece);
+    delete this;
 }
 
 Pawn::~Pawn(){}
