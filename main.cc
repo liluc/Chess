@@ -1,4 +1,5 @@
 #include "game.h"
+#include "gamedisplay.h"
 #include "piece.h"
 #include <vector>
 #include <string>
@@ -35,17 +36,19 @@ int main()
         {
             int turn = game->getBoard()->getTurn() % 2;
             game->setWinner(turn + 1);
-            displayScore(game);
+            game->displayScore();
         }
 
         else if (command == "move")
         {
             string start;
             string end;
-            cin >> start; 
+            cin >> start >> end; 
+            string next = cin.peek();
             vector<char> vStart{start[0], start[1]};
             vector<char> vEnd{end[0], end[1]};
             game->movePiece(vStart, vEnd);
+            // game->pawnPromote(vEnd, next);
             textdis->display();
             textdis->displayScore();
         }

@@ -7,7 +7,7 @@ const int WHITE = 1;
 const int BLACK = 2;
 const int DRAW = 3;
 
-GameDisplay::GameDisplay(Game *game) g{game} {}
+GameDisplay::GameDisplay(Game *game): g{game} {}
 GameDisplay::~GameDisplay() {}
 
 void GameDisplay::display() {
@@ -65,7 +65,7 @@ void GameDisplay::display() {
     }
 }
 
-void displayScore()
+void Gamedisplay::displayScore()
 {
     if (g->getWinner() != 0)
         return;

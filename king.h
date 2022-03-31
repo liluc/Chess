@@ -9,7 +9,6 @@ class King : public Piece
 public:
     King(Cell *, int);
     std::vector<std::vector<char>> possibleMoves() override;
-    void move(std::vector<char>) override;
     ~King();
 
     /* suggestions

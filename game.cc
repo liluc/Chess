@@ -4,16 +4,16 @@ using namespace std;
 
 Game::Game()
 {
-    Board newboard = new Board();
+    Board * newboard = new Board();
     board = newboard;
-    added_players = vector<Players>;
+    vector<Player *> added_players;
     Player *new_player1 = new Player{1};
     Player *new_player2 = new Player{2};
     added_players.emplace_back(new_player1);
     added_players.emplace_back(new_player2);
     players = added_players;
 
-    History newhist = new History();
+    History *newhist = new History();
     hist = newhist;
     mode = 0;
 }
@@ -21,8 +21,8 @@ Game::Game()
 Game::~Game()
 {
     delete board;
-    delete history;
-    for (auto player ::players)
+    delete hist;
+    for (auto player : players)
     {
         delete player;
     }
@@ -44,7 +44,7 @@ int Game::getMode() const
     return mode;
 }
 
-History *Game::getMode() const
+History *Game::getHist() const
 {
     return hist;
 }
@@ -57,11 +57,6 @@ int Game::getWinner() const
 void Game::setWinner(int w)
 {
     winner = w;
-}
-
-vector<Player *> Game::getPlayers() const
-{
-    return players;
 }
 
 // board builder methods
@@ -115,23 +110,23 @@ void Game::runGame(string white, string black)
     mode = 1;
     if (white == "computer[1]")
     {
-        player[0]->setlevel(1);
+        players[0]->setlevel(1);
     }
     else if (white == "computer[2]")
     {
-        player[0]->setlevel(2);
+        players[0]->setlevel(2);
     }
     else if (white == "computer[3]")
     {
-        player[0]->setlevel(3);
+        players[0]->setlevel(3);
     }
     else if (white == "computer[4]")
     {
-        player[0]->setlevel(4);
+        players[0]->setlevel(4);
     }
     else if (white == "human")
     {
-        player[0]->setlevel(0);
+        players[0]->setlevel(0);
     }
     else
     {
@@ -140,15 +135,15 @@ void Game::runGame(string white, string black)
     // for black
     if (black == "computer[1]")
     {
-        player[1]->setlevel(1);
+        players[1]->setlevel(1);
     }
     else if (black == "computer[2]")
     {
-        player[1]->setlevel(2);
+        players[1]->setlevel(2);
     }
     else if (black == "computer[3]")
     {
-        player[1]->setlevel(3);
+        players[1]->setlevel(3);
     }
     else if (black == "computer[4]")
     {
@@ -156,7 +151,7 @@ void Game::runGame(string white, string black)
     }
     else if (black == "human")
     {
-        player[1]->setlevel(0);
+        players[1]->setlevel(0);
     }
     else
     {
@@ -193,7 +188,7 @@ void Game::exitsetup()
 
     for (auto piece : board->getPieces())
     {
-        if (piece->gettype() == "Pawn")
+        if (piece->getType() == "Pawn")
         {
             if (piece->getPlayer() == 1)
             {
@@ -347,62 +342,3 @@ void Game::concludeScore()
     }
     return;
 }
-
-/*
-ostream &operator<<(ostream &out, const Game *g)
-{
-    for (int i = BOARDSIZE; i > 0; --i)
-    {
-        cout << i << " ";
-        for (int j = 0; j < BOARDSIZE; ++j)
-        {
-            Piece *p = g->board->getBoard().at(j).at(i - 1)->getPiece();
-            if (p)
-            {
-                char c = p->getType[0];
-                if (p->getPlayer() == WHITE)
-                {
-                    c = c + 'A' - 'a'; // capitalize
-                }
-                cout << c << endl; // assuming piece has a method that gets the type, which returns a str
-            }
-            else
-            {
-                if ((i + j) % 2 == 0)
-                {
-                    cout << " ";
-                }
-                else
-                {
-                    cout << "_";
-                }
-            }
-        }
-        cout << endl;
-    }
-    cout << endl;
-    cout << "  abcdefgh" << endl;
-    if (g->players.at(0)->getKing()->ischecked())
-        cout << "White is in check." << endl;
-    if (g->players.at(1)->getKing()->ischecked())
-        cout << "Black is in check." << endl;
-    if (g->players.at(0)->getKing()->ischeckmate() ||
-        g->players.at(1)->getKing()->ischeckmate())
-        cout << "Checkmate! ";
-
-    // by separating "checkmate!" and "... wins", we can account for the case of resignation
-    if (winner == DRAW)
-    {
-        cout << "Stalemate" << endl;
-    }
-    else if (winner == WHITE)
-    {
-        cout << "White wins!" << endl;
-    }
-    else if (winner == BLACK)
-    {
-        cout << "Black wins!" << endl;
-    }
-    return out;
-}
-*/

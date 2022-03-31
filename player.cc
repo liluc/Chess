@@ -1,8 +1,10 @@
-Player::Player(int who, int score = 0, bool human = true, King *k = nullptr) who{who} {}
+#include "player.h"
+
+Player::Player(int who, int score, bool human, King *k): who{who} {}
 
 Player::~Player()
 {
-    delete King;
+    delete king;
 }
 
 void Player::inc(float x)
@@ -10,7 +12,7 @@ void Player::inc(float x)
     score += x;
 }
 
-void Player::setscore(float x)
+void Player::setScore(float x)
 {
     score = x;
 }
@@ -20,7 +22,7 @@ float Player::getScore() const
     return score;
 }
 
-void Player::setLevel(int x) const
+void Player::setLevel(int x)
 {
     computer_level = x;
 }

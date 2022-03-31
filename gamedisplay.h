@@ -1,12 +1,17 @@
+#ifndef __GAMEDIASPLAY_H_
+#define __GAMEDIASPLAY_H_
+
 #include "game.h"
 
-Class GameDisplay {
+class GameDisplay {
     Game *g;
 
     public:
-    BoardDisplay(Game *);
-    ~BoardDisplay();
-    display();
-    displayScore();
+    GameDisplay(Game *);
+    ~GameDisplay();
+    void display();
+    void displayScore();
     // display_graphic();
-}
+};
+
+#endif

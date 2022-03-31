@@ -1,8 +1,18 @@
-#include "board.h"
+#ifndef __GAME_H__
+#define __GAME_H__
+
 #include <vector>
 #include <iostream>
+#include "board.h"
 #include "player.h"
+#include "history.h"
+#include "pawn.h"
 #include "king.h"
+#include "knight.h"
+#include "bishop.h"
+#include "queen.h"
+#include "rook.h"
+
 
 class History;
 
@@ -44,3 +54,5 @@ public:
     // additional features
     void undo();
 };
+
+#endif
