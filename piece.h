@@ -44,6 +44,10 @@ public:
 
     bool addCell(char colInc, char rowInc, vector<vector<char>> &cells);
 
+    //returns true if king of player of this piece is checked
+    //require: king of current player must exists
+    virtual bool isChecked();
+
     virtual std::vector<std::vector<char>> possibleMoves() = 0;
     void move(std::vector<char>);
     virtual ~Piece();

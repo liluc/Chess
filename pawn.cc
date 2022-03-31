@@ -69,15 +69,9 @@ vector<vector<char>> Pawn::possibleMoves(){
     return cells;    
 }
 
-void Pawn::promote(string type){
-    //would it be better to put promote() in board? or keep it in pawn.
-    // if (9 % getPos()[1] == 1){
-    //     Cell *promoteCell = getCell();
-    //     if(type == "Q") promoteCell->setPiece(new Queen(getBoardPtr(), promote, ));
-        
-
-    // }
-    
+void Pawn::promote(Piece *targetPiece){
+    getCell()->setPiece(targetPiece);
+    delete this;
 }
 
 Pawn::~Pawn(){}

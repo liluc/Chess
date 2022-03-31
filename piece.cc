@@ -1,4 +1,5 @@
 #include "piece.h"
+#include "king.h"
 #include <vector>
 #include <string>
 using namespace std;
@@ -61,6 +62,23 @@ void Piece::move(vector<char> pos){
     }
 }
 
+bool Piece::isChecked(){
+    vector<vector<Cell *>> cells = board->getBoard();
+    for (auto col : cells){
+        for (auto x : col){
+            Piece *piece = x->getPiece();
+            if (piece->getType() == "king"){
+                if(piece->getPlayer() == player){
+                    return piece->isChecked();
+                } 
+            }
+        }
+    }
+}
+
+
+//if now we are checked, then possible moves only includes that can make us unchecked after the move.(i.e. either 
+//  capturing the piece, blocking the piece, or move the king)
 bool Piece::addCell(char colInc, char rowInc, vector<vector<char>> &cells){
     vector<char> currentPos = getPos();
     char newCol = currentPos[0] + colInc;
