@@ -83,28 +83,31 @@ bool Piece::isChecked(){
 
 Piece * Piece::createPiece(Cell *targetCell){
     if (type == "king"){
-        return new King{targetCell,  player};
+        return new King{board, targetCell,  player};
     } 
     else if (type == "queen"){
-        return new Queen{targetCell,  player};
+        return new Queen{board, targetCell,  player};
     }
     else if (type == "night"){
-        return new Knight{targetCell,  player};
+        return new Knight{board, targetCell,  player};
     }
     else if (type == "bishop"){
-        return new Bishop{targetCell,  player};
+        return new Bishop{board, targetCell,  player};
     }
     else if (type == "rook"){
-        return new Rook{targetCell,  player};
+        return new Rook{board, targetCell,  player};
     }
     else if (type == "Pawn"){
-        return new Pawn{targetCell,  player};
+        return new Pawn{board, targetCell,  player};
     }
 }
 
 
 //board.h
 //void setPiece(Piece *, std::vector<char>);
+//1. remove piece at pos
+//2. connect cell at pos with piece at pos
+//3. update vector<piece *>
 
 //if now we are checked, then possible moves only includes that can make us unchecked after the move.(i.e. either 
 //  capturing the piece, blocking the piece, or move the king)
@@ -113,18 +116,38 @@ Piece * Piece::createPiece(Cell *targetCell){
 //3. check with the temp piece if isChecked is still true
 //4. if isChecked is false, add the target position into list
 //5. delete temp, attach this with current cell
+//this points to original Piece
+//temp points to temp Piece
+//delete temp is requried
+//return true if target position contains a piece. --> return true if target positi
 bool Piece::addCell(char colInc, char rowInc, vector<vector<char>> &cells){
-    if (isChecked()){
-        Piece *temp = new 
-    }
     vector<char> currentPos = getPos();
     char newCol = currentPos[0] + colInc;
     char newRow = currentPos[1] + rowInc;
     vector<char> targetPos {newCol, newRow};
     Cell *targetCell = getBoard()->getCell(targetPos);
-    if (checkBound(targetCell)) cells.emplace_back(targetPos);
+    
+    
+    if (checkBound(targetCell)){
+        if (isChecked()){
+            Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
+            Piece *temp = createPiece(targetCell);
+            cell->setPiece(nullptr);
+            targetCell->setPiece(temp);
+            //if setPiece is used, then the current piece will get deleted, and targetCellPiece will get deleted.
+            //so we cannot use it for now.
+            if (!isChecked()){
+                cells.emplace_back(targetPos);
+            }
+            cell->setPiece(this);
+            targetCell->setPiece(targetCellPiece);
+            delete temp;
+        } else {
+            cells.emplace_back(targetPos);
+        }
+    } 
     if (targetCell->getPiece() != nullptr){
-        if (checkPlayer(targetCell->getPiece())){
+        if (targetCell->getPiece()->getPlayer() == Piece::getPlayer()){
             cells.pop_back();
         }
         return true;
