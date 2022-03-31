@@ -34,7 +34,7 @@ public:
 
     int getPlayer();
 
-    bool checkBound(Cell *);
+    bool checkBound(std::vector<char>);
 
     std::string getType();
 
