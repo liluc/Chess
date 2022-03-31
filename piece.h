@@ -42,7 +42,7 @@ public:
 
     bool contained(std::vector<std::vector<char>>, std::vector<char>);
 
-    bool addCell(char colInc, char rowInc, vector<vector<char>> &cells);
+    bool addCell(char colInc, char rowInc, std::vector<std::vector<char>> &cells);
 
     //returns true if king of player of this piece is checked
     //require: king of current player must exists
