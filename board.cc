@@ -96,6 +96,7 @@ void Board::setPiece(Piece *p, vector<char> pos)
 }
 
 // NVI idiom
+/*
 void Board::movePiece(vector<char> start, vector<char> end)
 {
     Piece *curpiece = checkPos(start);
@@ -129,6 +130,7 @@ void Board::movePiece(vector<char> start, vector<char> end)
         throw;
     }
 }
+*/
 
 bool Board::isStalemate() const
 {

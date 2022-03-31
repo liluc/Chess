@@ -1,6 +1,7 @@
 #include "game.h"
 using namespace std;
 
+class NoPromotion;
 
 Game::Game()
 {
@@ -66,8 +67,8 @@ void Game::fillinPieces()
     vector<vector<Cell *>> grid = board->getBoard();
     for (int i = 0; i < BOARDSIZE; ++i)
     {
-        Pawn *pawn1 = new Pawn{grid.at(i).at(1), 1};
-        Pawn *pawn2 = new Pawn{gird.at(i).at(6), 2};
+        Pawn *pawn1 = new Pawn{board, grid.at(i).at(1), 1};
+        Pawn *pawn2 = new Pawn{board, gird.at(i).at(6), 2};
         board->getPieces().emplace_back(pawn1);
         board->getPieces().emplace_back(pawn2);
         grid.at(i).at(1)->setPiece(pawn1);
@@ -75,28 +76,28 @@ void Game::fillinPieces()
 
         if (i == 0 || i == 7)
         {
-            Rook *p1 = new Rook{grid.at(i).at(0), 1};
-            Rook *p2 = new Rook{grid.at(i).at(7), 2};
+            Rook *p1 = new Rook{board, grid.at(i).at(0), 1};
+            Rook *p2 = new Rook{board, grid.at(i).at(7), 2};
         }
         else if (i == 1 || i == 6)
         {
-            Knight *p1 = new Knight{grid.at(i).at(0), 1};
-            Knight *p2 = new Knight{grid.at(i).at(7), 2};
+            Knight *p1 = new Knight{board, grid.at(i).at(0), 1};
+            Knight *p2 = new Knight{board, grid.at(i).at(7), 2};
         }
         else if (i == 2 || i == 5)
         {
-            Bishop *p1 = new Bishop{grid.at(i).at(0), 1};
-            Bishop *p2 = new Bishop{grid.at(i).at(7), 2};
+            Bishop *p1 = new Bishop{board, grid.at(i).at(0), 1};
+            Bishop *p2 = new Bishop{board, grid.at(i).at(7), 2};
         }
         else if (i == 3)
         {
-            Queen *p1 = new Queen{grid.at(i).at(0), 1};
-            Queen *p2 = new Queen{grid.at(i).at(7), 2};
+            Queen *p1 = new Queen{borad, grid.at(i).at(0), 1};
+            Queen *p2 = new Queen{borad, grid.at(i).at(7), 2};
         }
         else
         {
-            King *p1 = new King{grid.at(i).at(0), 1};
-            King *p2 = new King{grid.at(i).at(7), 2};
+            King *p1 = new King{board, grid.at(i).at(0), 1};
+            King *p2 = new King{borad, grid.at(i).at(7), 2};
         }
         board->getPieces().emplace_back(p1);
         board->getPieces().emplace_back(p2);
@@ -224,67 +225,86 @@ void Game::exitsetup()
     }
 }
 
-// incomplete
-void Game::setPiece(const string &p, vector<char> pos)
-{
-    if (mode != 2)
-        cerr << "Invalid command, this command is only valid in set up mode" << endl;
-    // function for converting string p to a new Piece
-    Cell *curcell = board->getBoard().at(pos[0] - 'a').at(pos[1] - '1');
-
+// helper function to turn string input to a corresponding piece and throw exception if 
+Piece * stringtoPiece(Board * b, const string &p, vector<char> pos) {
+    Cell *curcell = b->getBoard().at(pos[0] - 'a').at(pos[1] - '1');
     if (p == "K")
     {
-        King *q = new King(curcell, 1);
+        King *q = new King(b, curcell, 1);
     }
     else if (p == "k")
     {
-        King *q = new King(curcell, 2);
+        King *q = new King(b, curcell, 2);
     }
     else if (p == "Q")
     {
-        Queen *q = new Queen(curcell, 1);
+        Queen *q = new Queen(b, curcell, 1);
     }
     else if (p == "q")
     {
-        Queen *q = new Queen(curcell, 2);
+        Queen *q = new Queen(b, curcell, 2);
     }
     else if (p == "R")
     {
-        Rook *q = new Rook(curcell, 1);
+        Rook *q = new Rook(b, curcell, 1);
     }
     else if (p == "r")
     {
-        Rook *q = new Rook(curcell, 2);
+        Rook *q = new Rook(b, curcell, 2);
     }
     else if (p == "N")
     {
-        Knight *q = new Knight(curcell, 1);
+        Knight *q = new Knight(b, curcell, 1);
     }
     else if (p == "n")
     {
-        Knight *q = new Knight(curcell, 2);
+        Knight *q = new Knight(b, curcell, 2);
     }
     else if (p == "B")
     {
-        Bishop *q = new Bishop(curcell, 1);
+        Bishop *q = new Bishop(b, curcell, 1);
     }
     else if (p == "b")
     {
-        Bishop *q = new Bishop(curcell, 2);
+        Bishop *q = new Bishop(b, curcell, 2);
     }
     else if (p == "P")
     {
-        Pawn *q = new Pawn(curcell, 1);
+        Pawn *q = new Pawn(b, curcell, 1);
     }
     else if (p == "p")
     {
-        Pawn *q = new Pawn(curcell, 2);
+        Pawn *q = new Pawn(b, curcell, 2);
     } else if (p == "null") {
         q = nullptr;
     } else {
-        cerr << "Invalid command, " << p << " is not a valid piece." << endl;
+        throw InvalidMove;
     }
-    board->setPiece(q, pos);
+
+    return q;
+}
+
+void Game::setPiece(const string &p, vector<char> pos)
+{
+    if (mode != 2) {
+        cerr << "Invalid command, this command is only valid in set up mode" << endl;
+        return;
+    }
+    try {
+        Piece * p = stringtoPiece(board, p, pos);
+    } catch (InvalidMove & im) {
+        cerr << "Invalid command, " << p << " is not a valid piece." << endl; 
+        return;
+    }
+    board->setPiece(p, pos);
+}
+
+void Game::pawnPromote(string pos, const char p) {
+    piece * upgrade = stringtoPiece(board, p, pos);
+    vector<char> pos_vec;
+    pos_vec.emplace_back(pos[0]);
+    pos_vec.emplace_back(pos[1]);
+    board->setPiece(upgrade, pos_vec);
 }
 
 void Game::movePiece(vector<char> start, vector<char> end)
@@ -293,8 +313,15 @@ void Game::movePiece(vector<char> start, vector<char> end)
         concludeScore();
     if (mode != 1)
         cerr << "Invalid command, this command is only valid in game mode" << endl;
-
+    
     int curplayer = board->getturn() % 2;
+    if (board->getPos(start)->getPiece()->getType() == "pawn") {
+        if (end.at(1) == (1 - curplayer) * (BOARDSIZE - 1) {
+            // if curplayer is 0, end[1] is 7
+            // if curpayer is 1, end[1] is 0
+            throw NoPromotion;
+        }
+    }
 
     try
     {

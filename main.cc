@@ -44,11 +44,19 @@ int main()
             string start;
             string end;
             cin >> start >> end; 
-            string next = cin.peek();
+            if (start.length() < 2 || end.length() < 2) {
+                cerr << "Invalid input" << endl;
+                continue;
+            }
             vector<char> vStart{start[0], start[1]};
             vector<char> vEnd{end[0], end[1]};
-            game->movePiece(vStart, vEnd);
-            // game->pawnPromote(vEnd, next);
+            try {
+                game->movePiece(vStart, vEnd);
+            } catch (NoPromotion &) {
+                string upgrade;
+                cin >> upgrade;
+                game->pawnPromote(vEnd, upgrade);
+            }
             textdis->display();
             textdis->displayScore();
         }
