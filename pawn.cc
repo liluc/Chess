@@ -8,7 +8,13 @@
 #include <vector>
 using namespace std;
 
-Pawn::Pawn(Board *board, Cell *cell, int player, int steps):Piece{board, cell, player, "pawn"}, steps{steps}{}
+Pawn::Pawn(Board *board, Cell *cell, int player):Piece{board, cell, player, "pawn"}{
+    if (player == 1){
+        steps = cell->getPos()[1] - '0';
+    } else {
+        steps = '9' - cell->getPos()[1];
+    }
+}
 
 int abs(int n){
     return n > 0? n : -n;

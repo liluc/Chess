@@ -48,6 +48,8 @@ public:
     //require: king of current player must exists
     virtual bool isChecked();
 
+    Piece * createPiece(Cell *);
+
     virtual std::vector<std::vector<char>> possibleMoves() = 0;
     void move(std::vector<char>);
     virtual ~Piece();

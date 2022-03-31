@@ -9,7 +9,6 @@ class Rook : public Piece{
     public:
     Rook(Board *, Cell *, int);
     std::vector<std::vector<char>> possibleMoves() override;
-    void move(std::vector<char>) override;
     ~Rook();
 };
 
