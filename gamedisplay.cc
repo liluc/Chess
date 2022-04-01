@@ -74,7 +74,7 @@ void TextDisplay::display() {
         cout << "White is in check." << endl;
     if (g->getPlayers().at(1)->getKing()->isChecked())
         cout << "Black is in check." << endl;
-<<<<<<< HEAD
+        
     if (g->isCheckmate())
         cout << "Checkmate! ";
 
