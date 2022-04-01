@@ -109,6 +109,11 @@ void Board::movePiece(vector<char> start, vector<char> end)
     Piece *destpiece = checkPos(end);
     if (!(curpiece))
         return;
+    if (curpiece->getPlayer() != (turn % 2) + 1) {
+        cerr << "This piece doesn't belong to you, you moron!" << endl;
+        InvalidMove im;
+        throw im;
+    }
     try
     {
         curpiece->move(end);
@@ -118,6 +123,7 @@ void Board::movePiece(vector<char> start, vector<char> end)
     {
         throw;
     }
+    turn += 1;
 }
 
 /*

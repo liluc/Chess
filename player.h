@@ -9,11 +9,11 @@ class King;
 class Player {
     int who;
     float score;
-    int computer_level; // 0 if human
+    Game *g;
     King *king;
 
     public:
-    Player(int, int = 0, bool = true, King * = nullptr);
+    Player(int, int = 0, King * = nullptr);
     ~Player();
 
     void inc(float);

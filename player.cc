@@ -1,6 +1,6 @@
 #include "player.h"
 
-Player::Player(int who, int score, bool human, King *k): who{who} {}
+Player::Player(int who, int score, King *k): who{who} {}
 
 Player::~Player()
 {
