@@ -12,8 +12,7 @@
 #include "bishop.h"
 #include "queen.h"
 #include "rook.h"
-
-class NoPromotion {};
+#include "exception.h"
 
 
 class History;
