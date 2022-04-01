@@ -11,23 +11,23 @@ using namespace std;
 
 Piece::Piece(Board *board, Cell *cell, int player, string type):board{board}, cell{cell}, player{player}, type{type}{}
 
-vector<char> Piece::getPos(){
+vector<char> Piece::getPos() const{
     return cell->getPos();
 }
 
-Cell * Piece::getCell(){
+Cell * Piece::getCell() const{
     return cell;
 }
 
-Board * Piece::getBoard(){
+Board * Piece::getBoard() const{
     return board;
 }
 
-int Piece::getPlayer(){
+int Piece::getPlayer() const{
     return player;
 }
 
-string Piece::getType(){
+string Piece::getType() const{
     return type;
 }
 
@@ -46,7 +46,7 @@ bool Piece::checkBound(vector<char> pos){
 // }
 
 //pos must have two entries only!!!!
-bool Piece::contained(vector<vector<char>> posList, vector<char> pos){
+bool Piece::contained(vector<vector<char>> posList, vector<char> pos) const{
     for (auto x : posList){
         if (x[0] != pos[0] || x[1] != pos[1]) return false;
     }
@@ -54,7 +54,7 @@ bool Piece::contained(vector<vector<char>> posList, vector<char> pos){
 }
 
 void Piece::move(vector<char> pos){
-    if (Piece::contained(possibleMoves(), pos)){
+    if (contained(possibleMoves(), pos)){
         Cell *targetCell = Piece::getBoard()->getCell(pos);
         delete targetCell->getPiece();
         targetCell->setPiece(this);
@@ -66,7 +66,7 @@ void Piece::move(vector<char> pos){
     }
 }
 
-bool Piece::isChecked(){
+bool Piece::isChecked() const{
     vector<vector<Cell *>> cells = board->getBoard();
     for (auto col : cells){
         for (auto x : col){

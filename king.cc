@@ -1,5 +1,6 @@
 #include "king.h"
 #include "piece.h"
+#include "board.h"
 #include <vector>
 using namespace std;
 
@@ -20,7 +21,7 @@ vector<vector<char>> King::possibleMoves(){
     return cells;
 }
 
-bool King::isChecked(){
+bool King::isChecked() const{
     //tranverse the board
     //check every piece
     //if it is a piece of component, then check its possible moves, if this cell is contained, return true;
@@ -37,6 +38,10 @@ bool King::isChecked(){
         }
     }
     return false;
+}
+
+bool King::isCheckMate() const {
+    return isChecked() && getBoard()->isStalemate();
 }
 
 King::~King(){}

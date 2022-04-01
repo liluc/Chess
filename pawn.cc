@@ -26,7 +26,7 @@ void Pawn::addCell_PawnMove (char colInc, char rowInc, vector<vector<char>> &cel
     char newRow = currentPos[1] + rowInc;
     vector<char> targetPos {newCol, newRow};
     Cell *targetCell = getBoard()->getCell(targetPos);
-    if (checkBound(targetCell)){
+    if (checkBound(targetCell->getPos())){
         if (targetCell->getPiece() == nullptr){
             cells.emplace_back(targetPos);
             steps += abs(colInc);
@@ -40,7 +40,7 @@ void Pawn::addCell_PawnCapture (char colInc, char rowInc, vector<vector<char>> &
     char newRow = currentPos[1] + rowInc;
     vector<char> targetPos {newCol, newRow};
     Cell *targetCell = getBoard()->getCell(targetPos);
-    if (checkBound(targetCell)){
+    if (checkBound(targetCell->getPos())){
         if (targetCell->getPiece() != nullptr){
             if (targetCell->getPiece()->getPlayer() != getPlayer()){
                 cells.emplace_back(targetPos);

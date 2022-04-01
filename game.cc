@@ -342,7 +342,8 @@ void Game::movePiece(vector<char> start, vector<char> end)
 
     try
     {
-        board->movePiece(start, end);
+        // board->movePiece(start, end);
+        //there is no board->movePiece ??
     }
     catch (InvalidMove &im)
     {

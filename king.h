@@ -10,8 +10,8 @@ public:
     King(Board *, Cell *, int);
     std::vector<std::vector<char>> possibleMoves() override;
     ~King();
-    bool isChecked() override;
-
+    bool isChecked() const override;
+    bool isCheckMate() const;
     /* suggestions
     bool ischecked() const;
     bool ischeckmate() const;

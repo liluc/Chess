@@ -19,27 +19,27 @@ class Piece{
     public:
     Piece(Board *, Cell *, int, std::string);
     
-    std::vector<char> getPos();
+    std::vector<char> getPos() const;
 
-    Cell *getCell();
+    Cell *getCell() const;
 
-    Board *getBoard();
+    Board *getBoard() const;
 
-    int getPlayer();
+    int getPlayer() const;
 
     bool checkBound(std::vector<char>);
 
-    std::string getType();
+    std::string getType() const;
 
     bool checkPlayer(Piece *);
 
-    bool contained(std::vector<std::vector<char>>, std::vector<char>);
+    bool contained(std::vector<std::vector<char>>, std::vector<char>) const;
 
     bool addCell(char colInc, char rowInc, std::vector<std::vector<char>> &cells);
 
     //returns true if king of player of this piece is checked
     //require: king of current player must exists
-    virtual bool isChecked();
+    virtual bool isChecked() const;
 
     Piece * createPiece(Cell *);
 

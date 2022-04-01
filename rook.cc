@@ -6,8 +6,6 @@
 #include "board.h"
 using namespace std;
 
-class InvalidMove{};
-
 Rook::Rook(Board *board, Cell *cell, int player):Piece{board, cell, player, "rook"}{}
 
 vector<vector<char>> Rook::possibleMoves(){
