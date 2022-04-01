@@ -15,26 +15,30 @@ Display::Display(Game *game): g{game} {
     game->getBoard()->attach(this);
 }
 Display::~Display() {
-    game->getBoard()->detach(this);
+    g->getBoard()->detach(this);
+}
+
+Game * Display::getGame() const{
+    return g;
 }
 
 void Display::notify() {
     display();
-    display()
+    display();
 }
 
 void Display::displayScore()
 {
     if (g->getWinner() != 0)
         return;
-    int whiteScore = g->getPlayers()[0]->getscore();
-    int blackScore = g->getPlayers()[1]->getscore();
+    int whiteScore = g->getPlayers()[0]->getScore();
+    int blackScore = g->getPlayers()[1]->getScore();
     cout << "White Score: " << whiteScore << endl;
     cout << "Black Score: " << blackScore << endl;
 }
 
 // just use super class ctor and dtor
-TextDisplay::TextDisplay() {}
+TextDisplay::TextDisplay(Game * g) : Display{g}{}
 
 TextDisplay::~TextDisplay() {}
 
@@ -44,7 +48,7 @@ void TextDisplay::display() {
         cout << i << " ";
         for (int j = 0; j < BOARDSIZE; ++j)
         {
-            Piece *p = g->getBoard()->getBoard().at(j).at(i - 1)->getPiece();
+            Piece *p = getGame()->getBoard()->getBoard().at(j).at(i - 1)->getPiece();
             if (p)
             {
                 char c = p->getType()[0];
@@ -70,37 +74,37 @@ void TextDisplay::display() {
     }
     cout << endl;
     cout << "  abcdefgh" << endl;
-    if (g->getPlayers().at(0)->getKing()->isChecked())
+    if (getGame()->getPlayers().at(0)->getKing()->isChecked())
         cout << "White is in check." << endl;
-    if (g->getPlayers().at(1)->getKing()->isChecked())
+    if (getGame()->getPlayers().at(1)->getKing()->isChecked())
         cout << "Black is in check." << endl;
         
-    if (g->isCheckmate())
+    if (getGame()->isCheckmate())
         cout << "Checkmate! ";
 
     // by separating "checkmate!" and "... wins", we can account for the case of resignation
-    if (g->isStalemate())
+    if (getGame()->isStalemate())
     {
         cout << "Stalemate!" << endl << "The game ends in a tie" << endl;
     }
-    else if (g->getWinner() == WHITE)
+    else if (getGame()->getWinner() == WHITE)
     {
         cout << "White wins!" << endl;
     }
-    else if (g->getWinner() == BLACK)
+    else if (getGame()->getWinner() == BLACK)
     {
         cout << "Black wins!" << endl;
     }
 }
 
-GraphicDisplay::GraphicDisplay() {}
+GraphicDisplay::GraphicDisplay(Game *g): Display{g}{}
 
 GraphicDisplay::~GraphicDisplay() {}
 
 // GraphicDisplay::display() {}
 
 
-void GameDisplay::displayScore()
+void Display::displayScore()
 {
     if (g->getWinner() != 0)
         return;

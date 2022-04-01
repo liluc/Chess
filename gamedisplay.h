@@ -10,6 +10,7 @@ class Display : public Observer {
 
     public:
     Display(Game *);
+    Game *getGame() const;
     virtual ~Display();
 
     void notify() override;
@@ -20,7 +21,7 @@ class Display : public Observer {
 
 class TextDisplay : public Display {
     public:
-    TextDisplay();
+    TextDisplay(Game *);
     ~TextDisplay();
 
     void display() override;
@@ -28,7 +29,7 @@ class TextDisplay : public Display {
 
 class GraphicDisplay : public Display {
     public:
-    GraphicDisplay();
+    GraphicDisplay(Game *);
     ~GraphicDisplay();
 
     // void display() override;
