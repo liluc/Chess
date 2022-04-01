@@ -80,9 +80,6 @@ void TextDisplay::display() {
 
     // by separating "checkmate!" and "... wins", we can account for the case of resignation
     if (g->isStalemate())
-
-    // by separating "checkmate!" and "... wins", we can account for the case of resignation
-    if (g->getWinner() == DRAW)
     {
         cout << "Stalemate!" << endl << "The game ends in a tie" << endl;
     }
