@@ -47,7 +47,9 @@ public:
     // shells for invoking Board methods
     void setPiece(const std::string &, std::vector<char>);
     void movePiece(std::vector<char>, std::vector<char>);
-    void pawnPromote(std:vector<char>, std::string &);
+
+    void pawnPromote(std::vector<char>, const std::string &);
+
 
     friend std::ostream operator<<(std::ostream &, const Game *);
 

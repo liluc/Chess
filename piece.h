@@ -2,26 +2,20 @@
 #define _PIECE_H_
 #include "board.h"
 #include "cell.h"
+#include "exception.h"
 #include <vector>
 #include <string>
 
 // Cell's implementation doesn't use any methods of other classes, so cell forward declares Piece
 // class Cell;
 class Board;
-class InvalidMove {
-    public:
-    InvalidMove();
-    ~InvalidMove();
-};  // error type
+// error type moved in seperate header file
 
 class Piece{
     Cell *cell;
     Board *board;
     int player;
     std::string type;
-
-public:
-    Piece(Cell *, int);
     public:
     Piece(Board *, Cell *, int, std::string);
     

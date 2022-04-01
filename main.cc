@@ -1,6 +1,7 @@
 #include "game.h"
 #include "gamedisplay.h"
 #include "piece.h"
+#include "exception.h"
 #include <vector>
 #include <string>
 #include <iostream>
@@ -57,7 +58,7 @@ int main()
                 cin >> upgrade;
                 try {
                     game->pawnPromote(vEnd, upgrade);
-                } catch (InvalideMove &) {
+                } catch (InvalidMove &) {
                     cerr << "Invalid Move command" << endl;
                 }
             } catch (InvalidMove &) {
