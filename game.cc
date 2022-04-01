@@ -59,6 +59,7 @@ int Game::getWinner() const
 void Game::setWinner(int w)
 {
     winner = w;
+    board->setState(true);
 }
 
 // board builder methods
@@ -112,6 +113,7 @@ void Game::fillinPieces()
 void Game::runGame(string white, string black)
 {
     mode = 1;
+    winner = 0;
     if (white == "computer[1]")
     {
         players[0]->setLevel(1);
@@ -318,10 +320,15 @@ void Game::pawnPromote(vector<char> pos, const string & p) {
 void Game::movePiece(vector<char> start, vector<char> end)
 {
     const int BOARDSIZE = 8;
-    if (winner > 0)
-        concludeScore();
-    if (mode != 1)
+    if (winner > 0) {
+        cerr << "This game has already ended, please start a new game" << endl;
+        InvalidMove im;
+        throw im;
+    }
+    if (mode != 1) {
         cerr << "Invalid command, this command is only valid in game mode" << endl;
+        throw im;
+    }   
     
     int curplayer = board->getTurn() % 2;
     if (board->checkPos(start)->getType() == "pawn") {
@@ -341,29 +348,24 @@ void Game::movePiece(vector<char> start, vector<char> end)
     {
         cerr << "This move is invalid, please check chess rulesheet or seek mental support" << endl;
     }
-    if (board->getstate() == true)
+    if (isCheckmate())
     {
         if (players.at(0)->getKing()->isChecked())
         {
             winner = 2;
         }
-        else if (players.at(1)->getKing()->isChecked())
-        {
+        else {
             winner = 1;
         }
-        else
-        {
-            winner = 3;
-        }
+    }
+    if (isStalemate()) {
+        winner = 3;
+    }
+    if (winner > 0) {
+        concludeScore();
     }
 }
 
-void Game::displayScore() const
-{
-    cout << "Final score:" << endl;
-    cout << "White: " << players.at(0)->getScore() << endl;
-    cout << "Black: " << players.at(1)->getScore() << endl;
-}
 void Game::concludeScore() const
 {
     if (winner == 0)
@@ -378,4 +380,30 @@ void Game::concludeScore() const
         players.at(1)->inc(0.5);
     }
     return;
+}
+
+bool Board::isStalemate() const
+{
+    bool checked = (players[0]->getKing()->isChecked() && players[1]->getKing()->isChecked());
+    if (checked) return;
+    bool stale{!(checked)};
+    for (auto piece : board->getPieces()) {
+        if (((turn % 2) + 1) != piece->getPlayer())
+            continue;
+        int pos_moves = piece->possibleMoves().size();
+        stale = stale && (pos_moves == 0);
+    }
+    return stale;
+}
+
+bool Board::isCheckmate() const {
+    bool checked = (players[0]->getKing()->isChecked() && players[1]->getKing()->isChecked());bool mate{true};
+    if (!(checked)) return;
+    for (auto piece : board->getPieces()) {
+        if (((turn % 2) + 1) != piece->getPlayer())
+            continue;
+        int pos_moves = piece->possibleMoves().size();
+        checked = checked && (pos_moves == 0);
+    }
+    return checked;
 }

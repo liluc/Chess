@@ -18,12 +18,13 @@ class Board : public Subject
 public:
     Board();
     ~Board();
-    bool getstate() const;
+    bool getState() const;
     std::vector<std::vector<Cell *>> getBoard() const;
     std::vector<Piece *> getPieces() const;
     int getTurn() const;
-
     Cell *getCell(std::vector<char>) const;
+
+    bool setState(bool);
     void setPiece(Piece *, std::vector<char>);
     void setTurn(int);
     Piece *checkPos(std::vector<char>) const;
@@ -32,6 +33,9 @@ public:
     // isStalemate observes the board and returns true if for the current
     // player, there are no possible moves
     bool isStalemate() const;
+    void isCheckmate() const;
+
+    void notify() override;
 };
 
 #endif

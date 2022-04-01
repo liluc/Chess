@@ -47,14 +47,13 @@ public:
     // shells for invoking Board methods
     void setPiece(const std::string &, std::vector<char>);
     void movePiece(std::vector<char>, std::vector<char>);
-
     void pawnPromote(std::vector<char>, const std::string &);
 
-
-    friend std::ostream operator<<(std::ostream &, const Game *);
+    // checks for board state
+    bool isCheckmate() const;
+    bool isStalemate() const;
 
     void concludeScore() const;
-    void displayScore() const;
 
     // additional features
     void undo();

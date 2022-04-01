@@ -1,5 +1,6 @@
 #include "board.h"
 #include <iostream>
+#include "exception.h"
 using namespace std;
 
 Board::Board()
@@ -41,9 +42,13 @@ Board::~Board()
     }
 }
 
-bool Board::getstate() const
+bool Board::getState() const
 {
     return ended;
+}
+
+void Board::setState(bool term) {
+    ended = term;
 }
 
 vector<Piece *> Board::getPieces() const
@@ -96,44 +101,29 @@ void Board::setPiece(Piece *p, vector<char> pos)
 }
 
 // NVI idiom
-/*
+
 void Board::movePiece(vector<char> start, vector<char> end)
 {
+
     Piece *curpiece = checkPos(start);
     Piece *destpiece = checkPos(end);
-    if (destpiece)
-    {
-        int size = pieces.size();
-        for (int i = 0; i < size; ++i)
-        {
-            if (pieces.at(i) == destpiece)
-            {
-                pieces.erase(pieces.begin() + i);
-                return;
-            }
-        }
-        delete destpiece;
-    }
-    if (ended)
-        cerr << "Game is already ended, please start a new game" << endl;
-
     if (!(curpiece))
         return;
     try
     {
         curpiece->move(end);
-        if (isStalemate())
-            ended = true;
+        notifyObservers();
     }
     catch (InvalidMove &im)
     {
         throw;
     }
 }
-*/
 
+/*
 bool Board::isStalemate() const
 {
+    if (->)
     bool stale{true};
     for (auto piece : pieces) {
         if (((turn % 2) + 1) != piece->getPlayer())
@@ -142,3 +132,8 @@ bool Board::isStalemate() const
     }
     return stale;
 }
+
+bool Board::isCheckmate() const {
+    bool mate{true};
+
+} */

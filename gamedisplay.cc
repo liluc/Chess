@@ -7,8 +7,13 @@ const int WHITE = 1;
 const int BLACK = 2;
 const int DRAW = 3;
 
-Display::Display(Game *game): g{game} {}
-Display::~Display() {}
+// Display has-a Game
+Display::Display(Game *game): g{game} {
+    game->getBoard()->attach(this);
+}
+Display::~Display() {
+    game->getBoard()->detach(this);
+}
 
 void Display::notify() {
     display();
@@ -66,14 +71,13 @@ void TextDisplay::display() {
         cout << "White is in check." << endl;
     if (g->players.at(1)->getKing()->ischecked())
         cout << "Black is in check." << endl;
-    if (g->players.at(0)->getKing()->ischeckmate() ||
-        g->players.at(1)->getKing()->ischeckmate())
+    if (g->isCheckmate())
         cout << "Checkmate! ";
 
     // by separating "checkmate!" and "... wins", we can account for the case of resignation
-    if (winner == DRAW)
+    if (g->isStalemate())
     {
-        cout << "Stalemate" << endl;
+        cout << "Stalemate!" << endl << "The game ends in a tie" << endl;
     }
     else if (winner == WHITE)
     {
