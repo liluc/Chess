@@ -2,16 +2,36 @@
 #define __GAMEDIASPLAY_H_
 
 #include "game.h"
+#include "observer.h"
+#include "subject.h"
 
-class GameDisplay {
+class Display : public Observer {
     Game *g;
 
     public:
-    GameDisplay(Game *);
-    ~GameDisplay();
-    void display();
+    Display(Game *);
+    virtual ~Display();
+
+    void notify() override;
+
+    virtual void display() = 0;
     void displayScore();
-    // display_graphic();
+};
+
+class TextDisplay : public Display {
+    public:
+    TextDisplay();
+    ~TextDisplay();
+
+    void display() override;
+};
+
+class GraphicDisplay : public Display {
+    public:
+    GraphicDisplay();
+    ~GraphicDisplay();
+
+    // void display() override;
 };
 
 #endif

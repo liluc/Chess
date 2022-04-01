@@ -7,10 +7,30 @@ const int WHITE = 1;
 const int BLACK = 2;
 const int DRAW = 3;
 
-GameDisplay::GameDisplay(Game *game): g{game} {}
-GameDisplay::~GameDisplay() {}
+Display::Display(Game *game): g{game} {}
+Display::~Display() {}
 
-void GameDisplay::display() {
+void Display::notify() {
+    display();
+    display()
+}
+
+void Display::displayScore()
+{
+    if (g->getWinner() != 0)
+        return;
+    int whiteScore = g->getPlayers()[0]->getscore();
+    int blackScore = g->getPlayers()[1]->getscore();
+    cout << "White Score: " << whiteScore << endl;
+    cout << "Black Score: " << blackScore << endl;
+}
+
+// just use super class ctor and dtor
+TextDisplay::TextDisplay() {}
+
+TextDisplay::~TextDisplay() {}
+
+void TextDisplay::display() {
     for (int i = BOARDSIZE; i > 0; --i)
     {
         cout << i << " ";
@@ -65,12 +85,10 @@ void GameDisplay::display() {
     }
 }
 
-void Gamedisplay::displayScore()
-{
-    if (g->getWinner() != 0)
-        return;
-    int whiteScore = g->getPlayers()[0]->getscore();
-    int blackScore = g->getPlayers()[1]->getscore();
-    cout << "White Score: " << whiteScore << endl;
-    cout << "Black Score: " << blackScore << endl;
-}
+GraphicDisplay::GraphicDisplay() {}
+
+GraphicDisplay::~GraphicDisplay() {}
+
+// GraphicDisplay::display() {}
+
+

@@ -47,7 +47,8 @@ int main()
             if (start.length() < 2 || end.length() < 2) {
                 cerr << "Invalid input" << endl;
                 continue;
-            }
+            } 
+            if (start[0] < 'a' || start[0] > 'h')
             vector<char> vStart{start[0], start[1]};
             vector<char> vEnd{end[0], end[1]};
             try {
@@ -55,13 +56,7 @@ int main()
             } catch (NoPromotion &) {
                 string upgrade;
                 cin >> upgrade;
-                try {
-                    game->pawnPromote(vEnd, upgrade);
-                } catch (InvalideMove &) {
-                    cerr << "Invalid Move command" << endl;
-                }
-            } catch (InvalidMove &) {
-                cerr << "Invalid Move command" << endl;
+                game->pawnPromote(vEnd, upgrade);
             }
             textdis->display();
             textdis->displayScore();

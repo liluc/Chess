@@ -4,8 +4,10 @@
 #include "cell.h"
 #include "piece.h"
 #include <vector>
+#include "observer.h"
+#include "subject.h"
 
-class Board
+class Board : public Subject
 {
     std::vector<Piece *> pieces;
     std::vector<std::vector<Cell *>> board;
