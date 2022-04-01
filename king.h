@@ -4,8 +4,7 @@
 #include "piece.h"
 
 class Cell;
-class King : public Piece
-{
+class King : public Piece{
 public:
     King(Board *, Cell *, int);
     std::vector<std::vector<char>> possibleMoves() override;
