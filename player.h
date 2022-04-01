@@ -5,13 +5,13 @@
 #include "king.h"
 
 class King;
-
+class Game;
 class Player {
     int who;
     float score;
     Game *g;
     King *king;
-
+    int computer_level;
     public:
     Player(int, int = 0, King * = nullptr);
     ~Player();

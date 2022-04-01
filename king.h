@@ -10,7 +10,6 @@ public:
     std::vector<std::vector<char>> possibleMoves() override;
     ~King();
     bool isChecked() const override;
-    
     // bool isCheckMate() const;
     /* suggestions
     bool ischecked() const;

@@ -24,7 +24,7 @@ public:
     int getTurn() const;
     Cell *getCell(std::vector<char>) const;
 
-    bool setState(bool);
+    void setState(bool);
     void setPiece(Piece *, std::vector<char>);
     void setTurn(int);
     Piece *checkPos(std::vector<char>) const;
@@ -35,7 +35,7 @@ public:
     bool isStalemate() const;
     void isCheckmate() const;
 
-    void notify() override;
+    // void notify() override;
 };
 
 #endif

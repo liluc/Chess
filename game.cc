@@ -319,10 +319,10 @@ void Game::pawnPromote(vector<char> pos, const string & p) {
 
 void Game::movePiece(vector<char> start, vector<char> end)
 {
+    InvalidMove im;
     const int BOARDSIZE = 8;
     if (winner > 0) {
-        cerr << "This game has already ended, please start a new game" << endl;
-        InvalidMove im;
+        cerr << "This game has already ended, please start a new game" << endl; 
         throw im;
     }
     if (mode != 1) {
@@ -383,13 +383,13 @@ void Game::concludeScore() const
     return;
 }
 
-bool Board::isStalemate() const
+bool Game::isStalemate() const
 {
     bool checked = (players[0]->getKing()->isChecked() && players[1]->getKing()->isChecked());
-    if (checked) return;
+    if (checked) return false;
     bool stale{!(checked)};
     for (auto piece : board->getPieces()) {
-        if (((turn % 2) + 1) != piece->getPlayer())
+        if (((board->getTurn() % 2) + 1) != piece->getPlayer())
             continue;
         int pos_moves = piece->possibleMoves().size();
         stale = stale && (pos_moves == 0);
@@ -397,11 +397,11 @@ bool Board::isStalemate() const
     return stale;
 }
 
-bool Board::isCheckmate() const {
+bool Game::isCheckmate() const {
     bool checked = (players[0]->getKing()->isChecked() && players[1]->getKing()->isChecked());bool mate{true};
-    if (!(checked)) return;
+    if (!(checked)) return false;
     for (auto piece : board->getPieces()) {
-        if (((turn % 2) + 1) != piece->getPlayer())
+        if (((board->getTurn() % 2) + 1) != piece->getPlayer())
             continue;
         int pos_moves = piece->possibleMoves().size();
         checked = checked && (pos_moves == 0);

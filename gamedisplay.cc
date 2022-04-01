@@ -104,13 +104,5 @@ GraphicDisplay::~GraphicDisplay() {}
 // GraphicDisplay::display() {}
 
 
-void Display::displayScore()
-{
-    if (g->getWinner() != 0)
-        return;
-    int whiteScore = g->getPlayers()[0]->getScore();
-    int blackScore = g->getPlayers()[1]->getScore();
-    cout << "White Score: " << whiteScore << endl;
-    cout << "Black Score: " << blackScore << endl;
-}
+
 

@@ -21,7 +21,7 @@ int main()
 {
     string command;
     Game *game = new Game;
-    GameDisplay *textdis = new GameDisplay{game};
+    TextDisplay *textdis = new TextDisplay{game};
     while (cin >> command)
     {
         if (command == "game")
@@ -37,7 +37,7 @@ int main()
         {
             int turn = game->getBoard()->getTurn() % 2;
             game->setWinner(turn + 1);
-            game->displayScore();
+            textdis->displayScore();
         }
 
         else if (command == "move")
@@ -49,7 +49,7 @@ int main()
                 cerr << "Invalid input" << endl;
                 continue;
             } 
-            if (start[0] < 'a' || start[0] > 'h')
+            if (!(start[0] < 'a' || start[0] > 'h')){
             vector<char> vStart{start[0], start[1]};
             vector<char> vEnd{end[0], end[1]};
             try {
@@ -67,6 +67,7 @@ int main()
             }
             textdis->display();
             textdis->displayScore();
+            }
         }
 
         else if (command == "setup")
