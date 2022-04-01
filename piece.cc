@@ -31,8 +31,7 @@ string Piece::getType(){
     return type;
 }
 
-bool Piece::checkBound(Cell *cell){
-    vector<char> pos = getPos();
+bool Piece::checkBound(vector<char> pos){
     if (pos[0] >= 'a' && pos[0] <= 'h'){
         if (pos[1] >= '1' && pos[1] <= '8'){
             return true;
@@ -42,9 +41,9 @@ bool Piece::checkBound(Cell *cell){
 }
 
 //check if the player of this piece is the same as the other piece
-bool Piece::checkPlayer(Piece *other){
-    return player == other->getPlayer();
-}
+// bool Piece::checkPlayer(Piece *other){
+//     return player == other->getPlayer();
+// }
 
 //pos must have two entries only!!!!
 bool Piece::contained(vector<vector<char>> posList, vector<char> pos){
@@ -124,32 +123,34 @@ bool Piece::addCell(char colInc, char rowInc, vector<vector<char>> &cells){
     vector<char> currentPos = getPos();
     char newCol = currentPos[0] + colInc;
     char newRow = currentPos[1] + rowInc;
+    
     vector<char> targetPos {newCol, newRow};
     Cell *targetCell = getBoard()->getCell(targetPos);
     
     
-    if (checkBound(targetCell)){
-        if (isChecked()){
-            Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
-            Piece *temp = createPiece(targetCell);
-            cell->setPiece(nullptr);
-            targetCell->setPiece(temp);
-            //if setPiece is used, then the current piece will get deleted, and targetCellPiece will get deleted.
-            //so we cannot use it for now.
-            if (!isChecked()){
+    if (checkBound(targetPos)){
+        if (targetCell->getPiece() == nullptr || targetCell->getPiece()->getPlayer() != player){
+            if (isChecked()){
+                Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
+                //if the piece is a piece of the current player, then the pos is invalid for sure
+                Piece *temp = createPiece(targetCell);
+                cell->setPiece(nullptr);
+                targetCell->setPiece(temp);
+                //if setPiece is used, then the current piece will get deleted, and targetCellPiece will get deleted.
+                //so we cannot use it for now.
+                if (!isChecked()){
+                    cells.emplace_back(targetPos);
+                }
+                cell->setPiece(this);
+                targetCell->setPiece(targetCellPiece);
+                delete temp;
+            } else {
                 cells.emplace_back(targetPos);
             }
-            cell->setPiece(this);
-            targetCell->setPiece(targetCellPiece);
-            delete temp;
-        } else {
-            cells.emplace_back(targetPos);
         }
+        
     } 
     if (targetCell->getPiece() != nullptr){
-        if (targetCell->getPiece()->getPlayer() == Piece::getPlayer()){
-            cells.pop_back();
-        }
         return true;
     }
     return false;
