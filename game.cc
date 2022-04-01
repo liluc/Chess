@@ -1,7 +1,6 @@
 #include "game.h"
 using namespace std;
 
-class NoPromotion;
 
 Game::Game()
 {
@@ -299,11 +298,8 @@ void Game::setPiece(const string &p, vector<char> pos)
     board->setPiece(p, pos);
 }
 
-void Game::pawnPromote(string pos, const char p) {
+void Game::pawnPromote(vector<char> pos, const string & p) {
     piece * upgrade = stringtoPiece(board, p, pos);
-    vector<char> pos_vec;
-    pos_vec.emplace_back(pos[0]);
-    pos_vec.emplace_back(pos[1]);
     board->setPiece(upgrade, pos_vec);
 }
 

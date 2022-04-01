@@ -55,7 +55,13 @@ int main()
             } catch (NoPromotion &) {
                 string upgrade;
                 cin >> upgrade;
-                game->pawnPromote(vEnd, upgrade);
+                try {
+                    game->pawnPromote(vEnd, upgrade);
+                } catch (InvalideMove &) {
+                    cerr << "Invalid Move command" << endl;
+                }
+            } catch (InvalidMove &) {
+                cerr << "Invalid Move command" << endl;
             }
             textdis->display();
             textdis->displayScore();

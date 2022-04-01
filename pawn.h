@@ -8,8 +8,8 @@ class Pawn : public Piece{
     int steps;
     public:
     Pawn(Board *, Cell *, int);
-    void Pawn::addCell_PawnMove (char colInc, char rowInc, vector<vector<char>> &cells);
-    void Pawn::addCell_PawnCapture (char colInc, char rowInc, vector<vector<char>> &cells);
+    void Pawn::addCell_PawnMove (char colInc, char rowInc, std::vector<std::vector<char>> &cells);
+    void Pawn::addCell_PawnCapture (char colInc, char rowInc, std::vector<std::vector<char>> &cells);
     std::vector<std::vector<char>> possibleMoves() override;
     void promote(Piece *);
     ~Pawn();
