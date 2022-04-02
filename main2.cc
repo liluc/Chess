@@ -1,6 +1,6 @@
 #include "game.h"
 #include "gamedisplay.h"
-#include ""
+#include "control.h" 
 #include "piece.h"
 #include "exception.h"
 #include <vector>
@@ -28,3 +28,4 @@ int main() {
         }
     }
 }
+

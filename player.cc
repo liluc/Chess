@@ -1,11 +1,8 @@
 #include "player.h"
 
-Player::Player(int who, int score, Piece *k): who{who} {}
+Player::Player(int who, Game * g, int score, Piece *k): who{who}, game{g} {}
 
-Player::~Player()
-{
-    delete king;
-}
+Player::~Player() {} // no need to delete board and king because player doesn't own them
 
 void Player::inc(float x)
 {
@@ -37,7 +34,7 @@ King *Player::getKing() const
     return king;
 }
 
-Human::Human(int who, int score, Piece *king): Player{who, score, king} {}
+Human::Human(int who, Game *g, int score, Piece *king): Player{who, g, score, king} {}
 
 Human::~Human() {}
 
@@ -46,7 +43,7 @@ vector<string> Human::smartMove() {
     return retstr;
 }
 
-Computer::Computer() {int who, int level, int score, Piece *king): Player{who, score, king}, level{level} {}
+Computer::Computer() {int who, Game *g, int level, int score, Piece *king): Player{who, g, score, king}, level{level} {}
 
 Computer::~Computer() {}
 

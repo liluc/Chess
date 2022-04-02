@@ -69,16 +69,56 @@ void Control::makeMove(int turn) {
         
         game->movePiece(vector<char>{start_1, start_2}, vector<char>{end_1, end_2});
     }
-    display();
+    td->display();
+    gd->display();
 }
 
 void Control::runGame() {
     string cmd;
-    int turn = 0;
+    int turn = game->getTurn();
     game->setWinner(0);
     while (game->getWinner() == 0) {
         makeMove(turn);
         turn += 1;
     }
-    displayScore();
+    td->displayScore();
 }
+
+void Control::pieceSetup() {
+    string type;
+    cin >> type;
+    while (type != "done")
+    {
+        if (type == "+") {
+            string piece;
+            string pos;
+            cin >> piece >> pos;
+            vector<char> vPos{pos[0], pos[1]};
+            game->setPiece(piece, vPos);
+        }
+
+        else if (type == "-") {
+            string pos;
+            cin >> pos;
+            vector<char> vPos{pos[0], pos[1]};
+            game->setPiece("null", vPos);
+        }
+
+        // colour should only be black and white for now.
+        else if (type == "=")
+        {
+            string player;
+            cin >> player;
+            if (player == "white")
+            {
+                game->getBoard()->setTurn(0);
+            }
+            else if (player == "black")
+            {
+                game->getBoard()->setTurn(1);
+            }
+        }
+        dt->display();
+    }
+}
+

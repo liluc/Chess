@@ -4,7 +4,6 @@
 #include <vector>
 #include <iostream>
 #include "board.h"
-#include "player.h"
 #include "history.h"
 #include "pawn.h"
 #include "king.h"
@@ -14,7 +13,7 @@
 #include "rook.h"
 #include "exception.h"
 
-
+class Player;
 class History;
 
 // Game will serve as an interface to the board, as well as maintaining certain client-side data(like scores)

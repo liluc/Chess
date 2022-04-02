@@ -15,6 +15,9 @@ class Control {
     Control(Game *);
     ~Control();
     void createPlayer(int, const std::string &);
+
     void runGame();
+    void makeMove(int);   // makeMove() is a helper method
+    
     void pieceSetup();
 };

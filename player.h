@@ -2,6 +2,7 @@
 #define __PLAYER_H__
 
 #include <vector>
+#include "game.h"
 #include "king.h"
 
 class King;
@@ -9,11 +10,11 @@ class King;
 class Player {
     int who;
     float score;
-    Board * b;
+    Game * game;
     Piece * king;
 
     public:
-    Player(int, int = 0, Piece * = nullptr);
+    Player(int, Game *, int = 0, Piece * = nullptr);
     ~Player();
 
     void inc(float);
@@ -29,7 +30,7 @@ class Player {
 
 class Human : public Player {
     public:
-    Human(int, int = 0, Piece * = nullptr);
+    Human(int, Game * int = 0, Piece * = nullptr);
     ~Human();
     virtual std::vector<std::string> smartMove() override final;
 };
@@ -37,7 +38,7 @@ class Human : public Player {
 class Computer : public Player {
     int level;
     public:
-    Computer(int, int = 0, Piece * = nullptr);
+    Computer(int, Game *, int, int = 0, Piece * = nullptr);
     ~Computer();
     virtual std::vector<std::string> smartMove() override = 0;
     int getLevel();
