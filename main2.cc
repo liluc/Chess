@@ -11,15 +11,19 @@ using namespace std;
 int main() {
     string cmd;
     Game *game = new Game;
-    TextDisplay *textdis = new TextDisplay{game};
     Control *gamectrl = new Control{game};
     while (cin >> cmd) {
         if (cmd == "game") {
+            // move, resign is part of the game.
             string white;
             string black;
             gamectrl->createPlayer(1, white);
             gamectrl->createPlayer(2, black);
             gamectrl->runGame();
-            }
+        } else if (cmd == "setup") {
+            piece_Setup();
+        } else {
+            cerr << "Invalid command!" << endl;
+        }
     }
 }
