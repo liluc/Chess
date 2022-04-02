@@ -31,6 +31,7 @@ int main()
             cin >> white >> black; // haven't handle the computer AI mode situation
             game->runGame(white, black);
             textdis->display();
+            ///
         }
 
         else if (command == "resign")
@@ -113,5 +114,11 @@ int main()
     }
     cout << "Final Score: " << endl;
     textdis->displayScore();
+    
+    //testing cout 
+    // cout << "displayscore finished" << endl;
+
+    delete textdis;
     delete game;
+
 }

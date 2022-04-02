@@ -156,7 +156,6 @@ bool King::isChecked() const{
     //         }
     //     }
     // }
-    return false;
 }
 
 // bool King::isCheckMate() const {

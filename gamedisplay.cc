@@ -89,8 +89,14 @@ void TextDisplay::display() {
     if (getGame()->isStalemate())
     {
         cout << "Stalemate!" << endl << "The game ends in a tie" << endl;
+    } 
+    else {
+
+        //testing cout
+        cout << "not in stalemate" << endl;
+        
     }
-    else if (getGame()->getWinner() == WHITE)
+        if (getGame()->getWinner() == WHITE)
     {
         cout << "White wins!" << endl;
     }

@@ -1,11 +1,11 @@
 #include "player.h"
+#include "piece.h"
+#include <iostream>
+using namespace std;
 
 Player::Player(int who, int score, King *k): who{who} {}
 
-Player::~Player()
-{
-    delete king;
-}
+Player::~Player(){ }
 
 void Player::inc(float x)
 {

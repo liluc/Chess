@@ -23,12 +23,15 @@ Game::Game()
 
 Game::~Game()
 {
+    
     delete board;
+    
     delete hist;
     for (auto player : players)
     {
         delete player;
     }
+    
 }
 
 // getters & setters
@@ -72,8 +75,8 @@ void Game::fillinPieces()
     {
         Pawn *pawn1 = new Pawn{board, grid.at(i).at(1), 1};
         Pawn *pawn2 = new Pawn{board, grid.at(i).at(6), 2};
-        board->getPieces().emplace_back(pawn1);
-        board->getPieces().emplace_back(pawn2);
+        board->pushPieces(pawn1);
+        board->pushPieces(pawn2);
         grid.at(i).at(1)->setPiece(pawn1);
         grid.at(i).at(6)->setPiece(pawn2);
 
@@ -108,8 +111,8 @@ void Game::fillinPieces()
             p1 = p3;
             p2 = p4;
         }
-        board->getPieces().emplace_back(p1);
-        board->getPieces().emplace_back(p2);
+        board->pushPieces(p1);
+        board->pushPieces(p2);
         grid.at(i).at(0)->setPiece(p1);
         grid.at(i).at(7)->setPiece(p2);
     }
@@ -347,7 +350,7 @@ void Game::movePiece(vector<char> start, vector<char> end)
 
     try
     {
-        // board->movePiece(start, end);
+        board->movePiece(start, end);
         //there is no board->movePiece ??
     }
     catch (InvalidMove &im)
@@ -390,15 +393,46 @@ void Game::concludeScore() const
 
 bool Game::isStalemate() const
 {
+    //testing cout
+    // cout << "isStalemate is called" << endl;
+
     bool checked = (players[0]->getKing()->isChecked() && players[1]->getKing()->isChecked());
     if (checked) return false;
-    bool stale{!(checked)};
+
+    //testing cout
+    // cout << "checked is false" << endl;
+    // cout << board->getPieces().back() << endl; //returns segfault, board->pieces vector is not initialized!
+
+    bool stale{!(checked)}; //original stale is true
+
+
+    //testing cout
+    // cout << "#pieces in board: " << board->getPieces().size() << endl;
+
     for (auto piece : board->getPieces()) {
-        if (((board->getTurn() % 2) + 1) != piece->getPlayer())
+
+        //testing cout
+        // cout << "turn: " << board->getTurn() << endl;
+
+        if (((board->getTurn() % 2) + 1) != piece->getPlayer()){
+            
             continue;
+        }
+        
+        //testing cout
+        // cout << "before # of possible move" << endl;
+        // cout << "piece *: " << piece << endl;
+
         int pos_moves = piece->possibleMoves().size();
+        
+        //testing cout 
+        // cout << "piece: " << piece->getPos()[0] << piece->getPos()[1] << endl;
+        // cout << "#moves: " << pos_moves << endl;
+
         stale = stale && (pos_moves == 0);
     }
+    //testign cout
+    // cout << "return stale: " << stale << endl;
     return stale;
 }
 

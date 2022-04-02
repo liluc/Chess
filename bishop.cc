@@ -1,6 +1,7 @@
 #include "bishop.h"
 #include "piece.h"
 #include <vector>
+#include <iostream>
 using namespace std;
 
 Bishop::Bishop(Board *board, Cell *cell, int player):Piece{board, cell, player, "bishop"}{}
@@ -22,4 +23,6 @@ vector<vector<char>> Bishop::possibleMoves(){
     return cells;
 }
 
-Bishop::~Bishop(){}
+Bishop::~Bishop(){
+
+}

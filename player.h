@@ -9,7 +9,7 @@ class Game;
 class Player {
     int who;
     float score;
-    Game *g;
+    Board *board;
     King *king;
     int computer_level;
     public:

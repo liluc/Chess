@@ -64,13 +64,15 @@ void Pawn::addCell_PawnCapture (int colInc, int rowInc, vector<vector<char>> &ce
     // void promote();
     // ~Pawn();
 vector<vector<char>> Pawn::possibleMoves(){
+    //testing cout
+    // cout << "pawn possible move is called" << endl;
     vector<vector<char>> cells;
     vector<char> currentPos = getPos();
     if (getPlayer() == 1){
         addCell_PawnMove(0, 1, cells);
         addCell_PawnCapture(1, 1, cells);
         addCell_PawnCapture(-1, 1, cells);
-        if (getCell()->getPos()[1] == '1'){
+        if (getCell()->getPos()[1] == '2'){
             addCell_PawnMove(0, 2, cells);
         }
     } else if (getPlayer() == 2){
@@ -82,11 +84,12 @@ vector<vector<char>> Pawn::possibleMoves(){
         }
     }
 
-    //testing cout
-    cout << "in Cells:" << endl;
-    for (auto cell : cells){
-        cout << cell[0] << cell[1] << endl;
-    }
+    // testing cout
+    // cout << currentPos[0] << currentPos[1] << endl;
+    // cout << "in Cells:" << endl;
+    // for (auto cell : cells){
+    //     cout << cell[0] << cell[1] << endl;
+    // }
 
 
     return cells;    

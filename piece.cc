@@ -49,13 +49,17 @@ bool Piece::checkBound(vector<char> pos) const{
 //pos must have two entries only!!!!
 bool Piece::contained(vector<vector<char>> posList, vector<char> pos) const{
     for (auto x : posList){
-        if (x[0] != pos[0] || x[1] != pos[1]) return false;
+        if (x[0] == pos[0] && x[1] == pos[1]) return true;
     }
-    return true;
+    return false;
 }
 
 void Piece::move(vector<char> pos){
-    if (contained(possibleMoves(), pos)){
+    //testing cout
+    vector<vector<char>> possible = possibleMoves();
+    cout << "# of possible moves: " << possible.size() << endl;
+    cout << "target pos" << pos[0] << pos[1] << endl;
+    if (contained(possible, pos)){
         Cell *targetCell = Piece::getBoard()->getCell(pos);
         delete targetCell->getPiece();
         targetCell->setPiece(this);
@@ -72,10 +76,12 @@ bool Piece::isChecked() const{
     for (auto col : cells){
         for (auto x : col){
             Piece *piece = x->getPiece();
-            if (piece->getType() == "king"){
-                if(piece->getPlayer() == player){
-                    return piece->isChecked();
-                } 
+            if (piece){
+                if (piece->getType() == "king"){
+                    if(piece->getPlayer() == player){
+                        return piece->isChecked();
+                    } 
+                }
             }
         }
     }
@@ -124,11 +130,21 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
     vector<char> currentPos = getPos();
     char newCol = currentPos[0] + colInc;
     char newRow = currentPos[1] + rowInc;
+
+    //testing cout
+    cout << "current type: " << getType() << endl;
+    cout << "current pos: " << currentPos[0] << currentPos[1] << endl;
+    cout << "new pos: " << newCol << newRow << endl;
     
     vector<char> targetPos {newCol, newRow};
     if (checkBound(targetPos)){
         Cell *targetCell = getBoard()->getCell(targetPos);
-        if (targetCell->getPiece() == nullptr || targetCell->getPiece()->getPlayer() != player){
+        
+        
+
+        if (targetCell->getPiece() == nullptr){
+            //testing cout
+            cout << "target cell get: " << newCol << newRow << endl;
             //isChecked calls possible moves, possible moves calls addcell and addcell calls ischecked.
             if (isChecked()){
                 Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
@@ -148,7 +164,28 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
                 cells.emplace_back(targetPos);
             }
         }
-        if (targetCell->getPiece() != nullptr){
+
+        else {
+            if (targetCell->getPiece()->getPlayer() != player){
+                if (isChecked()){
+                    Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
+                    //if the piece is a piece of the current player, then the pos is invalid for sure
+                    Piece *temp = createPiece(targetCell);
+                    cell->setPiece(nullptr);
+                    targetCell->setPiece(temp);
+                    //if setPiece is used, then the current piece will get deleted, and targetCellPiece will get deleted.
+                    //so we cannot use it for now.
+                    if (!isChecked()){
+                        cells.emplace_back(targetPos);
+                    }
+                    cell->setPiece(this);
+                    targetCell->setPiece(targetCellPiece);
+                    delete temp;
+                } else {
+                    cells.emplace_back(targetPos);
+                }
+
+            }
             return true;
         }
     }

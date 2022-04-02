@@ -1,8 +1,10 @@
 #include "history.h"
 #include <vector>
+#include <iostream>
 using namespace std;
 
-History::History():histBoard{new vector<Board *>}{}
+History::History():histBoard{new vector<Board *>}{
+}
 
 void History::push(Board *board){
     histBoard->emplace_back(board);
@@ -19,5 +21,8 @@ Board * History::top(){
 }
 
 History::~History(){
+    for (auto board : *histBoard){
+        delete board;
+    }
     delete histBoard;
 }

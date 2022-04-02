@@ -24,7 +24,7 @@ Board::Board()
     }
     board = b;
     pieces = p;
-    turn = 1;
+    turn = 0;
 }
 
 Board::~Board()
@@ -100,11 +100,16 @@ void Board::setPiece(Piece *p, vector<char> pos)
     pieces.emplace_back(p);
 }
 
+void Board::pushPieces(Piece *piece){
+    pieces.emplace_back(piece);
+}
+
 // NVI idiom
 
 void Board::movePiece(vector<char> start, vector<char> end)
 {
-
+    //testing cout
+    cout << "board: movepiece" << endl;
     Piece *curpiece = checkPos(start);
     Piece *destpiece = checkPos(end);
     if (!(curpiece))

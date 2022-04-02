@@ -1,4 +1,5 @@
 #include "cell.h"
+#include <iostream>
 using namespace std;
 
 Cell::Cell(vector<char> pos, Piece *p) : piece{p}, position{pos} {}
