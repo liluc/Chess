@@ -5,15 +5,15 @@
 #include "king.h"
 
 class King;
-class Game;
+
 class Player {
     int who;
     float score;
-    Game *g;
+    int computer_level; // 0 if human
     King *king;
-    int computer_level;
+
     public:
-    Player(int, int = 0, King * = nullptr);
+    Player(int, int = 0, bool = true, King * = nullptr);
     ~Player();
 
     void inc(float);
