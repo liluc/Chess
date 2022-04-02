@@ -56,7 +56,7 @@ void TextDisplay::display() {
                 {
                     c = c + 'A' - 'a'; // capitalize
                 }
-                cout << c << endl; // assuming piece has a method that gets the type, which returns a str
+                cout << c; // assuming piece has a method that gets the type, which returns a str
             }
             else
             {
@@ -74,11 +74,14 @@ void TextDisplay::display() {
     }
     cout << endl;
     cout << "  abcdefgh" << endl;
+
     if (getGame()->getPlayers().at(0)->getKing()->isChecked())
         cout << "White is in check." << endl;
     if (getGame()->getPlayers().at(1)->getKing()->isChecked())
         cout << "Black is in check." << endl;
         
+    // cout << "isChecked pass" << endl;
+
     if (getGame()->isCheckmate())
         cout << "Checkmate! ";
 

@@ -1,5 +1,6 @@
 #include "game.h"
 #include "piece.h"
+#include "player.h"
 #include "exception.h"
 using namespace std;
 
@@ -100,8 +101,12 @@ void Game::fillinPieces()
         }
         else
         {
-            p1 = new King{board, grid.at(i).at(0), 1};
-            p2 = new King{board, grid.at(i).at(7), 2};
+            King *p3 = new King{board, grid.at(i).at(0), 1};
+            King *p4 = new King{board, grid.at(i).at(7), 2};
+            players[0]->setKing(p3);
+            players[1]->setKing(p4);
+            p1 = p3;
+            p2 = p4;
         }
         board->getPieces().emplace_back(p1);
         board->getPieces().emplace_back(p2);

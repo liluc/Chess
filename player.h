@@ -23,6 +23,7 @@ class Player {
     float getScore() const;
     std::vector<Player *> getPlayers() const;
     King *getKing() const;
+    void setKing(King *);
 };
 
 #endif

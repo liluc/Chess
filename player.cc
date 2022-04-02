@@ -36,3 +36,7 @@ King *Player::getKing() const
 {
     return king;
 }
+
+void Player::setKing(King *k){
+    king = k;
+}

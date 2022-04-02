@@ -6,6 +6,7 @@
 #include "queen.h"
 #include "bishop.h"
 #include <vector>
+#include <iostream>
 #include <string>
 using namespace std;
 
@@ -31,7 +32,7 @@ string Piece::getType() const{
     return type;
 }
 
-bool Piece::checkBound(vector<char> pos){
+bool Piece::checkBound(vector<char> pos) const{
     if (pos[0] >= 'a' && pos[0] <= 'h'){
         if (pos[1] >= '1' && pos[1] <= '8'){
             return true;
@@ -119,17 +120,16 @@ Piece * Piece::createPiece(Cell *targetCell){
 //temp points to temp Piece
 //delete temp is requried
 //return true if target position contains a piece. --> return true if target positi
-bool Piece::addCell(char colInc, char rowInc, vector<vector<char>> &cells){
+bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
     vector<char> currentPos = getPos();
     char newCol = currentPos[0] + colInc;
     char newRow = currentPos[1] + rowInc;
     
     vector<char> targetPos {newCol, newRow};
-    Cell *targetCell = getBoard()->getCell(targetPos);
-    
-    
     if (checkBound(targetPos)){
+        Cell *targetCell = getBoard()->getCell(targetPos);
         if (targetCell->getPiece() == nullptr || targetCell->getPiece()->getPlayer() != player){
+            //isChecked calls possible moves, possible moves calls addcell and addcell calls ischecked.
             if (isChecked()){
                 Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
                 //if the piece is a piece of the current player, then the pos is invalid for sure
@@ -148,11 +148,11 @@ bool Piece::addCell(char colInc, char rowInc, vector<vector<char>> &cells){
                 cells.emplace_back(targetPos);
             }
         }
-        
-    } 
-    if (targetCell->getPiece() != nullptr){
-        return true;
+        if (targetCell->getPiece() != nullptr){
+            return true;
+        }
     }
+    
     return false;
 }
 Piece::~Piece(){};

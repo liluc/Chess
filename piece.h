@@ -27,7 +27,7 @@ class Piece{
 
     int getPlayer() const;
 
-    bool checkBound(std::vector<char>);
+    bool checkBound(std::vector<char>) const;
 
     std::string getType() const;
 
@@ -35,7 +35,7 @@ class Piece{
 
     bool contained(std::vector<std::vector<char>>, std::vector<char>) const;
 
-    bool addCell(char colInc, char rowInc, std::vector<std::vector<char>> &cells);
+    bool addCell(int colInc, int rowInc, std::vector<std::vector<char>> &cells);
 
     //returns true if king of player of this piece is checked
     //require: king of current player must exists
