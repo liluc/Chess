@@ -19,9 +19,10 @@ int main() {
             string black;
             gamectrl->createPlayer(1, white);
             gamectrl->createPlayer(2, black);
+
             gamectrl->runGame();
         } else if (cmd == "setup") {
-            piece_Setup();
+            pieceSetup();
         } else {
             cerr << "Invalid command!" << endl;
         }

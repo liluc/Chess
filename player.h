@@ -9,11 +9,11 @@ class King;
 class Player {
     int who;
     float score;
-    int computer_level; // 0 if human
-    King *king;
+    Board * b;
+    Piece * king;
 
     public:
-    Player(int, int = 0, bool = true, King * = nullptr);
+    Player(int, int = 0, Piece * = nullptr);
     ~Player();
 
     void inc(float);
@@ -22,7 +22,25 @@ class Player {
     int getLevel() const;
     float getScore() const;
     std::vector<Player *> getPlayers() const;
-    King *getKing() const;
+    Piece *getKing() const;
+    
+    virtual std::vector<std::string> smartMove() = 0;
+};
+
+class Human : public Player {
+    public:
+    Human(int, int = 0, Piece * = nullptr);
+    ~Human();
+    virtual std::vector<std::string> smartMove() override final;
+};
+
+class Computer : public Player {
+    int level;
+    public:
+    Computer(int, int = 0, Piece * = nullptr);
+    ~Computer();
+    virtual std::vector<std::string> smartMove() override = 0;
+    int getLevel();
 };
 
 #endif
