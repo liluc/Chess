@@ -22,6 +22,7 @@ int main()
     string command;
     Game *game = new Game;
     TextDisplay *textdis = new TextDisplay{game};
+    GraphicDisplay *graphdis = new GraphicDisplay{game};
     while (cin >> command)
     {
         if (command == "game")
@@ -31,6 +32,7 @@ int main()
             cin >> white >> black; // haven't handle the computer AI mode situation
             game->runGame(white, black);
             textdis->display();
+            graphdis->display();
             ///
         }
 
@@ -67,6 +69,7 @@ int main()
                 cerr << "Invalid Move command" << endl;
             }
             textdis->display();
+            graphdis->display();
             textdis->displayScore();
             }
         }
@@ -109,6 +112,7 @@ int main()
                     }
                 }
                 textdis->display();
+                graphdis->display();
             }
         }
     }
@@ -119,6 +123,7 @@ int main()
     // cout << "displayscore finished" << endl;
 
     delete textdis;
+    delete graphdis;
     delete game;
 
 }

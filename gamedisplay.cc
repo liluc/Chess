@@ -12,23 +12,23 @@ const int BLACK = 2;
 const int DRAW = 3;
 
 // Display has-a Game
-Display::Display(Game *game): g{game} {
+GameDisplay::GameDisplay(Game *game): g{game} {
     game->getBoard()->attach(this);
 }
-Display::~Display() {
+GameDisplay::~GameDisplay() {
     g->getBoard()->detach(this);
 }
 
-Game * Display::getGame() const{
+Game * GameDisplay::getGame() const{
     return g;
 }
 
-void Display::notify() {
+void GameDisplay::notify() {
     display();
     display();
 }
 
-void Display::displayScore()
+void GameDisplay::displayScore()
 {
     if (g->getWinner() != 0)
         return;
@@ -39,7 +39,7 @@ void Display::displayScore()
 }
 
 // just use super class ctor and dtor
-TextDisplay::TextDisplay(Game * g) : Display{g}{}
+TextDisplay::TextDisplay(Game * g) : GameDisplay{g}{}
 
 TextDisplay::~TextDisplay() {}
 
@@ -98,11 +98,9 @@ void TextDisplay::display() {
     }
 }
 
-GraphicDisplay::GraphicDisplay(Game *g): Display{g} {}
+GraphicDisplay::GraphicDisplay(Game *g): GameDisplay{g} {}
 
-GraphicDisplay::~GraphicDisplay() {
-    delete xw;
-}
+GraphicDisplay::~GraphicDisplay() {}
 
 void GraphicDisplay::display() {
     const int WIDTH = 50;
@@ -131,13 +129,13 @@ void GraphicDisplay::display() {
             if (p)
             {
                 char c = p->getType()[0];
+                string pp;
                 if (p->getPlayer() == WHITE)
                 {
                     c = c + 'A' - 'a'; // capitalize
-                    string pp;
-                    pp.push_back(c);
                 }
-                w.drawString(LEFT_MARGIN + WIDTH * (i + 0.5), WIDTH * (i + 0.5) + TOP_MARGIN, pp) 
+                pp.push_back(c);
+                w.drawString(LEFT_MARGIN + WIDTH * (i + 0.5), WIDTH * (i + 0.5) + TOP_MARGIN, pp);
             }
         }
     }

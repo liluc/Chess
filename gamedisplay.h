@@ -5,13 +5,13 @@
 #include "observer.h"
 #include "subject.h"
 
-class Display : public Observer {
+class GameDisplay : public Observer {
     Game *g;
 
     public:
-    Display(Game *);
+    GameDisplay(Game *);
     Game *getGame() const;
-    virtual ~Display();
+    virtual ~GameDisplay();
 
     void notify() override;
 
@@ -19,7 +19,7 @@ class Display : public Observer {
     void displayScore();
 };
 
-class TextDisplay : public Display {
+class TextDisplay : public GameDisplay {
     public:
     TextDisplay(Game *);
     ~TextDisplay();
@@ -27,12 +27,12 @@ class TextDisplay : public Display {
     void display() override;
 };
 
-class GraphicDisplay : public Display {
+class GraphicDisplay : public GameDisplay {
     public:
     GraphicDisplay(Game *);
     ~GraphicDisplay();
 
-    // void display() override;
+    void display() override;
 };
 
 #endif
