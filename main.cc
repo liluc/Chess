@@ -31,6 +31,7 @@ int main()
             string black;
             cin >> white >> black; // haven't handle the computer AI mode situation
             game->runGame(white, black);
+            cout << "game display called" << endl;
             textdis->display();
             graphdis->display();
             ///
@@ -68,6 +69,7 @@ int main()
             } catch (InvalidMove &) {
                 cerr << "Invalid Move command" << endl;
             }
+            cout << "move display " << endl;
             textdis->display();
             graphdis->display();
             textdis->displayScore();

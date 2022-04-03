@@ -1,4 +1,5 @@
 #include "game.h"
+#include "player.h"
 #include "piece.h"
 #include "player.h"
 #include "exception.h"
