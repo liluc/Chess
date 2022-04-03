@@ -32,7 +32,7 @@ class GraphicDisplay : public Display {
     GraphicDisplay(Game *);
     ~GraphicDisplay();
 
-    // void display() override;
+    void display() override;
 };
 
 #endif

@@ -2,6 +2,7 @@
 #include "board.h"
 #include "piece.h"
 #include <iostream>
+#include "window.h"
 using namespace std;
 
 
@@ -97,11 +98,59 @@ void TextDisplay::display() {
     }
 }
 
-GraphicDisplay::GraphicDisplay(Game *g): Display{g}{}
+GraphicDisplay::GraphicDisplay(Game *g): Display{g} {}
 
-GraphicDisplay::~GraphicDisplay() {}
+GraphicDisplay::~GraphicDisplay() {
+    delete xw;
+}
 
-// GraphicDisplay::display() {}
+void GraphicDisplay::display() {
+    const int WIDTH = 50;
+    const int LEFT_MARGIN = 50;
+    const int BOTTOM_MARGIN = 50;
+    const int TOP_MARGIN = 50;
+
+    Xwindow w{WIDTH * BOARDSIZE + LEFT_MARGIN * 2, WIDTH * BOARDSIZE + TOP_MARGIN * 2};
+    for (int i = 0; i < BOARDSIZE; ++i) {
+        for (int j = 0; j < BOARDSIZE; ++j) {
+            if (((i + j) % 2) == 0) {
+                w.fillRectangle(LEFT_MARGIN + i * WIDTH, TOP_MARGIN + j * WIDTH, WIDTH, WIDTH, Xwindow::White);
+            } else {
+                w.fillRectangle(LEFT_MARGIN + i * WIDTH, TOP_MARGIN + j * WIDTH, WIDTH, WIDTH, Xwindow::Cyan);
+            }
+        }
+    }
+
+    for (int i = BOARDSIZE; i > 0; --i)
+    {
+        string row_p = to_string(i);
+        w.drawString(LEFT_MARGIN / 2, TOP_MARGIN + WIDTH * (BOARDSIZE - i) + WIDTH / 2, row_p);
+        for (int j = 0; j < BOARDSIZE; ++j)
+        {
+            Piece *p = getGame()->getBoard()->getBoard().at(j).at(i - 1)->getPiece();
+            if (p)
+            {
+                char c = p->getType()[0];
+                if (p->getPlayer() == WHITE)
+                {
+                    c = c + 'A' - 'a'; // capitalize
+                    string pp;
+                    pp.push_back(c);
+                }
+                w.drawString(LEFT_MARGIN + WIDTH * (i + 0.5), WIDTH * (i + 0.5) + TOP_MARGIN, pp) 
+            }
+        }
+    }
+    for (int i = 0; i < BOARDSIZE; ++i) {
+        char c = i + 'a';
+		string col_p;
+		col_p.push_back(c);
+        w.drawString(LEFT_MARGIN + WIDTH * (i + 0.5), TOP_MARGIN + WIDTH * BOARDSIZE + BOTTOM_MARGIN / 2, col_p);
+    }
+
+    // might need to add sth later
+
+}
 
 
 
