@@ -1,33 +1,43 @@
 #include "control.h"
+#include <string>
+using namespace std;
 
-Control::Control(Game *game): g{game}, td{new TextDisplay{game}}, gd{new GraphicDisplay{game}} {}
+Control::Control(Game *game): game{game}, td{new TextDisplay{game}}, gd{new GraphicDisplay{game}} {}
 
 Control::~Control() {
     delete td;
     delete gd;
 }
 
-void * Control::createPlayer(int who, const string & identity) {
+Game * Control::getGame() const {
+    return game;
+}
+
+void Control::createPlayer(int who, const string & identity) {
+    Player *p;
     if (identity == "human") {
-        p = new Human{who};
+        p = new Human{who, game};
     } else if (identity == "computer[1]") {
-        p = new Computer_Lv1{who, 1};
+        p = new Computer_Lv1{who, game, 1};
     } else if (identity == "computer[2]") {
-        p = new Computer_Lv2{who, 2};
+        p = new Computer_Lv2{who, game, 2};
     } else if (identity == "computer[3]") {
-        p = new Computer_Lv3{who, 3};
+        p = new Computer_Lv3{who, game, 3};
     } else if (identity == "computer[4]") {
-        p = new Computer_Lv4{who, 4};
+        p = new Computer_Lv4{who, game, 4};
     } else {
         cerr << "Invalid Player types" << endl;
     }
+
+    game->addPlayers(p);
+
 }
 
 void Control::makeMove(int turn) {
     int who = (turn % 2) + 1;
 
-    string smartmove = game->getPlayers[who].smartMove();
-    if (smartmove == "no_suggestions") {
+    vector<string> smartmove = game->getPlayers()[who - 1]->smartMove();
+    if (smartmove[0] == "no_suggestions") {
         string cmd;
         cin >> cmd;
         if (cmd == "resign") {
@@ -38,13 +48,17 @@ void Control::makeMove(int turn) {
             cin >> start >> end; 
             if (start.length() < 2 || end.length() < 2) {
                 cerr << "Invalid input" << endl;
-                continue;
+                return;
             } 
-            if (!(start[0] < 'a' || start[0] > 'h')){
+            if ((start[0] < 'a') || (start[0] > 'h') || (start[1] < '1') || (start[1] > '8') ||
+                (end[0] < 'a') || (end[0] > 'h') || (end[1] < '1') || (end[1] > '8')) {
+                return;
+            }
             vector<char> vStart{start[0], start[1]};
             vector<char> vEnd{end[0], end[1]};
             try {
                 game->movePiece(vStart, vEnd);
+                cout << "move completed" << endl;
             } catch (NoPromotion &) {
                 string upgrade;
                 cin >> upgrade;
@@ -62,21 +76,27 @@ void Control::makeMove(int turn) {
         }
     } else {
         // computermoves
-        char start_1 = smartmove.at(0)[0];
-        char start_2 = smartmove.at(0)[1];
-        char end_1 = smartmove.at(1)[0];
-        char end_2 = smartmove.at(1)[1];
+        string start = smartmove.at(0);
+        string end = smartmove.at(1);
+        char start_1 = start[0];
+        char start_2 = start[1];
+        char end_1 = end[0];
+        char end_2 = end[1];
         
         game->movePiece(vector<char>{start_1, start_2}, vector<char>{end_1, end_2});
     }
-    td->display();
-    gd->display();
 }
 
-void Control::runGame() {
+void Control::runGame(string white, string black) {
     string cmd;
-    int turn = game->getTurn();
+    int turn = game->getBoard()->getTurn();
     game->setWinner(0);
+    game->setMode(1);
+    createPlayer(1, white);
+    createPlayer(2, black);
+    game->fillinPieces();
+    td->display();
+    gd->display();
     while (game->getWinner() == 0) {
         makeMove(turn);
         turn += 1;
@@ -117,8 +137,8 @@ void Control::pieceSetup() {
             {
                 game->getBoard()->setTurn(1);
             }
+            cout << "current player set to " << player << endl;
         }
-        dt->display();
     }
 }
 

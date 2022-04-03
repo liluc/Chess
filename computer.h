@@ -5,31 +5,33 @@
 #include <vector>
 #include <string>
 
-class Computer_Lv1 {
+class Computer_Lv1 : public Computer {
     public:
-    Computer_Lv1(int, Board *, int, int, King *);
+    Computer_Lv1(int, Game *, int, int = 0, King * = nullptr);
     ~Computer_Lv1();
-    std::vector<std::string> smartMove() override final;
+    virtual std::vector<std::string> smartMove() override final;
 };
 
-class Computer_Lv2 {
+class Computer_Lv2 : public Computer {
     public:
-    Computer_Lv2(int, Board *, int, int, King *);
+    Computer_Lv2(int, Game *, int, int = 0, King * = nullptr);
     ~Computer_Lv2();
-    std::vector<std::string> smartMove() override final;
+    virtual std::vector<std::string> smartMove() override final;
 };
 
-class Computer_Lv3 {
+class Computer_Lv3 : public Computer {
     public:
-    Computer_Lv3(int, Board *, int, int, King *);
+    Computer_Lv3(int, Game *, int, int = 0, King * = nullptr);
     ~Computer_Lv3();
-    std::vector<std::string> smartMove() override final;
+    virtual std::vector<std::string> smartMove() override final;
 };
 
-class Computer_Lv4 {
+
+class Computer_Lv4 : public Computer {
     public:
-    Computer_Lv4(int, Board *, int, int, King *);
+    Computer_Lv4(int, Game *, int, int = 0, King * = nullptr);
     ~Computer_Lv4();
-    std::vector<std::string> smartMove() override final;
+    virtual std::vector<std::string> smartMove() override final;
 };
 
+#endif

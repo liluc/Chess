@@ -1,11 +1,11 @@
 #include "computer.h"
-#include <cstdlib.h>
+#include <cstdlib>
 #include <time.h>
 
 using namespace std;
 
 
-Computer_Lv1::Computer_Lv1(int who, Game *g, int level, int score, King *king) Computer{who, g, level, score, king} {}
+Computer_Lv1::Computer_Lv1(int who, Game *g, int level, int score, King *king): Computer{who, g, level, score, king} {}
 
 Computer_Lv1::~Computer_Lv1() {}
 
@@ -39,13 +39,13 @@ vector<string> pureRandom(Game *game) {
 }
 
 vector<string> Computer_Lv1::smartMove() {
-    pureRandom(game);
+    return pureRandom(getGame());
 }
 
-Computer_Lv2::Computer_Lv2(int who, Game *g, int level, int score, King *king) Computer{who, g, level, score, king} {}
+Computer_Lv2::Computer_Lv2(int who, Game *g, int level, int score, King *king): Computer{who, g, level, score, king} {}
 Computer_Lv2::~Computer_Lv2() {}
 
-Computer_Lv2::smartMove() {
+vector<string> Computer_Lv2::smartMove() {
     vector<vector<char>> cap_and_check_starts;
     vector<vector<char>> cap_and_check_dests;
 
@@ -55,10 +55,10 @@ Computer_Lv2::smartMove() {
     for (auto piece : game->getBoard()->getPieces()) {
         vector<char> curpos = piece->getPos();
         for (vector<char> move : piece->possibleMoves()) {
-            Board *b = game->getBoard;
+            Board *b = game->getBoard();
             bool capture{false};
             bool check{false};
-            if (b->getPos(move) != nullptr)  // has pieces
+            if (b->getCell(move)->getPiece() != nullptr)  // has pieces
                 capture = true;
 
             b->movePiece(curpos, move);
@@ -87,11 +87,17 @@ Computer_Lv2::smartMove() {
     }
 }
 
-Computer_Lv3::Computer_Lv3(int who, Game *g, int level, int score, King *king) Computer{who, g, level, score, king} {}
+Computer_Lv3::Computer_Lv3(int who, Game *g, int level, int score, King *king): Computer{who, g, level, score, king} {}
 
 Computer_Lv3::~Computer_Lv3() {}
 
-Computer_Lv4::Computer_Lv4(int who, Game *g, int level, int score, King *king) Computer{who, g, level, score, king} {}
+vector<string> Computer_Lv3::smartMove() {}
+
+Computer_Lv4::Computer_Lv4(int who, Game *g, int level, int score, King *king): Computer{who, g, level, score, king} {}
 
 Computer_Lv4::~Computer_Lv4() {}
+
+vector<string> Computer_Lv4::smartMove() {}
+
+
 

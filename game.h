@@ -37,6 +37,7 @@ public:
     // getters
     Board *getBoard() const;
     std::vector<Player *> getPlayers() const;
+    void addPlayers(Player *);
     int getMode() const;
     History *getHist() const;
     int getWinner() const;
@@ -44,6 +45,7 @@ public:
 
     // shells for invoking Board methods
     void setPiece(const std::string &, std::vector<char>);
+    void setMode(int);
     void movePiece(std::vector<char>, std::vector<char>);
     void pawnPromote(std::vector<char>, const std::string &);
 

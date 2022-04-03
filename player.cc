@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-Player::Player(int who, Game *g, int score, Piece *k) : who{who}, game{g} {}
+Player::Player(int who, Game *g, int score, King *k) : who{who}, game{g} {}
 
 Player::~Player() {} // no need to delete board and king because player doesn't own them
 
@@ -22,14 +22,9 @@ float Player::getScore() const
     return score;
 }
 
-void Player::setLevel(int x)
+int Computer::getLevel() const
 {
-    computer_level = x;
-}
-
-int Player::getLevel() const
-{
-    return computer_level;
+    return level;
 }
 
 King *Player::getKing() const
@@ -37,7 +32,15 @@ King *Player::getKing() const
     return king;
 }
 
-Human::Human(int who, Game *g, int score, Piece *king) : Player{who, g, score, king} {}
+Game * Player::getGame() const {
+    return game;
+}
+
+void Player::setKing(King * k) {
+    king = k;
+}
+
+Human::Human(int who, Game *g, int score, King *king) : Player{who, g, score, king} {}
 
 Human::~Human() {}
 
@@ -47,14 +50,8 @@ vector<string> Human::smartMove()
     return retstr;
 }
 
-Computer::Computer()
-{int who, Game *g, int level, int score, Piece *king): Player{who, g, score, king}, level{level} {}
+Computer::Computer(int who, Game *g, int level, int score, King *king): Player{who, g, score, king}, level{level} {}
 
-    Computer::~Computer() {}
+Computer::~Computer() {}
 
-    int Computer::getLevel()
-    {
-        return level;
-    }
-
-    // computer's smartMove is pure virtual
+// computer's smartMove is pure virtual

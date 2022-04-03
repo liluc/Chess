@@ -10,13 +10,8 @@ Game::Game()
 {
     Board * newboard = new Board();
     board = newboard;
-    vector<Player *> added_players;
-    Player *new_player1 = new Player{1};
-    Player *new_player2 = new Player{2};
-    added_players.emplace_back(new_player1);
-    added_players.emplace_back(new_player2);
-    players = added_players;
-
+    vector<Player *> np;
+    players = np;
     History *newhist = new History();
     hist = newhist;
     mode = 0;
@@ -65,6 +60,14 @@ void Game::setWinner(int w)
 {
     winner = w;
     board->setState(true);
+}
+
+void Game::setMode(int m) {
+    mode = m;
+}
+
+void Game::addPlayers(Player * p) {
+    players.emplace_back(p);
 }
 
 // board builder methods
@@ -119,6 +122,7 @@ void Game::fillinPieces()
     }
 }
 
+/*
 void Game::runGame(string white, string black)
 {
     mode = 1;
@@ -178,6 +182,7 @@ void Game::runGame(string white, string black)
 
     // fillin the pieces
 }
+*/
 
 void Game::setup()
 {

@@ -98,6 +98,7 @@ void Board::setPiece(Piece *p, vector<char> pos)
     delete old;
     getCell(pos)->setPiece(p);
     pieces.emplace_back(p);
+    notifyObservers();
 }
 
 void Board::pushPieces(Piece *piece){
