@@ -3,9 +3,9 @@
 #include <iostream>
 using namespace std;
 
-Player::Player(int who, int score, King *k): who{who} {}
+Player::Player(int who, Game *g, int score, Piece *k) : who{who}, game{g} {}
 
-Player::~Player(){ }
+Player::~Player() {} // no need to delete board and king because player doesn't own them
 
 void Player::inc(float x)
 {
@@ -37,6 +37,24 @@ King *Player::getKing() const
     return king;
 }
 
-void Player::setKing(King *k){
-    king = k;
+Human::Human(int who, Game *g, int score, Piece *king) : Player{who, g, score, king} {}
+
+Human::~Human() {}
+
+vector<string> Human::smartMove()
+{
+    vector<string> retstr{"no_suggestions"};
+    return retstr;
 }
+
+Computer::Computer()
+{int who, Game *g, int level, int score, Piece *king): Player{who, g, score, king}, level{level} {}
+
+    Computer::~Computer() {}
+
+    int Computer::getLevel()
+    {
+        return level;
+    }
+
+    // computer's smartMove is pure virtual
