@@ -25,7 +25,6 @@ Game * GameDisplay::getGame() const{
 
 void GameDisplay::notify() {
     display();
-    display();
 }
 
 void GameDisplay::displayScore()
@@ -57,7 +56,7 @@ void TextDisplay::display() {
                 {
                     c = c + 'A' - 'a'; // capitalize
                 }
-                cout << c << endl; // assuming piece has a method that gets the type, which returns a str
+                cout << c; // assuming piece has a method that gets the type, which returns a str
             }
             else
             {
@@ -108,16 +107,16 @@ void GraphicDisplay::display() {
     const int BOTTOM_MARGIN = 50;
     const int TOP_MARGIN = 50;
 
-    Xwindow w{WIDTH * BOARDSIZE + LEFT_MARGIN * 2, WIDTH * BOARDSIZE + TOP_MARGIN * 2};
-    for (int i = 0; i < BOARDSIZE; ++i) {
-        for (int j = 0; j < BOARDSIZE; ++j) {
-            if (((i + j) % 2) == 0) {
-                w.fillRectangle(LEFT_MARGIN + i * WIDTH, TOP_MARGIN + j * WIDTH, WIDTH, WIDTH, Xwindow::White);
-            } else {
-                w.fillRectangle(LEFT_MARGIN + i * WIDTH, TOP_MARGIN + j * WIDTH, WIDTH, WIDTH, Xwindow::Cyan);
+        Xwindow w{WIDTH * BOARDSIZE + LEFT_MARGIN * 2, WIDTH * BOARDSIZE + TOP_MARGIN * 2};
+        for (int i = 0; i < BOARDSIZE; ++i) {
+            for (int j = 0; j < BOARDSIZE; ++j) {
+                if (((i + j) % 2) == 0) {
+                    w.fillRectangle(LEFT_MARGIN + i * WIDTH, TOP_MARGIN + j * WIDTH, WIDTH, WIDTH, Xwindow::White);
+                } else {
+                    w.fillRectangle(LEFT_MARGIN + i * WIDTH, TOP_MARGIN + j * WIDTH, WIDTH, WIDTH, Xwindow::Cyan);
+                }
             }
         }
-    }
 
     for (int i = BOARDSIZE; i > 0; --i)
     {
@@ -135,7 +134,7 @@ void GraphicDisplay::display() {
                     c = c + 'A' - 'a'; // capitalize
                 }
                 pp.push_back(c);
-                w.drawString(LEFT_MARGIN + WIDTH * (i + 0.5), WIDTH * (i + 0.5) + TOP_MARGIN, pp);
+                w.drawString(LEFT_MARGIN + WIDTH * (j + 0.5), WIDTH * (BOARDSIZE - i + 0.5) + TOP_MARGIN, pp);
             }
         }
     }
