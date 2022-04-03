@@ -46,7 +46,7 @@ void GameDisplay::displayScore()
     cout << "Black Score: " << blackScore << endl;
 }
 
-void Display::displayWinner(){
+void GameDisplay::displayWinner(){
     if (getGame()->getWinner() == WHITE)
     {
         cout << "White wins!" << endl;
@@ -109,18 +109,7 @@ void TextDisplay::display()
         cout << "Stalemate!" << endl
              << "The game ends in a tie" << endl;
     }
-<<<<<<< HEAD
-    else if (getGame()->getWinner() == WHITE)
-    {
-        cout << "White wins!" << endl;
-    }
-    else if (getGame()->getWinner() == BLACK)
-    {
-        cout << "Black wins!" << endl;
-    }
-=======
     displayWinner();
->>>>>>> 6758e6d (resign updated)
 }
 
 GraphicDisplay::GraphicDisplay(Game *g) : GameDisplay{g} {}
