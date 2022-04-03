@@ -1,0 +1,97 @@
+#include "computer.h"
+#include <cstdlib.h>
+#include <time.h>
+
+using namespace std;
+
+
+Computer_Lv1::Computer_Lv1(int who, Game *g, int level, int score, King *king) Computer{who, g, level, score, king} {}
+
+Computer_Lv1::~Computer_Lv1() {}
+
+vector<string> randomMove(const vector<vector<char>> possiblestarts, const vector<vector<char>> possibledests) {
+    string start;
+    string end;
+    int size = possibledests.size();
+    srand(time(NULL));
+    int move = rand() % size;
+
+    start.push_back(possiblestarts.at(move)[0]);
+    start.push_back(possiblestarts.at(move)[1]);
+    end.push_back(possibledests.at(move)[0]);
+    end.push_back(possibledests.at(move)[1]);
+    return vector<string>{start, end};
+}
+
+vector<string> pureRandom(Game *game) {
+    vector<vector<char>> possiblestarts;
+    vector<vector<char>> possibledests;
+
+    for (auto piece : game->getBoard()->getPieces()) {
+        vector<char> curpos = piece->getPos();
+        for (vector<char> move : piece->possibleMoves()) {
+            possiblestarts.emplace_back(curpos);
+            possibledests.emplace_back(move);
+        }
+    }
+
+    return randomMove(possiblestarts, possibledests);
+}
+
+vector<string> Computer_Lv1::smartMove() {
+    pureRandom(game);
+}
+
+Computer_Lv2::Computer_Lv2(int who, Game *g, int level, int score, King *king) Computer{who, g, level, score, king} {}
+Computer_Lv2::~Computer_Lv2() {}
+
+Computer_Lv2::smartMove() {
+    vector<vector<char>> cap_and_check_starts;
+    vector<vector<char>> cap_and_check_dests;
+
+    vector<vector<char>> cap_or_check_starts;
+    vector<vector<char>> cap_or_check_dests;
+
+    for (auto piece : game->getBoard()->getPieces()) {
+        vector<char> curpos = piece->getPos();
+        for (vector<char> move : piece->possibleMoves()) {
+            Board *b = game->getBoard;
+            bool capture{false};
+            bool check{false};
+            if (b->getPos(move) != nullptr)  // has pieces
+                capture = true;
+
+            b->movePiece(curpos, move);
+            if (game->getPlayers()[2 - who]->getKing()->isChecked()) {
+                check = true;
+            }
+
+            if (capture && check) {
+                cap_and_check_starts.emplace_back(curpos);
+                cap_and_check_dests.emplace_back(move);
+            } else if (capture || check) {
+                cap_or_check_starts.emplace_back(curpos);
+                cap_or_check_dests.emplace_back(move);
+            }
+        }
+    }
+
+    int and_size = cap_and_check_starts.size(); // and is better
+    int or_size = cap_or_check_starts.size();
+    if (and_size > 0) {
+        return randomMove(cap_and_check_starts, cap_and_check_dests);
+    } else if (or_size > 0) {
+        return randomMove(cap_or_check_starts, cap_or_check_dests);
+    } else {
+        return pureRandom(game);
+    }
+}
+
+Computer_Lv3::Computer_Lv3(int who, Game *g, int level, int score, King *king) Computer{who, g, level, score, king} {}
+
+Computer_Lv3::~Computer_Lv3() {}
+
+Computer_Lv4::Computer_Lv4(int who, Game *g, int level, int score, King *king) Computer{who, g, level, score, king} {}
+
+Computer_Lv4::~Computer_Lv4() {}
+
