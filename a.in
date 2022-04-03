@@ -1,0 +1,480 @@
+game human human
+8 rnbqkbnr
+7 pppppppp
+6  _ _ _ _
+5 _ _ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 PPPPPPPP
+1 RNBQKBNR
+
+  abcdefgh
+not in stalemate
+move a2 a4
+board: movepiece
+# of possible moves: 2
+target pos a4
+8 rnbqkbnr
+7 pppppppp
+6  _ _ _ _
+5 _ _ _ _ 
+4 P_ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 RNBQKBNR
+
+  abcdefgh
+not in stalemate
+8 rnbqkbnr
+7 pppppppp
+6  _ _ _ _
+5 _ _ _ _ 
+4 P_ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 RNBQKBNR
+
+  abcdefgh
+not in stalemate
+8 rnbqkbnr
+7 pppppppp
+6  _ _ _ _
+5 _ _ _ _ 
+4 P_ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 RNBQKBNR
+
+  abcdefgh
+not in stalemate
+White Score: 0
+Black Score: 0
+move a7 a6
+board: movepiece
+# of possible moves: 2
+target pos a6
+8 rnbqkbnr
+7 _ppppppp
+6 p_ _ _ _
+5 _ _ _ _ 
+4 P_ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 RNBQKBNR
+
+  abcdefgh
+not in stalemate
+8 rnbqkbnr
+7 _ppppppp
+6 p_ _ _ _
+5 _ _ _ _ 
+4 P_ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 RNBQKBNR
+
+  abcdefgh
+not in stalemate
+8 rnbqkbnr
+7 _ppppppp
+6 p_ _ _ _
+5 _ _ _ _ 
+4 P_ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 RNBQKBNR
+
+  abcdefgh
+not in stalemate
+White Score: 0
+Black Score: 0
+move a1 a2
+board: movepiece
+# of possible moves: 2
+target pos a2
+8 rnbqkbnr
+7 _ppppppp
+6 p_ _ _ _
+5 _ _ _ _ 
+4 P_ _ _ _
+3 _ _ _ _ 
+2 RPPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8 rnbqkbnr
+7 _ppppppp
+6 p_ _ _ _
+5 _ _ _ _ 
+4 P_ _ _ _
+3 _ _ _ _ 
+2 RPPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8 rnbqkbnr
+7 _ppppppp
+6 p_ _ _ _
+5 _ _ _ _ 
+4 P_ _ _ _
+3 _ _ _ _ 
+2 RPPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+White Score: 0
+Black Score: 0
+move b7  b5
+board: movepiece
+# of possible moves: 2
+target pos b5
+8 rnbqkbnr
+7 _ pppppp
+6 p_ _ _ _
+5 _p_ _ _ 
+4 P_ _ _ _
+3 _ _ _ _ 
+2 RPPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8 rnbqkbnr
+7 _ pppppp
+6 p_ _ _ _
+5 _p_ _ _ 
+4 P_ _ _ _
+3 _ _ _ _ 
+2 RPPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8 rnbqkbnr
+7 _ pppppp
+6 p_ _ _ _
+5 _p_ _ _ 
+4 P_ _ _ _
+3 _ _ _ _ 
+2 RPPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+White Score: 0
+Black Score: 0
+move a4 b5
+board: movepiece
+# of possible moves: 2
+target pos b5
+8 rnbqkbnr
+7 _ pppppp
+6 p_ _ _ _
+5 _P_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 RPPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8 rnbqkbnr
+7 _ pppppp
+6 p_ _ _ _
+5 _P_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 RPPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8 rnbqkbnr
+7 _ pppppp
+6 p_ _ _ _
+5 _P_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 RPPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+White Score: 0
+Black Score: 0
+move a6 b5
+board: movepiece
+# of possible moves: 2
+target pos b5
+8 rnbqkbnr
+7 _ pppppp
+6  _ _ _ _
+5 _p_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 RPPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8 rnbqkbnr
+7 _ pppppp
+6  _ _ _ _
+5 _p_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 RPPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8 rnbqkbnr
+7 _ pppppp
+6  _ _ _ _
+5 _p_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2 RPPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+White Score: 0
+Black Score: 0
+move a2 a8
+board: movepiece
+# of possible moves: 7
+target pos a8
+8 Rnbqkbnr
+7 _ pppppp
+6  _ _ _ _
+5 _p_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8 Rnbqkbnr
+7 _ pppppp
+6  _ _ _ _
+5 _p_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8 Rnbqkbnr
+7 _ pppppp
+6  _ _ _ _
+5 _p_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+White Score: 0
+Black Score: 0
+move b8 c6
+board: movepiece
+# of possible moves: 2
+target pos c6
+8 R_bqkbnr
+7 _ pppppp
+6  _n_ _ _
+5 _p_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8 R_bqkbnr
+7 _ pppppp
+6  _n_ _ _
+5 _p_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8 R_bqkbnr
+7 _ pppppp
+6  _n_ _ _
+5 _p_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+White Score: 0
+Black Score: 0
+move a8 c8
+board: movepiece
+# of possible moves: 3
+target pos c8
+8  _Rqkbnr
+7 _ pppppp
+6  _n_ _ _
+5 _p_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8  _Rqkbnr
+7 _ pppppp
+6  _n_ _ _
+5 _p_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8  _Rqkbnr
+7 _ pppppp
+6  _n_ _ _
+5 _p_ _ _ 
+4  _ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+White Score: 0
+Black Score: 0
+move h7 h5
+board: movepiece
+# of possible moves: 2
+target pos h5
+8  _Rqkbnr
+7 _ ppppp 
+6  _n_ _ _
+5 _p_ _ _p
+4  _ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8  _Rqkbnr
+7 _ ppppp 
+6  _n_ _ _
+5 _p_ _ _p
+4  _ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8  _Rqkbnr
+7 _ ppppp 
+6  _n_ _ _
+5 _p_ _ _p
+4  _ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+White Score: 0
+Black Score: 0
+move c8 d8
+board: movepiece
+# of possible moves: 4
+target pos d8
+8  _ Rkbnr
+7 _ ppppp 
+6  _n_ _ _
+5 _p_ _ _p
+4  _ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8  _ Rkbnr
+7 _ ppppp 
+6  _n_ _ _
+5 _p_ _ _p
+4  _ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8  _ Rkbnr
+7 _ ppppp 
+6  _n_ _ _
+5 _p_ _ _p
+4  _ _ _ _
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+White Score: 0
+Black Score: 0
+move h5 h4
+board: movepiece
+# of possible moves: 1
+target pos h4
+8  _ Rkbnr
+7 _ ppppp 
+6  _n_ _ _
+5 _p_ _ _ 
+4  _ _ _ p
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8  _ Rkbnr
+7 _ ppppp 
+6  _n_ _ _
+5 _p_ _ _ 
+4  _ _ _ p
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+8  _ Rkbnr
+7 _ ppppp 
+6  _n_ _ _
+5 _p_ _ _ 
+4  _ _ _ p
+3 _ _ _ _ 
+2  PPPPPPP
+1 _NBQKBNR
+
+  abcdefgh
+not in stalemate
+White Score: 0
+Black Score: 0

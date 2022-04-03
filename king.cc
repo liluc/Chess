@@ -57,25 +57,25 @@ bool King::isChecked() const{
     vector<char> kingPos = getPos();
 
     //check rook and queen;
-    for (int colInc = 0; colInc < 8; ++colInc){ //horizontal move right
+    for (int colInc = 1; colInc < 8; ++colInc){ //horizontal move right
         int checkRook = existPiece(kingPos, colInc, 0, "rook");
         int checkQueen = existPiece(kingPos, colInc, 0, "queen");
         if (checkRook == 1) break;
         if (checkRook == 2 || checkQueen == 2) return true;
     }
-    for (int colInc = 0; colInc > -8; --colInc){ //horizontal move left
+    for (int colInc = -1; colInc > -8; --colInc){ //horizontal move left
         int checkRook = existPiece(kingPos, colInc, 0, "rook");
         int checkQueen = existPiece(kingPos, colInc, 0, "queen");
         if (checkRook == 1) break;
         if (checkRook == 2 || checkQueen == 2) return true;
     }
-    for (int rowInc = 0; rowInc < 8; ++rowInc){ //vertical move up
+    for (int rowInc = 1; rowInc < 8; ++rowInc){ //vertical move up
         int checkRook = existPiece(kingPos, 0, rowInc, "rook");
         int checkQueen = existPiece(kingPos, 0, rowInc, "queen");
         if (checkRook == 1) break;
         if (checkRook == 2 || checkQueen == 2) return true;
     }
-    for (int rowInc = 0; rowInc > -8; ++rowInc){ //vertical move down
+    for (int rowInc = -1; rowInc > -8; ++rowInc){ //vertical move down
         int checkRook = existPiece(kingPos, 0, rowInc, "rook");
         int checkQueen = existPiece(kingPos, 0, rowInc, "queen");
         if (checkRook == 1) break;
@@ -84,25 +84,25 @@ bool King::isChecked() const{
 
 
     //check bishop and queen
-    for (int col = 0, row = 0; col < 8, row < 8; ++col, ++row){ // move towards top right
+    for (int col = 1, row = 1; col < 8, row < 8; ++col, ++row){ // move towards top right
         int checkBishop = existPiece(kingPos, col, row, "bishop");
         int checkQueen = existPiece(kingPos, col, row, "queen");
         if (checkBishop == 1) break;
         if (checkBishop == 2 || checkQueen == 2) return true;
     }
-    for (int col = 0, row = 0; col > -8, row < 8; --col, ++row){ // move towards top left
+    for (int col = -1, row = 1; col > -8, row < 8; --col, ++row){ // move towards top left
         int checkBishop = existPiece(kingPos, col, row, "bishop");
         int checkQueen = existPiece(kingPos, col, row, "queen");
         if (checkBishop == 1) break;
         if (checkBishop == 2 || checkQueen == 2) return true;
     }
-    for (int col = 0, row = 0; col < 8, row > -8; ++col, --row){ // move towards down right
+    for (int col = 1, row = -1; col < 8, row > -8; ++col, --row){ // move towards down right
         int checkBishop = existPiece(kingPos, col, row, "bishop");
         int checkQueen = existPiece(kingPos, col, row, "queen");
         if (checkBishop == 1) break;
         if (checkBishop == 2 || checkQueen == 2) return true;
     }
-    for (int col = 0, row = 0; col > -8, row > -8; --col, --row){ // move towards down left
+    for (int col = -1, row = -1; col > -8, row > -8; --col, --row){ // move towards down left
         int checkBishop = existPiece(kingPos, col, row, "bishop");
         int checkQueen = existPiece(kingPos, col, row, "queen");
         if (checkBishop == 1) break;

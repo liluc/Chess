@@ -58,12 +58,13 @@ void Piece::move(vector<char> pos){
     //testing cout
     vector<vector<char>> possible = possibleMoves();
     cout << "# of possible moves: " << possible.size() << endl;
-    cout << "target pos" << pos[0] << pos[1] << endl;
+    cout << "target pos " << pos[0] << pos[1] << endl;
     if (contained(possible, pos)){
         Cell *targetCell = Piece::getBoard()->getCell(pos);
         delete targetCell->getPiece();
         targetCell->setPiece(this);
         cell->setPiece(nullptr);
+        cell = targetCell;
         
     } else {
         InvalidMove invalid;
@@ -132,21 +133,26 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
     char newRow = currentPos[1] + rowInc;
 
     //testing cout
-    cout << "current type: " << getType() << endl;
-    cout << "current pos: " << currentPos[0] << currentPos[1] << endl;
-    cout << "new pos: " << newCol << newRow << endl;
+    // cout << "current type: " << getType() << endl;
+    // cout << "current pos: " << currentPos[0] << currentPos[1] << endl;
+    // cout << "new pos: " << newCol << newRow << endl;
     
     vector<char> targetPos {newCol, newRow};
     if (checkBound(targetPos)){
         Cell *targetCell = getBoard()->getCell(targetPos);
         
-        
+        //testing cout
 
         if (targetCell->getPiece() == nullptr){
             //testing cout
-            cout << "target cell get: " << newCol << newRow << endl;
+            // cout << "targetCell->getpiece is null " << endl;
+            // cout << "target cell get: " << newCol << newRow << endl;
             //isChecked calls possible moves, possible moves calls addcell and addcell calls ischecked.
             if (isChecked()){
+                
+                //testing cout 
+                cout << "current king is checked" << endl;
+
                 Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
                 //if the piece is a piece of the current player, then the pos is invalid for sure
                 Piece *temp = createPiece(targetCell);
@@ -161,6 +167,8 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
                 targetCell->setPiece(targetCellPiece);
                 delete temp;
             } else {
+                //testing cout
+                // cout << "current board is not checked" << endl;
                 cells.emplace_back(targetPos);
             }
         }

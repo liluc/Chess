@@ -10,16 +10,16 @@ Rook::Rook(Board *board, Cell *cell, int player):Piece{board, cell, player, "roo
 
 vector<vector<char>> Rook::possibleMoves(){
     vector<vector<char>> cells;
-    for (int colInc = 0; colInc < 8; ++colInc){ //horizontal move right
+    for (int colInc = 1; colInc < 8; ++colInc){ //horizontal move right
         if (addCell(colInc, 0, cells)) break;
     }
-    for (int colInc = 0; colInc > -8; --colInc){ //horizontal move left
+    for (int colInc = -1; colInc > -8; --colInc){ //horizontal move left
         if (addCell(colInc, 0, cells)) break;
     }
-    for (int rowInc = 0; rowInc < 8; ++rowInc){ //vertical move up
+    for (int rowInc = 1; rowInc < 8; ++rowInc){ //vertical move up
         if (addCell(0, rowInc, cells)) break;
     }
-    for (int rowInc = 0; rowInc > -8; ++rowInc){ //vertical move down
+    for (int rowInc = -1; rowInc > -8; ++rowInc){ //vertical move down
         if (addCell(0, rowInc, cells)) break;
     }
     return cells;
