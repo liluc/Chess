@@ -32,6 +32,8 @@ class TextDisplay : public GameDisplay {
 };
 
 class GraphicDisplay : public GameDisplay {
+    Xwindow *xw;
+    
     public:
     GraphicDisplay(Game *);
     ~GraphicDisplay();
