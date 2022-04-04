@@ -17,6 +17,7 @@ class GameDisplay : public Observer {
 
     virtual void display() = 0;
     void displayScore();
+    void displayWinner();
 };
 
 class TextDisplay : public GameDisplay {

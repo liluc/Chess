@@ -33,12 +33,28 @@ void GameDisplay::notify()
 
 void GameDisplay::displayScore()
 {
-    if (g->getWinner() != 0)
+    if (g->getWinner() != 0){
+        //testing cout
+        cout << g->getWinner() << endl;
+
         return;
+    }
+        
     int whiteScore = g->getPlayers()[0]->getScore();
     int blackScore = g->getPlayers()[1]->getScore();
     cout << "White Score: " << whiteScore << endl;
     cout << "Black Score: " << blackScore << endl;
+}
+
+void Display::displayWinner(){
+    if (getGame()->getWinner() == WHITE)
+    {
+        cout << "White wins!" << endl;
+    }
+    else if (getGame()->getWinner() == BLACK)
+    {
+        cout << "Black wins!" << endl;
+    }
 }
 
 // just use super class ctor and dtor
@@ -93,6 +109,7 @@ void TextDisplay::display()
         cout << "Stalemate!" << endl
              << "The game ends in a tie" << endl;
     }
+<<<<<<< HEAD
     else if (getGame()->getWinner() == WHITE)
     {
         cout << "White wins!" << endl;
@@ -101,6 +118,9 @@ void TextDisplay::display()
     {
         cout << "Black wins!" << endl;
     }
+=======
+    displayWinner();
+>>>>>>> 6758e6d (resign updated)
 }
 
 GraphicDisplay::GraphicDisplay(Game *g) : GameDisplay{g} {}
