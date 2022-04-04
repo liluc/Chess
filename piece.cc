@@ -204,9 +204,11 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
 
                 Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
                 //if the piece is a piece of the current player, then the pos is invalid for sure
-                Piece *temp = createPiece(targetCell);
+                
+
+                // Piece *temp = createPiece(targetCell);
                 cell->setPiece(nullptr);
-                targetCell->setPiece(temp);
+                targetCell->setPiece(this);
                 //if setPiece is used, then the current piece will get deleted, and targetCellPiece will get deleted.
                 //so we cannot use it for now.
                 if (!isChecked()){
@@ -214,7 +216,6 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
                 }
                 cell->setPiece(this);
                 targetCell->setPiece(targetCellPiece);
-                delete temp;
             } else {
                 //testing cout
                 // cout << "current board is not checked" << endl;
@@ -227,9 +228,9 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
                 if (isChecked()){
                     Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
                     //if the piece is a piece of the current player, then the pos is invalid for sure
-                    Piece *temp = createPiece(targetCell);
+                    // Piece *temp = createPiece(targetCell);
                     cell->setPiece(nullptr);
-                    targetCell->setPiece(temp);
+                    targetCell->setPiece(this);
                     //if setPiece is used, then the current piece will get deleted, and targetCellPiece will get deleted.
                     //so we cannot use it for now.
                     if (!isChecked()){
@@ -237,7 +238,7 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
                     }
                     cell->setPiece(this);
                     targetCell->setPiece(targetCellPiece);
-                    delete temp;
+                    // delete temp;
                 } else {
                     cells.emplace_back(targetPos);
                 }

@@ -60,7 +60,7 @@ bool King::isChecked() const{
     for (int colInc = 1; colInc < 8; ++colInc){ //horizontal move right
         int checkRook = existPiece(kingPos, colInc, 0, "rook");
         int checkQueen = existPiece(kingPos, colInc, 0, "queen");
-        if (checkRook == 1) break;
+        if (checkRook == 1) break; //there is a piece of current player
         if (checkRook == 2 || checkQueen == 2) return true;
     }
     for (int colInc = -1; colInc > -8; --colInc){ //horizontal move left
@@ -75,7 +75,7 @@ bool King::isChecked() const{
         if (checkRook == 1) break;
         if (checkRook == 2 || checkQueen == 2) return true;
     }
-    for (int rowInc = -1; rowInc > -8; ++rowInc){ //vertical move down
+    for (int rowInc = -1; rowInc > -8; --rowInc){ //vertical move down
         int checkRook = existPiece(kingPos, 0, rowInc, "rook");
         int checkQueen = existPiece(kingPos, 0, rowInc, "queen");
         if (checkRook == 1) break;
