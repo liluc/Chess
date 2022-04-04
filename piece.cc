@@ -10,7 +10,7 @@
 #include <string>
 using namespace std;
 
-Piece::Piece(Board *board, Cell *cell, int player, string type):board{board}, cell{cell}, player{player}, type{type}{}
+Piece::Piece(Board *board, Cell *cell, int player, string type):board{board}, cell{cell}, player{player}, type{type}, enPableTurn{0}{}
 
 vector<char> Piece::getPos() const{
     return cell->getPos();
@@ -22,6 +22,10 @@ Cell * Piece::getCell() const{
 
 Board * Piece::getBoard() const{
     return board;
+}
+
+void Piece::setCell(Cell *c){
+    cell = c;
 }
 
 int Piece::getPlayer() const{
@@ -54,6 +58,13 @@ bool Piece::contained(vector<vector<char>> posList, vector<char> pos) const{
     return false;
 }
 
+//set a piece to be enpable, which indicates that in next turn it could be captured by en passant
+//when a piece takes the move of colInc = 0, rowInc = 2, enPable will be ture
+//in this turn
+int abs(int n){
+    return n > 0? n : -n;
+}
+
 void Piece::move(vector<char> pos){
     
     vector<vector<char>> possible = possibleMoves();
@@ -64,10 +75,22 @@ void Piece::move(vector<char> pos){
     
     if (contained(possible, pos)){
         Cell *targetCell = Piece::getBoard()->getCell(pos);
+        
+        //check for en passant
+        if (type == "pawn"){
+            if (pos[0] - cell->getPos()[0] == 0 &&
+                abs(pos[1] - cell->getPos()[1]) == 2){
+                setEnPable(true);
+            }
+        }
+        
         delete targetCell->getPiece();
         targetCell->setPiece(this);
         cell->setPiece(nullptr);
         cell = targetCell;
+        if (board->getTurn() != enPableTurn){
+            resetEnPable();
+        }
         
     } else {
         InvalidMove invalid;
@@ -90,6 +113,29 @@ bool Piece::isChecked() const{
         }
     }
 }
+
+void Piece::setEnPable(bool val){
+    if (val == true){
+        enPableTurn = board->getTurn();
+    }
+}
+
+bool Piece::getEnPable(){ return false; }
+
+void Piece::resetEnPable(){
+    vector<Piece *> pieces = getBoard()->getPieces();
+    for (auto piece : pieces){
+        if (piece->getType() == "pawn"){
+            piece->setEnPable(false);
+        }
+    }
+}
+
+int Piece::getEnPableTurn(){
+    return enPableTurn;
+}
+
+Cell * Piece::getEnPableCell() const{}
 
 Piece * Piece::createPiece(Cell *targetCell){
     if (type == "king"){
@@ -130,6 +176,9 @@ Piece * Piece::createPiece(Cell *targetCell){
 //temp points to temp Piece
 //delete temp is requried
 //return true if target position contains a piece. --> return true if target positi
+
+
+//queen cannot capture, when king is checked, other pieces could still move!
 bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
     vector<char> currentPos = getPos();
     char newCol = currentPos[0] + colInc;

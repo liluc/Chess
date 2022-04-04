@@ -29,6 +29,7 @@ Game *GameDisplay::getGame() const
 void GameDisplay::notify()
 {
     display();
+
 }
 
 void GameDisplay::displayScore()

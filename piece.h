@@ -16,12 +16,15 @@ class Piece{
     Board *board;
     int player;
     std::string type;
+    int enPableTurn;
     public:
     Piece(Board *, Cell *, int, std::string);
     
     std::vector<char> getPos() const;
 
     Cell *getCell() const;
+
+    void setCell(Cell *);
 
     Board *getBoard() const;
 
@@ -41,10 +44,20 @@ class Piece{
     //require: king of current player must exists
     virtual bool isChecked() const;
 
+    virtual void resetEnPable();
+    
+    virtual void setEnPable(bool);
+
+    virtual bool getEnPable();
+
+    virtual Cell *getEnPableCell() const;
+
+    int getEnPableTurn();
     Piece * createPiece(Cell *);
 
+
     virtual std::vector<std::vector<char>> possibleMoves() = 0;
-    void move(std::vector<char>);
+    virtual void move(std::vector<char>);
     virtual ~Piece();
     /* suggestions
     string getType() const;
