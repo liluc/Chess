@@ -34,7 +34,7 @@ void GameDisplay::notify()
 
 void GameDisplay::displayScore()
 {
-    if (g->getWinner() != 0){
+    if (g->getWinner() == 0){
         //testing cout
         cout << g->getWinner() << endl;
 
