@@ -3,6 +3,7 @@
 #include "piece.h"
 #include "player.h"
 #include "exception.h"
+#include <iostream>
 using namespace std;
 
 
@@ -249,6 +250,7 @@ void Game::exitsetup()
 
 // helper function to turn string input to a corresponding piece and throw exception if 
 Piece * stringtoPiece(Board * b, const string &p, vector<char> pos) {
+    cout << pos[0] - 'a' << ", " << pos[1] - '1' << endl;
     Cell *curcell = b->getBoard().at(pos[0] - 'a').at(pos[1] - '1');
     Piece *q;
     if (p == "K")
@@ -304,7 +306,6 @@ Piece * stringtoPiece(Board * b, const string &p, vector<char> pos) {
         InvalidMove invalid;
         throw invalid;
     }
-
     return q;
 }
 
@@ -317,6 +318,11 @@ void Game::setPiece(const string &p, vector<char> pos)
     try {
         Piece * piece = stringtoPiece(board, p, pos);
         board->setPiece(piece, pos);
+        if (p == "K" ) {
+            players[0]->setKing(piece);
+        } else if (p == "k") {
+            players[1]->setKing(piece);
+        }
     } catch (InvalidMove & im) {
         cerr << "Invalid command, " << p << " is not a valid piece." << endl; 
         return;

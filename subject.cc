@@ -3,6 +3,7 @@
 #include "observer.h"
 #include <vector>
 #include <algorithm>
+#include <iostream>
 using namespace std;
 
 void Subject::notifyObservers() {

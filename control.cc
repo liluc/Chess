@@ -30,7 +30,7 @@ void Control::createPlayer(int who, const string & identity) {
         cerr << "Invalid Player types" << endl;
     }
 
-    game->addPlayers(p);
+    game->getPlayers()[who - 1];
 
 }
 
@@ -100,8 +100,10 @@ void Control::runGame(string white, string black) {
     int turn = game->getBoard()->getTurn();
     game->setWinner(0);
     game->setMode(1);
-    createPlayer(1, white);
-    createPlayer(2, black);
+    if (game->getPlayers().size() != 2) {
+        createPlayer(1, white);
+        createPlayer(2, black);
+    }
     game->fillinPieces();
     td->display();
     gd->display();
@@ -114,15 +116,27 @@ void Control::runGame(string white, string black) {
 }
 
 void Control::pieceSetup() {
+    game->setup();
+    game->getBoard()->attach(td);
+    game->getBoard()->attach(gd); // reattach the observers to the new board
+    if (game->getPlayers().size() != 2) {
+        createPlayer(1, white);
+        createPlayer(2, black);
+    }
+    td->display();
+    gd->display();
     string type;
     cin >> type;
-    game->setup();
-    while (type != "done" && cin)
+    while (cin)
     {
         if (type == "+") {
             string piece;
             string pos;
             cin >> piece >> pos;
+            if (pos.size() < 2) cerr << "Invalid position" << endl;
+            if (pos[0] < 'a' || pos[0] > 'h' || pos[1] < '1' || pos[1] > '8') {
+                cerr << "Invalid position" << endl;
+            }
             vector<char> vPos{pos[0], pos[1]};
             game->setPiece(piece, vPos);
         }
@@ -130,6 +144,10 @@ void Control::pieceSetup() {
         else if (type == "-") {
             string pos;
             cin >> pos;
+            if (pos.size() < 2) cerr << "Invalid position" << endl;
+            if (pos[0] < 'a' || pos[0] > 'h' || pos[1] < '1' || pos[1] > '8') {
+                cerr << "Invalid position" << endl;
+            }
             vector<char> vPos{pos[0], pos[1]};
             game->setPiece("null", vPos);
         }
@@ -148,9 +166,12 @@ void Control::pieceSetup() {
                 game->getBoard()->setTurn(1);
             }
             cout << "current player set to " << player << endl;
+        } else if (type == "done") {
+            game->exitsetup();
+        } else {
+            cerr << "Invalid command" << endl;
         }
-        td->display();
-        gd->display();
+
         cin >> type;
     }
 }

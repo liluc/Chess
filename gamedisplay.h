@@ -20,6 +20,7 @@ class GameDisplay : public Observer {
     virtual void display() = 0;
     void displayScore();
     void displayWinner();
+    void displayState();
 };
 
 class TextDisplay : public GameDisplay {

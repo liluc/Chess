@@ -29,7 +29,6 @@ Game *GameDisplay::getGame() const
 void GameDisplay::notify()
 {
     display();
-
 }
 
 void GameDisplay::displayScore()
@@ -56,6 +55,24 @@ void GameDisplay::displayWinner(){
     {
         cout << "Black wins!" << endl;
     }
+}
+
+void GameDisplay::displayState() {
+    if (getGame()->getPlayers().at(0)->getKing()->isChecked())
+        cout << "White is in check." << endl;
+    if (getGame()->getPlayers().at(1)->getKing()->isChecked())
+        cout << "Black is in check." << endl;
+
+    if (getGame()->isCheckmate())
+        cout << "Checkmate! ";
+
+    // by separating "checkmate!" and "... wins", we can account for the case of resignation
+    if (getGame()->isStalemate())
+    {
+        cout << "Stalemate!" << endl
+             << "The game ends in a tie" << endl;
+    }
+    displayWinner();
 }
 
 // just use super class ctor and dtor
@@ -96,22 +113,12 @@ void TextDisplay::display()
     }
     cout << endl;
     cout << "  abcdefgh" << endl;
-    if (getGame()->getPlayers().at(0)->getKing()->isChecked())
-        cout << "White is in check." << endl;
-    if (getGame()->getPlayers().at(1)->getKing()->isChecked())
-        cout << "Black is in check." << endl;
-
-    if (getGame()->isCheckmate())
-        cout << "Checkmate! ";
-
-    // by separating "checkmate!" and "... wins", we can account for the case of resignation
-    if (getGame()->isStalemate())
-    {
-        cout << "Stalemate!" << endl
-             << "The game ends in a tie" << endl;
+    int player_length = getGame()->getPlayers().size();
+    if (player_length != 0) {
+        displayState();
     }
-    displayWinner();
 }
+
 
 GraphicDisplay::GraphicDisplay(Game *g) : GameDisplay{g} {}
 
