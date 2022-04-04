@@ -48,7 +48,7 @@ class Piece{
     
     virtual void setEnPable(bool);
 
-    virtual bool getEnPable();
+    // virtual bool getEnPable();
 
     virtual Cell *getEnPableCell() const;
 

@@ -83,18 +83,31 @@ void Board::setTurn(int t) {
     turn = t;
 }
 
-void Board::setPiece(Piece *p, vector<char> pos)
-{
-    Piece *old = checkPos(pos);
+void Board::removePiece(Piece *piece){
     int size = pieces.size();
     for (int i = 0; i < size; ++i)
     {
-        if (pieces.at(i) == old) // compare by mem address
+        if (pieces.at(i) == piece) // compare by mem address
         {
             pieces.erase(pieces.begin() + i);
             return;
         }
     }
+}
+
+void Board::setPiece(Piece *p, vector<char> pos)
+{
+    Piece *old = checkPos(pos);
+    removePiece(old);
+    // int size = pieces.size();
+    // for (int i = 0; i < size; ++i)
+    // {
+    //     if (pieces.at(i) == old) // compare by mem address
+    //     {
+    //         pieces.erase(pieces.begin() + i);
+    //         return;
+    //     }
+    // }
     delete old;
     getCell(pos)->setPiece(p);
     pieces.emplace_back(p);

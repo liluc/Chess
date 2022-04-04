@@ -9,7 +9,7 @@
 #include <iostream>
 using namespace std;
 
-Pawn::Pawn(Board *board, Cell *cell, int player):Piece{board, cell, player, "pawn"}, enPable{false}, enPableCell{nullptr}{
+Pawn::Pawn(Board *board, Cell *cell, int player):Piece{board, cell, player, "pawn"}, enPableCell{nullptr}{
     if (player == 1){
         steps = cell->getPos()[1] - '0';
     } else {
@@ -22,14 +22,13 @@ int abs(int n){
 }
 
 void Pawn::setEnPable(bool val){
-    enPable = val;
     if (!val) enPableCell = nullptr;
     Piece::setEnPable(val);
 }
 
-bool Pawn::getEnPable(){
-    return enPable;
-}
+// bool Pawn::getEnPable(){
+//     return enPable;
+// }
 
 Cell * Pawn::getEnPableCell() const{
     return enPableCell;
@@ -79,12 +78,27 @@ bool Pawn::addCell_PawnMove (int colInc, int rowInc, vector<vector<char>> &cells
     // cout << cells.back()[0] << cells.back()[1] << endl;
 }
 
+//given cell, return the piece that can do en passant with this cell
 Piece * Pawn::isEnPableCell(Cell *c) const{
     vector<Piece *> pieces = getBoard()->getPieces();
     for (auto piece : pieces){
-        if (piece->getType() == "pawn"){
-            if (piece->getEnPableCell() == c){
-                return piece;
+        if (piece){
+            if (piece->getType() == "pawn"){
+
+                //testing cout
+                // if (piece->getEnPableCell()){
+                //     cout << piece->getEnPableCell()->getPos()[0] << piece->getEnPableCell()->getPos()[1] << endl;
+                // } else {
+                //     cout << "nullptr" << endl;
+                // }
+                
+
+                if (piece->getEnPableCell() == c){
+                    //testing cout
+                    // cout << "can do en passant" << endl;
+
+                    return piece;
+                }
             }
         }
     }
@@ -101,7 +115,7 @@ void Pawn::addCell_PawnCapture (int colInc, int rowInc, vector<vector<char>> &ce
         if (isChecked()){
                 
             //testing cout 
-            cout << "current king is checked" << endl;
+            // cout << "current king is checked" << endl;
 
             Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
             //if the piece is a piece of the current player, then the pos is invalid for sure
@@ -120,15 +134,23 @@ void Pawn::addCell_PawnCapture (int colInc, int rowInc, vector<vector<char>> &ce
         else {
             if (targetCell->getPiece() != nullptr){
                 if (targetCell->getPiece()->getPlayer() != getPlayer()){
-                cells.emplace_back(targetPos);
-                steps += abs(colInc);
+                    cells.emplace_back(targetPos);
+                    steps += abs(colInc);
                 }
             }
             else {
+
                 //check en passant
+                //this is the piece that could do en passant with
                 Piece * potentialEnpable = isEnPableCell(targetCell);
+
+                //testing cout
+                // cout << "potential piece: " << potentialEnpable << endl;
+                //returns 0, b6 is not en passant point for any of the pieces.
+
                 if (potentialEnpable){
                     cells.emplace_back(targetPos);
+                    steps += abs(colInc);
                 }
             }
         }
@@ -177,6 +199,11 @@ vector<vector<char>> Pawn::possibleMoves(){
 
 void Pawn::move(vector<char> pos){
 
+
+    //testing cout
+    // cout << "pawn move is called" << endl;
+    // cout << "turn: " << getBoard()->getTurn() << endl;
+
     vector<vector<char>> possible = possibleMoves();
 
     //testing cout
@@ -191,19 +218,35 @@ void Pawn::move(vector<char> pos){
         
         if (pos[0] - currentPos[0] == 0 &&
             abs(pos[1] - currentPos[1]) == 2){
-            vector<char> enPablePos;
+
             Piece::setEnPable(true);
+
             if (getPlayer() == 1){
-                enPablePos = vector<char> {currentPos[0], static_cast<char>(currentPos[1] - 1)};
+
+                char enCol = currentPos[0];
+                char enRow = currentPos[1] + 1;
+                vector<char> enPablePos {enCol, enRow};
+                enPableCell = getBoard()->getCell(enPablePos);
+
             } else {
-                enPablePos = vector<char> {currentPos[0], static_cast<char>(currentPos[1] + 1)};
+
+                char enCol = currentPos[0];
+                char enRow = currentPos[1] - 1;
+                vector<char> enPablePos {enCol, enRow};
+                enPableCell = getBoard()->getCell(enPablePos);
+
             }
-            enPableCell = getBoard()->getCell(enPablePos);
+
         }
         
         Piece *componentEnPable = isEnPableCell(targetCell);
         if (componentEnPable){
+            
+            // //testing cout 
+            // cout << componentEnPable->getCell()->getPos()[0] << componentEnPable->getCell()->getPos()[1] << endl;
+
             componentEnPable->getCell()->setPiece(nullptr);
+            getBoard()->removePiece(componentEnPable);
             delete componentEnPable;
         }
         
@@ -218,16 +261,22 @@ void Pawn::move(vector<char> pos){
         //3. the previous cell is the target end possition for current pawn
         //4. current pawn moves to that cell, and the pawn is taken
         //6. the enPable Cell is detached.
-        
-        
+    
         
         delete targetCell->getPiece();
         targetCell->setPiece(this);
+        
+        
+
         getCell()->setPiece(nullptr);
         setCell(targetCell);
+        // //testing cout
+        // cout << "no seg fault until" << endl;
         if (getBoard()->getTurn() != getEnPableTurn()){
             resetEnPable();
         }
+
+        
         
     } else {
         InvalidMove invalid;

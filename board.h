@@ -21,6 +21,7 @@ public:
     bool getState() const;
     std::vector<std::vector<Cell *>> getBoard() const;
     std::vector<Piece *> getPieces() const;
+    void removePiece(Piece *);
     void pushPieces(Piece *);
     int getTurn() const;
     Cell *getCell(std::vector<char>) const;

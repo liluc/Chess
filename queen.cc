@@ -16,7 +16,7 @@ vector<vector<char>> Queen::possibleMoves(){
     for (int rowInc = 1; rowInc < 8; ++rowInc){ //vertical move up
         if (addCell(0, rowInc, cells)) break;
     }
-    for (int rowInc = -1; rowInc > -8; ++rowInc){ //vertical move down
+    for (int rowInc = -1; rowInc > -8; --rowInc){ //vertical move down
         if (addCell(0, rowInc, cells)) break;
     }
     for (int col = 1, row = 1; col < 8, row < 8; ++col, ++row){ // move towards top right

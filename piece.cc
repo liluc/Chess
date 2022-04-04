@@ -72,8 +72,11 @@ void Piece::move(vector<char> pos){
     
     if (contained(possible, pos)){
         Cell *targetCell = Piece::getBoard()->getCell(pos);
-        
-        delete targetCell->getPiece();
+        Piece *targetCellPiece = targetCell->getPiece();
+        if (targetCellPiece){
+            board->removePiece(targetCellPiece);
+        }
+        delete targetCellPiece;
         targetCell->setPiece(this);
         cell->setPiece(nullptr);
         cell = targetCell;
@@ -104,18 +107,23 @@ bool Piece::isChecked() const{
 }
 
 void Piece::setEnPable(bool val){
-    if (val == true){
+    if (val){
         enPableTurn = board->getTurn();
     }
+
+    //testing cout
+    // cout << "enpable cell: " << getEnPableCell()->getPos()[0] << getEnPableCell()->getPos()[1] << endl;
 }
 
-bool Piece::getEnPable(){ return false; }
+// bool Piece::getEnPable(){ return false; }
 
 void Piece::resetEnPable(){
     vector<Piece *> pieces = getBoard()->getPieces();
     for (auto piece : pieces){
-        if (piece->getType() == "pawn"){
-            piece->setEnPable(false);
+        if (piece){
+            if (piece->getType() == "pawn"){
+                piece->setEnPable(false);
+            }
         }
     }
 }
@@ -124,7 +132,7 @@ int Piece::getEnPableTurn(){
     return enPableTurn;
 }
 
-Cell * Piece::getEnPableCell() const{}
+Cell * Piece::getEnPableCell() const{return nullptr;}
 
 Piece * Piece::createPiece(Cell *targetCell){
     if (type == "king"){

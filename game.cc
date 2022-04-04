@@ -402,6 +402,7 @@ void Game::concludeScore() const
 
 bool Game::isStalemate() const
 {
+    // return false;
     //testing cout
     // cout << "isStalemate is called" << endl;
 
@@ -414,34 +415,18 @@ bool Game::isStalemate() const
 
     bool stale{!(checked)}; //original stale is true
 
-
-    //testing cout
-    // cout << "#pieces in board: " << board->getPieces().size() << endl;
-
     for (auto piece : board->getPieces()) {
-
-        //testing cout
-        // cout << "turn: " << board->getTurn() << endl;
 
         if (((board->getTurn() % 2) + 1) != piece->getPlayer()){
             
             continue;
         }
-        
-        //testing cout
-        // cout << "before # of possible move" << endl;
-        // cout << "piece *: " << piece << endl;
 
         int pos_moves = piece->possibleMoves().size();
         
-        //testing cout 
-        // cout << "piece: " << piece->getPos()[0] << piece->getPos()[1] << endl;
-        // cout << "#moves: " << pos_moves << endl;
 
         stale = stale && (pos_moves == 0);
     }
-    //testign cout
-    // cout << "return stale: " << stale << endl;
     return stale;
 }
 
