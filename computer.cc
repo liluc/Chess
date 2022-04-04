@@ -25,12 +25,12 @@ vector<string> randomMove(const vector<vector<char>> possiblestarts, const vecto
 }
 
 vector<string> pureRandom(Game *game) {
-    int who = (game->getBoard()->getTurn() % 2) - 1;
+    int who = (game->getBoard()->getTurn()) % 2;
     vector<vector<char>> possiblestarts;
     vector<vector<char>> possibledests;
 
     for (auto piece : game->getBoard()->getPieces()) {
-        if (piece->getPlayer() != who) continue;
+        if (piece->getPlayer() != who + 1) continue;
         vector<char> curpos = piece->getPos();
         for (vector<char> move : piece->possibleMoves()) {
             possiblestarts.emplace_back(curpos);
