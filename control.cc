@@ -1,4 +1,5 @@
 #include "control.h"
+#
 #include <string>
 using namespace std;
 
@@ -115,7 +116,8 @@ void Control::runGame(string white, string black) {
 void Control::pieceSetup() {
     string type;
     cin >> type;
-    while (type != "done")
+    game->setup();
+    while (type != "done" && cin)
     {
         if (type == "+") {
             string piece;
@@ -147,6 +149,9 @@ void Control::pieceSetup() {
             }
             cout << "current player set to " << player << endl;
         }
+        td->display();
+        gd->display();
+        cin >> type;
     }
 }
 
