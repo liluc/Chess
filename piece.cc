@@ -55,10 +55,13 @@ bool Piece::contained(vector<vector<char>> posList, vector<char> pos) const{
 }
 
 void Piece::move(vector<char> pos){
-    //testing cout
+    
     vector<vector<char>> possible = possibleMoves();
-    cout << "# of possible moves: " << possible.size() << endl;
-    cout << "target pos " << pos[0] << pos[1] << endl;
+
+    //testing cout
+    // cout << "# of possible moves: " << possible.size() << endl;
+    // cout << "target pos " << pos[0] << pos[1] << endl;
+    
     if (contained(possible, pos)){
         Cell *targetCell = Piece::getBoard()->getCell(pos);
         delete targetCell->getPiece();

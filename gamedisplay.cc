@@ -161,6 +161,5 @@ void GraphicDisplay::display()
         col_p.push_back(c);
         w.drawString(LEFT_MARGIN + WIDTH * (i + 0.5), TOP_MARGIN + WIDTH * BOARDSIZE + BOTTOM_MARGIN / 2, col_p);
     }
-
-    // might need to add sth later
 }
+// GraphicDisplay::GraphicDisplay(Game *g): GameDisplay{g} {}

@@ -110,7 +110,7 @@ void Board::pushPieces(Piece *piece){
 void Board::movePiece(vector<char> start, vector<char> end)
 {
     //testing cout
-    cout << "board: movepiece" << endl;
+    // cout << "board: movepiece" << endl;
     Piece *curpiece = checkPos(start);
     Piece *destpiece = checkPos(end);
     if (!(curpiece))
@@ -130,6 +130,9 @@ void Board::movePiece(vector<char> start, vector<char> end)
         throw;
     }
     turn += 1;
+
+    //testing cout
+    // cout << "board movePiece end" << endl;
 }
 
 /*

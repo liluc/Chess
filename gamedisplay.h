@@ -4,6 +4,7 @@
 #include "game.h"
 #include "observer.h"
 #include "subject.h"
+// #include "window.h"
 
 class GameDisplay : public Observer {
     Game *g;
@@ -32,7 +33,6 @@ class GraphicDisplay : public GameDisplay {
     public:
     GraphicDisplay(Game *);
     ~GraphicDisplay();
-
     void display() override;
 };
 

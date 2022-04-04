@@ -333,6 +333,9 @@ void Game::pawnPromote(vector<char> pos, const string & p) {
 
 void Game::movePiece(vector<char> start, vector<char> end)
 {
+    //testing cout
+    cout << "game: movePiece called" << endl;
+    
     InvalidMove im;
     const int BOARDSIZE = 8;
     if (winner > 0) {
