@@ -41,7 +41,8 @@ void Control::makeMove(int turn) {
         string cmd;
         cin >> cmd;
         if (cmd == "resign") {
-            game->setWinner(1 - who);
+            game->setWinner(3 - who);
+            return;
         } else if (cmd == "move") {
             string start;
             string end;
@@ -77,6 +78,10 @@ void Control::makeMove(int turn) {
     } else {
         // computermoves
         string start = smartmove.at(0);
+        if (start == "no_moves") {
+            game->setWinner(3 - who);
+            return;
+        }
         string end = smartmove.at(1);
         char start_1 = start[0];
         char start_2 = start[1];
@@ -97,10 +102,11 @@ void Control::runGame(string white, string black) {
     game->fillinPieces();
     td->display();
     gd->display();
-    while (game->getWinner() == 0) {
+    while (game->getWinner() == 0 && !(cin.eof())) {
         makeMove(turn);
         turn += 1;
     }
+    cout << "runed" << endl;
     td->displayScore();
 }
 

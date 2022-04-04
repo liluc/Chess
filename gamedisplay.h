@@ -2,6 +2,7 @@
 #define __GAMEDIASPLAY_H_
 
 #include "game.h"
+#include "window.h"
 #include "observer.h"
 #include "subject.h"
 // #include "window.h"

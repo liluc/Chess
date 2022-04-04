@@ -134,6 +134,7 @@ void GraphicDisplay::display()
                 }
             }
         }
+        cout << Xwindow::Cyan << endl;
 
     for (int i = BOARDSIZE; i > 0; --i)
     {
@@ -162,5 +163,6 @@ void GraphicDisplay::display()
         col_p.push_back(c);
         w.drawString(LEFT_MARGIN + WIDTH * (i + 0.5), TOP_MARGIN + WIDTH * BOARDSIZE + BOTTOM_MARGIN / 2, col_p);
     }
+
 }
 // GraphicDisplay::GraphicDisplay(Game *g): GameDisplay{g} {}
