@@ -61,9 +61,6 @@ bool Piece::contained(vector<vector<char>> posList, vector<char> pos) const{
 //set a piece to be enpable, which indicates that in next turn it could be captured by en passant
 //when a piece takes the move of colInc = 0, rowInc = 2, enPable will be ture
 //in this turn
-int abs(int n){
-    return n > 0? n : -n;
-}
 
 void Piece::move(vector<char> pos){
     
@@ -75,14 +72,6 @@ void Piece::move(vector<char> pos){
     
     if (contained(possible, pos)){
         Cell *targetCell = Piece::getBoard()->getCell(pos);
-        
-        //check for en passant
-        if (type == "pawn"){
-            if (pos[0] - cell->getPos()[0] == 0 &&
-                abs(pos[1] - cell->getPos()[1]) == 2){
-                setEnPable(true);
-            }
-        }
         
         delete targetCell->getPiece();
         targetCell->setPiece(this);
