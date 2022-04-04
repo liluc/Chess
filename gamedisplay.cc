@@ -33,10 +33,7 @@ void GameDisplay::notify()
 
 void GameDisplay::displayScore()
 {
-    if (g->getWinner() == 0){
-        //testing cout
-        cout << g->getWinner() << endl;
-
+    if (g->getWinner() == 0) {
         return;
     }
         
@@ -58,6 +55,7 @@ void GameDisplay::displayWinner(){
 }
 
 void GameDisplay::displayState() {
+    if (g->getMode() == 2) return;
     if (getGame()->getPlayers().at(0)->getKing()->isChecked())
         cout << "White is in check." << endl;
     if (getGame()->getPlayers().at(1)->getKing()->isChecked())
@@ -137,11 +135,10 @@ void GraphicDisplay::display()
                 if (((i + j) % 2) == 0) {
                     w.fillRectangle(LEFT_MARGIN + i * WIDTH, TOP_MARGIN + j * WIDTH, WIDTH, WIDTH, Xwindow::White);
                 } else {
-                    w.fillRectangle(LEFT_MARGIN + i * WIDTH, TOP_MARGIN + j * WIDTH, WIDTH, WIDTH, Xwindow::Cyan);
+                    w.fillRectangle(LEFT_MARGIN + i * WIDTH, TOP_MARGIN + j * WIDTH, WIDTH, WIDTH, Xwindow::Yellow);
                 }
             }
         }
-        cout << Xwindow::Cyan << endl;
 
     for (int i = BOARDSIZE; i > 0; --i)
     {

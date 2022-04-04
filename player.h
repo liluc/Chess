@@ -16,7 +16,7 @@ protected:
     King *king;
 
 public:
-    Player(int, Game *, int = 0, King * = nullptr);
+    Player(int, Game *, float = 0, King * = nullptr);
     virtual ~Player();
 
     void inc(float);
@@ -35,7 +35,7 @@ public:
 class Human : public Player
 {
 public:
-    Human(int, Game *, int = 0, King * = nullptr);
+    Human(int, Game *, float = 0, King * = nullptr);
     ~Human();
     virtual std::vector<std::string> smartMove() override final;
 };
@@ -45,7 +45,7 @@ class Computer : public Player
     int level;
 
 public:
-    Computer(int, Game *, int, int = 0, King * = nullptr);
+    Computer(int, Game *, int, float = 0, King * = nullptr);
     virtual ~Computer();
     virtual std::vector<std::string> smartMove() = 0;
     int getLevel() const;

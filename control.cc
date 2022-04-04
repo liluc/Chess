@@ -1,5 +1,5 @@
 #include "control.h"
-#
+
 #include <string>
 using namespace std;
 
@@ -14,23 +14,34 @@ Game * Control::getGame() const {
     return game;
 }
 
+// kinds functions like a copy ctor
 void Control::createPlayer(int who, const string & identity) {
     Player *p;
+    float sc = 0;
+    King *k = nullptr;
+    Player *old = nullptr;
+    int Player_size = game->getPlayers().size();
+    if (Player_size == 2) {
+        old = game->getPlayers()[who - 1];
+        sc = old->getScore();
+        k = old->getKing();
+    } 
     if (identity == "human") {
-        p = new Human{who, game};
+        p = new Human{who, game, sc, k};
     } else if (identity == "computer[1]") {
-        p = new Computer_Lv1{who, game, 1};
+        p = new Computer_Lv1{who, game, 1, sc, k};
     } else if (identity == "computer[2]") {
-        p = new Computer_Lv2{who, game, 2};
+        p = new Computer_Lv2{who, game, 2, sc, k};
     } else if (identity == "computer[3]") {
-        p = new Computer_Lv3{who, game, 3};
+        p = new Computer_Lv3{who, game, 3, sc, k};
     } else if (identity == "computer[4]") {
-        p = new Computer_Lv4{who, game, 4};
+        p = new Computer_Lv4{who, game, 4, sc, k};
     } else {
         cerr << "Invalid Player types" << endl;
     }
+    delete old;
 
-    game->getPlayers()[who - 1];
+    game->addPlayers(p);
 
 }
 
@@ -61,7 +72,6 @@ void Control::makeMove(int turn) {
             vector<char> vEnd{end[0], end[1]};
             try {
                 game->movePiece(vStart, vEnd);
-                cout << "move completed" << endl;
             } catch (NoPromotion &) {
                 string upgrade;
                 cin >> upgrade;
@@ -99,18 +109,24 @@ void Control::runGame(string white, string black) {
     string cmd;
     int turn = game->getBoard()->getTurn();
     game->setWinner(0);
-    game->setMode(1);
     if (game->getPlayers().size() != 2) {
         createPlayer(1, white);
         createPlayer(2, black);
     }
-    game->fillinPieces();
+    int last_mode = game->getMode();
+    if (last_mode < 2) {
+        game->fillinPieces();
+    }
+
+    game->setMode(1);
     td->display();
     gd->display();
-    while (game->getWinner() == 0 && !(cin.eof())) {
+    while (game->getWinner() == 0 && !(cin.eof()) && turn < 100) {
         makeMove(turn);
         turn += 1;
     }
+    game->getPlayers()[0]->setKing(nullptr);
+    game->getPlayers()[1]->setKing(nullptr);
     td->displayWinner();
     td->displayScore();
 }
@@ -120,14 +136,14 @@ void Control::pieceSetup() {
     game->getBoard()->attach(td);
     game->getBoard()->attach(gd); // reattach the observers to the new board
     if (game->getPlayers().size() != 2) {
-        createPlayer(1, white);
-        createPlayer(2, black);
+        createPlayer(1, "human");
+        createPlayer(2, "human");
     }
     td->display();
     gd->display();
     string type;
     cin >> type;
-    while (cin)
+    while (cin && game->getMode() == 2)
     {
         if (type == "+") {
             string piece;
@@ -169,10 +185,11 @@ void Control::pieceSetup() {
         } else if (type == "done") {
             game->exitsetup();
         } else {
-            cerr << "Invalid command" << endl;
+            cerr << "Invalid command for setup" << endl;
         }
-
-        cin >> type;
+        if (game->getMode() == 2) {
+            cin >> type;
+        }
     }
 }
 

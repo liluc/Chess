@@ -199,58 +199,56 @@ void Game::setup()
 
 void Game::exitsetup()
 {
-    if (mode != 2)
-    {
-        return;
-    }
-    bool white_king{false};
-    bool black_king{false};
+    int white_king{0};
+    int black_king{0};
     bool no_pawn_promoted{true};
 
     Piece *kingW, *kingB;
     for (auto piece : board->getPieces())
     {
-        if (piece->getType() == "Pawn")
+        if (piece->getType() == "pawn")
         {
             if (piece->getPlayer() == 1)
             {
-                no_pawn_promoted = no_pawn_promoted && (piece->getCell()->getPos().at(1) == 8);
+                no_pawn_promoted = no_pawn_promoted && (piece->getCell()->getPos().at(1) != '8');
             }
             else
             {
-                no_pawn_promoted = no_pawn_promoted && (piece->getCell()->getPos().at(1) == 1);
+                no_pawn_promoted = no_pawn_promoted && (piece->getCell()->getPos().at(1) != '1');
             }
         }
-        else if (piece->getType() == "King")
+        else if (piece->getType() == "king")
         {
+        
             if (piece->getPlayer() == 1)
             {
-                white_king = true;
+                white_king += 1;
                 kingW = piece;
             }
             else
             {
-                black_king = true;
+                black_king += 1;
                 kingB = piece;
             }
         }
     }
 
-    bool ret = white_king && black_king && (!kingW->isChecked()) && (!kingB->isChecked()) && no_pawn_promoted;
-
+    bool ret = (white_king == 1) && (black_king == 1);
+    if (ret) {
+        ret = ret && (!(kingW->isChecked())) && (!(kingB->isChecked())) && no_pawn_promoted;
+    } 
     if (!ret)
     {
         cerr << "Invalid board set up, cannot exit set up mode." << endl;
     }
     else
     {
-        mode = 0;
+        mode = 3;
     }
 }
 
 // helper function to turn string input to a corresponding piece and throw exception if 
 Piece * stringtoPiece(Board * b, const string &p, vector<char> pos) {
-    cout << pos[0] - 'a' << ", " << pos[1] - '1' << endl;
     Cell *curcell = b->getBoard().at(pos[0] - 'a').at(pos[1] - '1');
     Piece *q;
     if (p == "K")
@@ -319,9 +317,9 @@ void Game::setPiece(const string &p, vector<char> pos)
         Piece * piece = stringtoPiece(board, p, pos);
         board->setPiece(piece, pos);
         if (p == "K" ) {
-            players[0]->setKing(piece);
+            players[0]->setKing(static_cast<King *>(piece));
         } else if (p == "k") {
-            players[1]->setKing(piece);
+            players[1]->setKing(static_cast<King *>(piece));
         }
     } catch (InvalidMove & im) {
         cerr << "Invalid command, " << p << " is not a valid piece." << endl; 
@@ -340,7 +338,7 @@ void Game::pawnPromote(vector<char> pos, const string & p) {
 void Game::movePiece(vector<char> start, vector<char> end)
 {
     //testing cout
-    cout << "game: movePiece called" << endl;
+    // cout << "game: movePiece called" << endl;
     
     InvalidMove im;
     const int BOARDSIZE = 8;

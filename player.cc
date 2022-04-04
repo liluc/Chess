@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-Player::Player(int who, Game *g, int score, King *k) : who{who}, game{g} {}
+Player::Player(int who, Game *g, float score, King *k) : who{who}, game{g} {}
 
 Player::~Player() {} // no need to delete board and king because player doesn't own them
 
@@ -40,7 +40,7 @@ void Player::setKing(King * k) {
     king = k;
 }
 
-Human::Human(int who, Game *g, int score, King *king) : Player{who, g, score, king} {}
+Human::Human(int who, Game *g, float score, King *king) : Player{who, g, score, king} {}
 
 Human::~Human() {}
 
@@ -50,7 +50,7 @@ vector<string> Human::smartMove()
     return retstr;
 }
 
-Computer::Computer(int who, Game *g, int level, int score, King *king): Player{who, g, score, king}, level{level} {}
+Computer::Computer(int who, Game *g, int level, float score, King *king): Player{who, g, score, king}, level{level} {}
 
 Computer::~Computer() {}
 
