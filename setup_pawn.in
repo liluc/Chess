@@ -1,0 +1,8 @@
+setup
++ K d1
++ k d8
++ p a1
+done
+- a1
+done
+
