@@ -29,7 +29,6 @@ public:
     Game();
     ~Game();
     // rungame() and setup() invokes the dtor for old board and call ctor() for board and game, and set gamemode
-    void runGame(std::string, std::string);
     void fillinPieces();
     void setup();
     bool exitsetup();

@@ -125,68 +125,6 @@ void Game::fillinPieces()
     }
 }
 
-/*
-void Game::runGame(string white, string black)
-{
-    mode = 1;
-    winner = 0;
-    if (white == "computer[1]")
-    {
-        players[0]->setLevel(1);
-    }
-    else if (white == "computer[2]")
-    {
-        players[0]->setLevel(2);
-    }
-    else if (white == "computer[3]")
-    {
-        players[0]->setLevel(3);
-    }
-    else if (white == "computer[4]")
-    {
-        players[0]->setLevel(4);
-    }
-    else if (white == "human")
-    {
-        players[0]->setLevel(0);
-    }
-    else
-    {
-        cerr << "Invalid player type for white player!" << endl;
-    }
-    // for black
-    if (black == "computer[1]")
-    {
-        players[1]->setLevel(1);
-    }
-    else if (black == "computer[2]")
-    {
-        players[1]->setLevel(2);
-    }
-    else if (black == "computer[3]")
-    {
-        players[1]->setLevel(3);
-    }
-    else if (black == "computer[4]")
-    {
-        players[1]->setLevel(4);
-    }
-    else if (black == "human")
-    {
-        players[1]->setLevel(0);
-    }
-    else
-    {
-        cerr << "Invalid player type for black player!" << endl;
-    }
-
-    if (board->getPieces().size() == 0)
-        fillinPieces();
-
-    // fillin the pieces
-}
-*/
-
 void Game::setup()
 {
     mode = 2;

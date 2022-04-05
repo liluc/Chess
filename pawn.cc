@@ -284,9 +284,9 @@ void Pawn::move(vector<char> pos){
     }
 }
 
-void Pawn::promote(Piece *targetPiece){
-    getCell()->setPiece(targetPiece);
-    delete this;
-}
+// void Pawn::promote(Piece *targetPiece){
+//     getCell()->setPiece(targetPiece);
+//     delete this;
+// }
 
 Pawn::~Pawn(){}

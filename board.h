@@ -32,13 +32,6 @@ public:
     void setTurn(int);
     Piece *checkPos(std::vector<char>) const;
     void movePiece(std::vector<char>, std::vector<char>);
-
-    // isStalemate observes the board and returns true if for the current
-    // player, there are no possible moves
-    bool isStalemate() const;
-    void isCheckmate() const;
-
-    // void notify() override;
 };
 
 #endif

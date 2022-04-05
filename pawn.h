@@ -23,7 +23,7 @@ class Pawn : public Piece{
     //if the cell is enpablecell, then return the piece that make this cell enpable, otherwise, returns nullptr. 
     Piece *isEnPableCell(Cell *) const;
     void move(std::vector<char> pos) override;
-    void promote(Piece *);
+    // void promote(Piece *);
     ~Pawn();
 };
 

@@ -37,8 +37,8 @@ void GameDisplay::displayScore()
         return;
     }
         
-    int whiteScore = g->getPlayers()[0]->getScore();
-    int blackScore = g->getPlayers()[1]->getScore();
+    float whiteScore = g->getPlayers()[0]->getScore();
+    float blackScore = g->getPlayers()[1]->getScore();
     cout << "White Score: " << whiteScore << endl;
     cout << "Black Score: " << blackScore << endl;
 }

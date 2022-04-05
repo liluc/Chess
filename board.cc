@@ -129,8 +129,6 @@ void Board::pushPieces(Piece *piece){
 
 void Board::movePiece(vector<char> start, vector<char> end)
 {
-    //testing cout
-    // cout << "board: movepiece" << endl;
     Piece *curpiece = checkPos(start);
     Piece *destpiece = checkPos(end);
     if (!(curpiece))
@@ -151,17 +149,4 @@ void Board::movePiece(vector<char> start, vector<char> end)
     }
     turn += 1;
     notifyObservers();
-    //testing cout
-    // cout << "board movePiece end" << endl;
 }
-
-/*
-bool Board::CheckAfterMove(vector<char> start, vector<char> end) {
-    Piece *curpiece = checkPos(start);
-    Piece *destpiece = checkPos(end);
-    getCell(end)->setPiece(nullptr, end);
-
-    curpiece->move(end);
-    bool checked = turn % 2
-}
-*/
