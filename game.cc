@@ -362,23 +362,28 @@ void Game::movePiece(vector<char> start, vector<char> end)
         throw im;
     }
     int curplayer = board->getTurn() % 2;
-    if (board->checkPos(start)->getType() == "pawn") {
-        if (end.at(1) == (1 - curplayer) * (BOARDSIZE - 1)) {
-            // if curplayer is 0, end[1] is 7
-            // if curpayer is 1, end[1] is 0
-            NoPromotion nopromotion;
-            throw nopromotion;
-        }
-    }
 
     try
     {
         board->movePiece(start, end);
+        cout << "done moving" << endl;
         //there is no board->movePiece ??
     }
+    // testcout
     catch (InvalidMove &im)
     {
         cerr << "This move is invalid, please check chess rulesheet or seek mental support" << endl;
+    }
+    if (board->checkPos(end)->getType() == "pawn") {
+        cout << end.at(1) << ", " << ((1 - curplayer) * (BOARDSIZE - 1) + 1) << endl;
+        if ((end.at(1) - '0') == ((1 - curplayer) * (BOARDSIZE - 1) + 1)) {
+            // if curplayer is 0, end[1] is 8
+            // if curpayer is 1, end[1] is 1
+            // testcout
+            cout << "NP thrown" << endl;
+            NoPromotion nopromotion;
+            throw nopromotion;
+        }
     }
     if (isCheckmate())
     {

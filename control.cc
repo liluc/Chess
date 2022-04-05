@@ -90,6 +90,7 @@ void Control::makeMove(int turn) {
             try {
                 game->movePiece(vStart, vEnd);
             } catch (NoPromotion &) {
+                cout << "no promotion error" << endl;
                 string upgrade;
                 cin >> upgrade;
                 try {
