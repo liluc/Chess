@@ -110,7 +110,7 @@ void TextDisplay::display()
         cout << endl;
     }
     cout << endl;
-    cout << "  abcdefgh" << endl;
+    cout << "  abcdefgh" << endl << endl;
     int player_length = getGame()->getPlayers().size();
     if (player_length != 0) {
         displayState();

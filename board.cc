@@ -99,20 +99,12 @@ void Board::setPiece(Piece *p, vector<char> pos)
 {
     Piece *old = checkPos(pos);
     removePiece(old);
-    // int size = pieces.size();
-    // for (int i = 0; i < size; ++i)
-    // {
-    //     if (pieces.at(i) == old) // compare by mem address
-    //     {
-    //         pieces.erase(pieces.begin() + i);
-    //         return;
-    //     }
-    // }
     delete old;
     getCell(pos)->setPiece(p);
     pieces.emplace_back(p);
     notifyObservers();
 }
+
 
 void Board::pushPieces(Piece *piece){
     pieces.emplace_back(piece);
@@ -149,19 +141,12 @@ void Board::movePiece(vector<char> start, vector<char> end)
 }
 
 /*
-bool Board::isStalemate() const
-{
-    if (->)
-    bool stale{true};
-    for (auto piece : pieces) {
-        if (((turn % 2) + 1) != piece->getPlayer())
-            continue;
-        stale = stale && (piece->possibleMoves().size() == 0);
-    }
-    return stale;
+bool Board::CheckAfterMove(vector<char> start, vector<char> end) {
+    Piece *curpiece = checkPos(start);
+    Piece *destpiece = checkPos(end);
+    getCell(end)->setPiece(nullptr, end);
+
+    curpiece->move(end);
+    bool checked = turn % 2
 }
-
-bool Board::isCheckmate() const {
-    bool mate{true};
-
-} */
+*/

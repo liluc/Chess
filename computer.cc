@@ -55,19 +55,26 @@ vector<string> Computer_Lv2::smartMove() {
     vector<vector<char>> cap_or_check_starts;
     vector<vector<char>> cap_or_check_dests;
 
+    int who = (game->getBoard()->getTurn()) % 2;
     for (auto piece : game->getBoard()->getPieces()) {
+        if (piece->getPlayer() != who + 1) continue;
         vector<char> curpos = piece->getPos();
         for (vector<char> move : piece->possibleMoves()) {
             Board *b = game->getBoard();
             bool capture{false};
             bool check{false};
-            if (b->getCell(move)->getPiece() != nullptr)  // has pieces
+            Piece * destp = b->getCell(move)->getPiece();
+
+            if (destp != nullptr)  // has pieces
                 capture = true;
 
-            b->movePiece(curpos, move);
+            b->getCell(move)->setPiece(piece);
+            
             if (game->getPlayers()[2 - who]->getKing()->isChecked()) {
                 check = true;
             }
+
+            b->getCell(move)->setPiece(destp);
 
             if (capture && check) {
                 cap_and_check_starts.emplace_back(curpos);
