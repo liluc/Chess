@@ -58,10 +58,8 @@ void Control::makeMove(int turn) {
         return;
     }
     
-    // testcout
     string cmd;
     cin >> cmd;
-    cout << cmd << endl;
     if (cmd == "resign") {
         game->setWinner(3 - who);
         game->concludeScore();
@@ -78,7 +76,6 @@ void Control::makeMove(int turn) {
             string start;
             string end;
             cin >> start >> end; 
-            cout << start << end << endl;
             if (start.length() != 2 || end.length() != 2) {
                 cerr << "Invalid input" << endl;
                 return;

@@ -335,11 +335,15 @@ void Game::setPiece(const string &p, vector<char> pos)
 }
 
 void Game::pawnPromote(vector<char> pos, const string & p) {
+    Piece * curpiece = board->checkPos(pos);
     Piece * upgrade = stringtoPiece(board, p, pos);
     /*vector<char> pos_vec;
     pos_vec.emplace_back(pos[0]);
     pos_vec.emplace_back(pos[1]);*/
     board->getCell(pos)->setPiece(upgrade);
+    board->removePiece(curpiece);
+    board->pushPieces(upgrade);
+    delete curpiece;
 }
 
 void Game::movePiece(vector<char> start, vector<char> end)
@@ -368,7 +372,6 @@ void Game::movePiece(vector<char> start, vector<char> end)
                 string upgrade;
                 cin >> upgrade;
                 pawnPromote(start, upgrade);
-                delete curpiece;
             }
         }
         board->movePiece(start, end);
@@ -393,7 +396,6 @@ void Game::movePiece(vector<char> start, vector<char> end)
     if (winner > 0) {
         concludeScore();
     }
-    cout << "done moving" << endl;
 }
 
 void Game::concludeScore() const
@@ -474,13 +476,13 @@ bool Game::isCheckmate() const {
 
         //testing cout
         if (pos_moves != 0){
-            cout << "possible moves for " << piece->getPos()[0] << piece->getPos()[1] << endl;
+            // cout << "possible moves for " << piece->getPos()[0] << piece->getPos()[1] << endl;
             for (auto pos : possible){
                 cout << pos[0] << pos[1] << endl;
                 if (board->checkPos(pos)){
-                    cout << "this is a " << board->checkPos(pos)->getType() << endl;
+                    // cout << "this is a " << board->checkPos(pos)->getType() << endl;
                 } else {
-                    cout << "this is an empty cell" << endl;
+                    // cout << "this is an empty cell" << endl;
                 }
             }
         }
