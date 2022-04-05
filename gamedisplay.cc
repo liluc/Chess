@@ -120,7 +120,7 @@ void TextDisplay::display()
 
 GraphicDisplay::GraphicDisplay(Game *g) : GameDisplay{g} {}
 
-GraphicDisplay::~GraphicDisplay() {}
+GraphicDisplay::~GraphicDisplay() { delete xw; }
 
 void GraphicDisplay::display()
 {

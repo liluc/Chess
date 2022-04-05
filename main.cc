@@ -22,8 +22,10 @@ int main() {
         } else if (cmd == "setup") {
             gamectrl->pieceSetup();
         } else {
-            cerr << "Invalid command!" << endl;
+            cerr << "Invalid command in main!" << endl;
         }
     }
+    delete game;
+    delete gamectrl;
 }
 

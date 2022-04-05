@@ -38,6 +38,7 @@ void Control::createPlayer(int who, const string & identity) {
         p = new Computer_Lv4{who, game, 4, sc, k};
     } else {
         cerr << "Invalid Player types" << endl;
+        return;
     }
     delete old;
 
@@ -49,23 +50,40 @@ void Control::makeMove(int turn) {
     int who = (turn % 2) + 1;
 
     vector<string> smartmove = game->getPlayers()[who - 1]->smartMove();
-    if (smartmove[0] == "no_suggestions") {
-        string cmd;
-        cin >> cmd;
-        if (cmd == "resign") {
-            game->setWinner(3 - who);
-            game->concludeScore();
-            return;
-        } else if (cmd == "move") {
+    int move_size = smartmove.size();
+    string start = smartmove.at(0);
+    if (start == "no_moves") {
+        game->setWinner(3 - who);
+        game->concludeScore();
+        return;
+    }
+        
+    string cmd;
+    cin >> cmd;
+    if (cmd == "resign") {
+        game->setWinner(3 - who);
+        game->concludeScore();
+        return;
+    } else if (cmd == "move") {
+        if (move_size == 2) {
+            string end = smartmove.at(1);
+            char start_1 = start[0];
+            char start_2 = start[1];
+            char end_1 = end[0];
+            char end_2 = end[1];
+            game->movePiece(vector<char>{start_1, start_2}, vector<char>{end_1, end_2});
+        } else {
             string start;
             string end;
             cin >> start >> end; 
-            if (start.length() < 2 || end.length() < 2) {
+            cout << start.length() << endl;
+            if (start.length() != 2 || end.length() != 2) {
                 cerr << "Invalid input" << endl;
                 return;
             } 
             if ((start[0] < 'a') || (start[0] > 'h') || (start[1] < '1') || (start[1] > '8') ||
                 (end[0] < 'a') || (end[0] > 'h') || (end[1] < '1') || (end[1] > '8')) {
+                cerr << "Invalid input" << endl;
                 return;
             }
             vector<char> vStart{start[0], start[1]};
@@ -83,25 +101,10 @@ void Control::makeMove(int turn) {
             } catch (InvalidMove &) {
                 cerr << "Invalid Move command" << endl;
             }
+        }
 
-        } else {
-            cerr << "Invalid command, you can only move a piece or resign!" << endl;
-        }
     } else {
-        // computermoves
-        string start = smartmove.at(0);
-        if (start == "no_moves") {
-            game->setWinner(3 - who);
-            game->concludeScore();
-            return;
-        }
-        string end = smartmove.at(1);
-        char start_1 = start[0];
-        char start_2 = start[1];
-        char end_1 = end[0];
-        char end_2 = end[1];
-        
-        game->movePiece(vector<char>{start_1, start_2}, vector<char>{end_1, end_2});
+        cerr << "Invalid command, you can only move a piece or resign!" << endl;
     }
 }
 
@@ -112,6 +115,9 @@ void Control::runGame(string white, string black) {
     if (game->getPlayers().size() != 2) {
         createPlayer(1, white);
         createPlayer(2, black);
+    }
+    if (game->getPlayers().size() != 2) {
+        return;
     }
     int last_mode = game->getMode();
     if (last_mode < 2) {
@@ -149,9 +155,17 @@ void Control::pieceSetup() {
             string piece;
             string pos;
             cin >> piece >> pos;
-            if (pos.size() < 2) cerr << "Invalid position" << endl;
-            if (pos[0] < 'a' || pos[0] > 'h' || pos[1] < '1' || pos[1] > '8') {
+            if ((piece != "K") && (piece != "k") && (piece != "Q") && (piece != "q") && (piece != "N") && (piece != "n")
+            && (piece != "R") && (piece != "r") && (piece != "P") && (piece != "p") && (piece != "B") && (piece != "b")) {
+                cerr << "Invalid piece" << endl;
+                continue;
+            }
+            if (pos.size() != 2) { 
                 cerr << "Invalid position" << endl;
+                continue;
+            } else if (pos[0] < 'a' || pos[0] > 'h' || pos[1] < '1' || pos[1] > '8') {
+                cerr << "Invalid position" << endl;
+                continue;
             }
             vector<char> vPos{pos[0], pos[1]};
             game->setPiece(piece, vPos);
@@ -160,9 +174,12 @@ void Control::pieceSetup() {
         else if (type == "-") {
             string pos;
             cin >> pos;
-            if (pos.size() < 2) cerr << "Invalid position" << endl;
-            if (pos[0] < 'a' || pos[0] > 'h' || pos[1] < '1' || pos[1] > '8') {
+            if (pos.size() != 2) { 
                 cerr << "Invalid position" << endl;
+                continue;
+            } else if (pos[0] < 'a' || pos[0] > 'h' || pos[1] < '1' || pos[1] > '8') {
+                cerr << "Invalid position" << endl;
+                continue;
             }
             vector<char> vPos{pos[0], pos[1]};
             game->setPiece("null", vPos);
@@ -180,6 +197,9 @@ void Control::pieceSetup() {
             else if (player == "black")
             {
                 game->getBoard()->setTurn(1);
+            } else {
+                cerr << "Invalid player" << endl;
+                continue;
             }
             cout << "current player set to " << player << endl;
         } else if (type == "done") {
