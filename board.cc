@@ -42,6 +42,19 @@ Board::~Board()
     }
 }
 
+void Board::EmptyBoard() {
+    for (auto piece : pieces) {
+        removePiece(piece);
+        delete piece;
+    }
+
+    for (auto col : board) {
+        for (auto cell : col) {
+            cell->setPiece(nullptr);
+        }
+    }
+}
+
 bool Board::getState() const
 {
     return ended;

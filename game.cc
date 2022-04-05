@@ -74,6 +74,9 @@ void Game::addPlayers(Player * p) {
 // board builder methods
 void Game::fillinPieces()
 {
+    board->EmptyBoard();
+    int piecenum = board->getPieces().size();
+    cout << piecenum << endl;
     const int BOARDSIZE = 8;
     vector<vector<Cell *>> grid = board->getBoard();
     for (int i = 0; i < BOARDSIZE; ++i)

@@ -18,6 +18,7 @@ class Board : public Subject
 public:
     Board();
     ~Board();
+    void EmptyBoard();
     bool getState() const;
     std::vector<std::vector<Cell *>> getBoard() const;
     std::vector<Piece *> getPieces() const;

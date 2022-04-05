@@ -116,6 +116,7 @@ void Control::runGame(string white, string black) {
         createPlayer(1, white);
         createPlayer(2, black);
     }
+    
     if (game->getPlayers().size() != 2) {
         return;
     }
