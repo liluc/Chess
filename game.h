@@ -32,7 +32,7 @@ public:
     void runGame(std::string, std::string);
     void fillinPieces();
     void setup();
-    void exitsetup();
+    bool exitsetup();
 
     // getters
     Board *getBoard() const;

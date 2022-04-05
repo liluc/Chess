@@ -1,0 +1,9 @@
+setup
++ K c6
++ k a8
++ Q d7
+= white
+done
+game human human
+move d7 b7
+

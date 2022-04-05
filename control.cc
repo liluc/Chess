@@ -57,9 +57,11 @@ void Control::makeMove(int turn) {
         game->concludeScore();
         return;
     }
-        
+    
+    // testcout
     string cmd;
     cin >> cmd;
+    cout << cmd << endl;
     if (cmd == "resign") {
         game->setWinner(3 - who);
         game->concludeScore();
@@ -76,6 +78,7 @@ void Control::makeMove(int turn) {
             string start;
             string end;
             cin >> start >> end; 
+            cout << start << end << endl;
             if (start.length() != 2 || end.length() != 2) {
                 cerr << "Invalid input" << endl;
                 return;
@@ -89,22 +92,15 @@ void Control::makeMove(int turn) {
             vector<char> vEnd{end[0], end[1]};
             try {
                 game->movePiece(vStart, vEnd);
-            } catch (NoPromotion &) {
-                cout << "no promotion error" << endl;
-                string upgrade;
-                cin >> upgrade;
-                try {
-                    game->pawnPromote(vEnd, upgrade);
-                } catch (InvalidMove &) {
-                    cerr << "Invalid Move command" << endl;
-                }
             } catch (InvalidMove &) {
                 cerr << "Invalid Move command" << endl;
             }
         }
 
+    } else if (cin.eof()) {
+        return;
     } else {
-        cerr << "Invalid command, you can only move a piece or resign!" << endl;
+        cerr << "Invalid command, you can only move a piece or resign! Your command is " << cmd << endl;
     }
 }
 
@@ -149,8 +145,7 @@ void Control::pieceSetup() {
     td->display();
     gd->display();
     string type;
-    cin >> type;
-    while (cin && game->getMode() == 2)
+    while (cin >> type && game->getMode() == 2)
     {
         if (type == "+") {
             string piece;
@@ -204,12 +199,14 @@ void Control::pieceSetup() {
             }
             cout << "current player set to " << player << endl;
         } else if (type == "done") {
-            game->exitsetup();
+            if (game->exitsetup()) {
+                game->setMode(3);
+                break;
+            }
         } else {
             cerr << "Invalid command for setup" << endl;
         }
         if (game->getMode() == 2) {
-            cin >> type;
         }
     }
 }

@@ -1,0 +1,10 @@
+setup
++ K e1
++ k a8
++ R h7
++ R g6
+= white
+done
+game human human
+move g6 g8
+

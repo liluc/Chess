@@ -143,14 +143,14 @@ void Board::movePiece(vector<char> start, vector<char> end)
     try
     {
         curpiece->move(end);
-        notifyObservers();
+
     }
     catch (InvalidMove &im)
     {
         throw;
     }
     turn += 1;
-
+    notifyObservers();
     //testing cout
     // cout << "board movePiece end" << endl;
 }

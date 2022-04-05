@@ -199,7 +199,7 @@ void Game::setup()
     hist = newhist;
 }
 
-void Game::exitsetup()
+bool Game::exitsetup()
 {
     int white_king{0};
     int black_king{0};
@@ -243,10 +243,7 @@ void Game::exitsetup()
     {
         cerr << "Invalid board set up, cannot exit set up mode." << endl;
     }
-    else
-    {
-        mode = 3;
-    }
+    return ret;
 }
 
 // helper function to turn string input to a corresponding piece and throw exception if 
@@ -339,10 +336,10 @@ void Game::setPiece(const string &p, vector<char> pos)
 
 void Game::pawnPromote(vector<char> pos, const string & p) {
     Piece * upgrade = stringtoPiece(board, p, pos);
-    vector<char> pos_vec;
+    /*vector<char> pos_vec;
     pos_vec.emplace_back(pos[0]);
-    pos_vec.emplace_back(pos[1]);
-    board->setPiece(upgrade, pos_vec);
+    pos_vec.emplace_back(pos[1]);*/
+    board->getCell(pos)->setPiece(upgrade);
 }
 
 void Game::movePiece(vector<char> start, vector<char> end)
@@ -365,25 +362,20 @@ void Game::movePiece(vector<char> start, vector<char> end)
 
     try
     {
+        Piece *curpiece = board->checkPos(start);
+        if (curpiece->getType() == "pawn") {
+            if ((end.at(1) - '0') == ((1 - curplayer) * (BOARDSIZE - 1) + 1)) {
+                string upgrade;
+                cin >> upgrade;
+                pawnPromote(start, upgrade);
+                delete curpiece;
+            }
+        }
         board->movePiece(start, end);
-        cout << "done moving" << endl;
-        //there is no board->movePiece ??
     }
-    // testcout
     catch (InvalidMove &im)
     {
         cerr << "This move is invalid, please check chess rulesheet or seek mental support" << endl;
-    }
-    if (board->checkPos(end)->getType() == "pawn") {
-        cout << end.at(1) << ", " << ((1 - curplayer) * (BOARDSIZE - 1) + 1) << endl;
-        if ((end.at(1) - '0') == ((1 - curplayer) * (BOARDSIZE - 1) + 1)) {
-            // if curplayer is 0, end[1] is 8
-            // if curpayer is 1, end[1] is 1
-            // testcout
-            cout << "NP thrown" << endl;
-            NoPromotion nopromotion;
-            throw nopromotion;
-        }
     }
     if (isCheckmate())
     {
@@ -401,6 +393,7 @@ void Game::movePiece(vector<char> start, vector<char> end)
     if (winner > 0) {
         concludeScore();
     }
+    cout << "done moving" << endl;
 }
 
 void Game::concludeScore() const
