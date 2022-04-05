@@ -1,8 +1,9 @@
 setup
-+ K d1
-+ k d8
-+ q d7
++ K a1
++ k c3
++ q b3
+= black
 done
-+ Q d2
-done
+game human human
+move b3 b2
 

@@ -130,6 +130,16 @@ bool King::isChecked() const{
         if (existPiece(kingPos, -1, -1, "pawn") == 2) return true;
     }
 
+    //check king
+    if (existPiece(kingPos, 1, 0, "king") == 2) return true;
+    if (existPiece(kingPos, -1, 0, "king") == 2) return true;
+    if (existPiece(kingPos, 0, 1, "king") == 2) return true;
+    if (existPiece(kingPos, 0, -1, "king") == 2) return true;
+    if (existPiece(kingPos, 1, 1, "king") == 2) return true;
+    if (existPiece(kingPos, 1, -1, "king") == 2) return true;
+    if (existPiece(kingPos, -1, 1, "king") == 2) return true;
+    if (existPiece(kingPos, -1, -1, "king") == 2) return true;
+
     return false;
 }
 
