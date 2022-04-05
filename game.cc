@@ -418,7 +418,7 @@ bool Game::isStalemate() const
 {
     // return false;
     //testing cout
-    // cout << "isStalemate is called" << endl;
+    cout << "isStalemate is called" << endl;
 
     bool checked = (players[0]->getKing()->isChecked() || players[1]->getKing()->isChecked());
     if (checked) return false;
@@ -438,7 +438,7 @@ bool Game::isStalemate() const
 
         int pos_moves = piece->possibleMoves().size();
         
-
+        cout << "checked : " << checked << "possible_moves: " << pos_moves << endl;
         stale = stale && (pos_moves == 0);
     }
     return stale;
