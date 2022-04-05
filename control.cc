@@ -76,7 +76,6 @@ void Control::makeMove(int turn) {
             string start;
             string end;
             cin >> start >> end; 
-            cout << start.length() << endl;
             if (start.length() != 2 || end.length() != 2) {
                 cerr << "Invalid input" << endl;
                 return;
@@ -116,7 +115,7 @@ void Control::runGame(string white, string black) {
         createPlayer(1, white);
         createPlayer(2, black);
     }
-    
+
     if (game->getPlayers().size() != 2) {
         return;
     }

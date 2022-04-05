@@ -25,7 +25,7 @@ int main() {
             cerr << "Invalid command in main!" << endl;
         }
     }
-    delete game;
     delete gamectrl;
+    delete game;
 }
 

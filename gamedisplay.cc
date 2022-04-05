@@ -118,9 +118,10 @@ void TextDisplay::display()
 }
 
 
-GraphicDisplay::GraphicDisplay(Game *g) : GameDisplay{g} {}
+GraphicDisplay::GraphicDisplay(Game *g) : GameDisplay{g}, xw{nullptr} {}
 
-GraphicDisplay::~GraphicDisplay() { delete xw; }
+GraphicDisplay::~GraphicDisplay() { 
+    delete xw; }
 
 void GraphicDisplay::display()
 {

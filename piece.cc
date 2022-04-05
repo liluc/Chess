@@ -186,8 +186,8 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
     // cout << "current pos: " << currentPos[0] << currentPos[1] << endl;
     // cout << "new pos: " << newCol << newRow << endl;
     if (!board->checkPos(vector<char> {'d', '8'})){
-        cout << "d8 becomes empty!" << endl;
-        cout << "happens before try to move " << currentPos[0] << currentPos[1] << " to " << newCol << newRow;
+        // cout << "d8 becomes empty!" << endl;
+        // cout << "happens before try to move " << currentPos[0] << currentPos[1] << " to " << newCol << newRow;
     }
     //c8 has never become empty, when move d8 to c8, d8 becomes empty, how could this be
     //d8 becomes empty after one side is checked, is checked functions may be wrong

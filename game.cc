@@ -76,7 +76,6 @@ void Game::fillinPieces()
 {
     board->EmptyBoard();
     int piecenum = board->getPieces().size();
-    cout << piecenum << endl;
     const int BOARDSIZE = 8;
     vector<vector<Cell *>> grid = board->getBoard();
     for (int i = 0; i < BOARDSIZE; ++i)
@@ -318,12 +317,20 @@ void Game::setPiece(const string &p, vector<char> pos)
     }
     try {
         Piece * piece = stringtoPiece(board, p, pos);
-        board->setPiece(piece, pos);
         if (p == "K" ) {
+            if (players[0]->getKing() != nullptr) {
+                cerr << "cannot set the second king" << endl;
+                return;
+            }
             players[0]->setKing(static_cast<King *>(piece));
         } else if (p == "k") {
+            if (players[1]->getKing() != nullptr) {
+                cerr << "cannot set the second king" << endl;
+                return;
+            }
             players[1]->setKing(static_cast<King *>(piece));
         }
+        board->setPiece(piece, pos);
     } catch (InvalidMove & im) {
         cerr << "Invalid command, " << p << " is not a valid piece." << endl; 
         return;
@@ -349,11 +356,11 @@ void Game::movePiece(vector<char> start, vector<char> end)
         cerr << "This game has already ended, please start a new game" << endl; 
         throw im;
     }
-    if (mode != 1) {
-        cerr << "Invalid command, this command is only valid in game mode" << endl;
-        throw im;
-    }   
     
+    Piece * startp = board->checkPos(start);
+    if (!(startp)) {
+        throw im;
+    }
     int curplayer = board->getTurn() % 2;
     if (board->checkPos(start)->getType() == "pawn") {
         if (end.at(1) == (1 - curplayer) * (BOARDSIZE - 1)) {

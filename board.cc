@@ -44,9 +44,11 @@ Board::~Board()
 
 void Board::EmptyBoard() {
     for (auto piece : pieces) {
-        removePiece(piece);
         delete piece;
     }
+
+    vector<Piece *> new_pieces;
+    pieces = new_pieces;
 
     for (auto col : board) {
         for (auto cell : col) {
