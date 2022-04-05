@@ -1,0 +1,9 @@
+setup
++ K b5
++ k a8
++ Q f6
+= white
+done
+game human human
+move f6 b6
+
