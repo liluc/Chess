@@ -202,7 +202,7 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
             // cout << "targetCell->getpiece is null " << endl;
             // cout << "target cell get: " << newCol << newRow << endl;
             //isChecked calls possible moves, possible moves calls addcell and addcell calls ischecked.
-            if (isChecked()){
+            // if (isChecked()){
                 
                 //testing cout 
                 // cout << "current king is checked" << endl;
@@ -226,17 +226,17 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
                 cell = originalCell;
                 cell->setPiece(this);
                 targetCell->setPiece(nullptr);
-            } else {
-                //testing cout
-                // cout << "current board is not checked" << endl;
-                cells.emplace_back(targetPos);
-            }
+            // } else {
+            //     //testing cout
+            //     // cout << "current board is not checked" << endl;
+            //     cells.emplace_back(targetPos);
+            // }
         }
 
         else {
             if (targetCell->getPiece()->getPlayer() != player){
 
-                if (isChecked()){
+                // if (isChecked()){
                     Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
                     //if the piece is a piece of the current player, then the pos is invalid for sure
                     // Piece *temp = createPiece(targetCell);
@@ -256,9 +256,9 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
                     targetCellPiece->setCell(targetCell);
                     
                     // delete temp;
-                } else {
-                    cells.emplace_back(targetPos);
-                }
+                // } else {
+                //     cells.emplace_back(targetPos);
+                // }
 
             }
             
