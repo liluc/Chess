@@ -236,7 +236,7 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
         else {
             if (targetCell->getPiece()->getPlayer() != player){
 
-                if (isChecked() == true){
+                if (isChecked()){
                     Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
                     //if the piece is a piece of the current player, then the pos is invalid for sure
                     // Piece *temp = createPiece(targetCell);
