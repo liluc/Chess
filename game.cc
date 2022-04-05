@@ -379,8 +379,8 @@ void Game::movePiece(vector<char> start, vector<char> end)
         else {
             winner = 1;
         }
-    }
-    if (isStalemate()) {
+    } 
+    else if (isStalemate()) {
         winner = 3;
     }
     if (winner > 0) {
@@ -410,7 +410,7 @@ bool Game::isStalemate() const
     //testing cout
     // cout << "isStalemate is called" << endl;
 
-    bool checked = (players[0]->getKing()->isChecked() && players[1]->getKing()->isChecked());
+    bool checked = (players[0]->getKing()->isChecked() || players[1]->getKing()->isChecked());
     if (checked) return false;
 
     //testing cout
@@ -434,13 +434,49 @@ bool Game::isStalemate() const
     return stale;
 }
 
+
+//isCheckmate in move piece goes first
+//isCheckmate in display goes second
 bool Game::isCheckmate() const {
-    bool checked = (players[0]->getKing()->isChecked() && players[1]->getKing()->isChecked());bool mate{true};
+
+    //testing cout
+    // cout << "isCheckmate is called" << endl;
+
+    bool checked = (players[0]->getKing()->isChecked() || players[1]->getKing()->isChecked());
+    
+    
     if (!(checked)) return false;
+
+    int checkedPlayer = players[0]->getKing()->isChecked() ? 1 : 2;
+    //testing cout
+    // cout << "possible moves" << endl;
+    // for (auto piece : board->getPieces()){
+    //     cout << piece->getPos()[0] << piece->getPos()[1] << ": ";
+    //     cout << piece->possibleMoves().size() << endl;
+    // }
+    //
+
+
     for (auto piece : board->getPieces()) {
-        if (((board->getTurn() % 2) + 1) != piece->getPlayer())
+        // ((board->getTurn() % 2) + 1) 
+        if (checkedPlayer != piece->getPlayer())
             continue;
-        int pos_moves = piece->possibleMoves().size();
+        vector<vector<char>> possible = piece->possibleMoves();
+        int pos_moves = possible.size();
+
+        //testing cout
+        if (pos_moves != 0){
+            cout << "possible moves for " << piece->getPos()[0] << piece->getPos()[1] << endl;
+            for (auto pos : possible){
+                cout << pos[0] << pos[1] << endl;
+                if (board->checkPos(pos)){
+                    cout << "this is a " << board->checkPos(pos)->getType() << endl;
+                } else {
+                    cout << "this is an empty cell" << endl;
+                }
+            }
+        }
+
         checked = checked && (pos_moves == 0);
     }
     return checked;

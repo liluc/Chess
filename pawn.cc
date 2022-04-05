@@ -50,7 +50,7 @@ bool Pawn::addCell_PawnMove (int colInc, int rowInc, vector<vector<char>> &cells
         if (isChecked()){
                 
             //testing cout 
-            cout << "current king is checked" << endl;
+            // cout << "current king is checked" << endl;
 
             Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
             //if the piece is a piece of the current player, then the pos is invalid for sure

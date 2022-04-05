@@ -102,7 +102,7 @@ bool King::isChecked() const{
         if (checkBishop == 1) break;
         if (checkBishop == 2 || checkQueen == 2) return true;
     }
-    for (int col = -1, row = -1; col > -8, row > -8; --col, --row){ // move towards down left
+    for (int col = -1, row = -1; col > -8, row > -8; --col, --row){ // move towards down left       
         int checkBishop = existPiece(kingPos, col, row, "bishop");
         int checkQueen = existPiece(kingPos, col, row, "queen");
         if (checkBishop == 1) break;
@@ -131,31 +131,6 @@ bool King::isChecked() const{
     }
 
     return false;
-
-    //testing int
-    // int ite = 0;
-    // for(auto col : board){
-    //     for(auto cell : col){
-    //         if (cell->getPiece()){
-    //             Piece *piece = cell->getPiece();
-    //             if (piece->getPlayer() != getPlayer()){
-    //                 ++ite;
-    //                 vector<vector<char>> moves = piece->possibleMoves();
-                    
-    //                 //testing cout
-    //                 cout << contained(moves, getPos()) << endl;
-    //                 cout << "king: " << getPos()[0] << getPos()[1] << endl;
-
-    //                 if (contained(moves, getPos())){
-    //                     //testing cout
-    //                     cout << "ite: " << ite << endl;
-    //                     // cout << "this king is checked" << endl;
-    //                     return true;
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
 }
 
 // bool King::isCheckMate() const {

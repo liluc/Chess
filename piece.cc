@@ -185,12 +185,17 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
     // cout << "current type: " << getType() << endl;
     // cout << "current pos: " << currentPos[0] << currentPos[1] << endl;
     // cout << "new pos: " << newCol << newRow << endl;
+    if (!board->checkPos(vector<char> {'d', '8'})){
+        cout << "d8 becomes empty!" << endl;
+        cout << "happens before try to move " << currentPos[0] << currentPos[1] << " to " << newCol << newRow;
+    }
+    //c8 has never become empty, when move d8 to c8, d8 becomes empty, how could this be
+    //d8 becomes empty after one side is checked, is checked functions may be wrong
+
     
     vector<char> targetPos {newCol, newRow};
     if (checkBound(targetPos)){
         Cell *targetCell = getBoard()->getCell(targetPos);
-        
-        //testing cout
 
         if (targetCell->getPiece() == nullptr){
             //testing cout
@@ -200,22 +205,27 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
             if (isChecked()){
                 
                 //testing cout 
-                cout << "current king is checked" << endl;
+                // cout << "current king is checked" << endl;
 
-                Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
+                // Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
                 //if the piece is a piece of the current player, then the pos is invalid for sure
-                
+                Cell *originalCell = cell;
 
                 // Piece *temp = createPiece(targetCell);
                 cell->setPiece(nullptr);
                 targetCell->setPiece(this);
+                cell = targetCell;
                 //if setPiece is used, then the current piece will get deleted, and targetCellPiece will get deleted.
                 //so we cannot use it for now.
                 if (!isChecked()){
+                    //testing cout
+                    cout << "by moving: " << originalCell->getPos()[0] << originalCell->getPos()[1] << " to " << targetPos[0] << targetPos[1] << endl;
+                    cout << "king of " << getPlayer() << " is not checked" << endl;
                     cells.emplace_back(targetPos);
                 }
+                cell = originalCell;
                 cell->setPiece(this);
-                targetCell->setPiece(targetCellPiece);
+                targetCell->setPiece(nullptr);
             } else {
                 //testing cout
                 // cout << "current board is not checked" << endl;
@@ -225,25 +235,33 @@ bool Piece::addCell(int colInc, int rowInc, vector<vector<char>> &cells){
 
         else {
             if (targetCell->getPiece()->getPlayer() != player){
-                if (isChecked()){
+
+                if (isChecked() == true){
                     Piece *targetCellPiece = targetCell->getPiece(); // take the piece in the target cell off
                     //if the piece is a piece of the current player, then the pos is invalid for sure
                     // Piece *temp = createPiece(targetCell);
+                    Cell *originalCell = cell;
                     cell->setPiece(nullptr);
                     targetCell->setPiece(this);
+                    targetCellPiece->setCell(nullptr);
+                    cell = targetCell;
                     //if setPiece is used, then the current piece will get deleted, and targetCellPiece will get deleted.
                     //so we cannot use it for now.
                     if (!isChecked()){
                         cells.emplace_back(targetPos);
                     }
+                    cell = originalCell;
                     cell->setPiece(this);
                     targetCell->setPiece(targetCellPiece);
+                    targetCellPiece->setCell(targetCell);
+                    
                     // delete temp;
                 } else {
                     cells.emplace_back(targetPos);
                 }
 
             }
+            
             return true;
         }
     }
